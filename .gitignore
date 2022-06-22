@@ -13,3 +13,13 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+**/logs
+main
+.idea
+*.log
+*.tmp
+#*.mod
+*.sum
+.DS_Store
+config.yaml

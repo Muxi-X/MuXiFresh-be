@@ -1,0 +1,151 @@
+basePath: /api/v1
+definitions:
+  listResponse:
+    properties:
+      count:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/user'
+        type: array
+    type: object
+  loginRequest:
+    properties:
+      password:
+        type: string
+      student_id:
+        type: string
+    type: object
+  loginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  user:
+    properties:
+      avatar:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        type: integer
+    type: object
+  userProfile:
+    properties:
+      avatar:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        type: integer
+    type: object
+host: work.test.muxi-tech.xyz
+info:
+  contact: {}
+  description: The gateway of forum
+  title: MuXiFresh-be
+  version: "1.0"
+paths:
+  /auth/login/student:
+    post:
+      consumes:
+      - application/json
+      description: login the student-forum
+      parameters:
+      - description: login_request
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/loginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/loginResponse'
+      summary: login api
+      tags:
+      - auth
+  /user/list/{group_id}/{team_id}:
+    get:
+      consumes:
+      - application/json
+      description: 通过 group 和 team 获取 user_list
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: integer
+      - description: page
+        in: query
+        name: page
+        type: integer
+      - description: last_id
+        in: query
+        name: last_id
+        type: integer
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: group_id
+        in: path
+        name: group_id
+        required: true
+        type: integer
+      - description: team_id
+        in: path
+        name: team_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/listResponse'
+      summary: get user_list api
+      tags:
+      - user
+  /user/profile/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 通过 userId 获取完整 user 信息
+      parameters:
+      - description: user_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/userProfile'
+      summary: get user_profile api
+      tags:
+      - user
+swagger: "2.0"
+tags:
+- description: 用户服务
+  name: user
