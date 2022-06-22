@@ -33,7 +33,6 @@ func Parse(tokenString string) (*Context, error) {
 
 	return &Context{
 		Id:        t.Id,
-		Role:      t.Role,
 		ExpiresAt: t.ExpiresAt,
 	}, nil
 }

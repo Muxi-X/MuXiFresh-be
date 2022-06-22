@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/MuXiFresh-be/model"
 	"net/http"
 	"time"
 
@@ -40,7 +41,7 @@ func main() {
 	// logger sync
 	defer log.SyncLogger()
 
-	// dao.Init()
+	model.InitSelfDB()
 
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))

@@ -19,7 +19,4 @@ var (
 	// user errors
 	ErrUserNotFound      = &Errno{Code: 20201, Message: "The user was not found."}
 	ErrPasswordIncorrect = &Errno{Code: 20202, Message: "The password was incorrect."}
-
-	// chat errors
-	ErrWebsocket = &Errno{Code: 40401, Message: "Error occurred in upgrade HTTP to websocket"}
 )
