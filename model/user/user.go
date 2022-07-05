@@ -26,3 +26,7 @@ func (u *UserModel) Create() error {
 func (u *UserModel) Save() error {
 	return model.DB.Self.Save(u).Error
 }
+
+func GetUserByStudentId(studentId string) (*UserModel, error) {
+	return nil, nil
+}

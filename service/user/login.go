@@ -1,5 +1,10 @@
 package service
 
+import (
+	"github.com/MuXiFresh-be/model/user"
+	"github.com/MuXiFresh-be/pkg/errno"
+)
+
 //
 // import (
 // 	"github.com/MuXiFresh-be/model/user"
@@ -11,15 +16,16 @@ package service
 // )
 
 // Login ... 登录
-// 否则，用 code 获取 oauth 的 access token，并生成该应用的 auth token，返回给前端。
 func Login(studentId string, pwd string) (string, error) {
 	// 根据 studentId 在 DB 查询 user
-	// user, err := user.GetUserByStudentId(studentId)
-	//
-	// if err != nil {
-	// 	return "", err
-	// }
-	// if user == nil {
+	user, err := user.GetUserByStudentId(studentId)
+
+	if err != nil {
+		return "", errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	if user == nil {
+		// 注册
+	}
 	// 	if err := auth.GetUserInfoFormOne(studentId, pwd); err != nil {
 	// 		return "", err
 	// 	}
