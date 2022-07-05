@@ -60,7 +60,7 @@ func List(c *gin.Context) {
 	// 发送请求
 	// listResp, err := service.UserClient.List(context.Background(), listReq)
 	if err != nil {
-		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
+		SendError(c, err, nil, "", GetLine())
 		return
 	}
 

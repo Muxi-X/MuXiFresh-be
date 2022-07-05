@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/MuXiFresh-be/handler/sd"
+	"github.com/MuXiFresh-be/pkg/constvar"
 	"net/http"
 
 	_ "github.com/MuXiFresh-be/docs"
@@ -29,11 +30,15 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// swagger API doc
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
+	// adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
+	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
+
 	// user 模块
 	userRouter := g.Group("api/v1/user")
 	{
 		userRouter.POST("/login", user.Login)
-		userRouter.GET("/profile/:id", user.GetProfile)
+		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 		userRouter.GET("/list", user.List)
 	}
 
