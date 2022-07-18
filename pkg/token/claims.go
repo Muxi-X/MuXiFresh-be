@@ -6,7 +6,7 @@ import (
 
 // TokenClaims means a claim segment in a JWT.
 type TokenClaims struct {
-	Id        uint32 `json:"id"`
+	Email     string `json:"email"`
 	Role      uint32 `json:"role"`
 	ExpiresAt int64  `json:"expires_at"` // 过期时间（时间戳，10位）
 }
