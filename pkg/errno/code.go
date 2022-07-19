@@ -10,6 +10,8 @@ var (
 
 	ErrValidation = &Errno{Code: 20001, Message: "Validation failed."}
 	ErrDatabase   = &Errno{Code: 20002, Message: "Database error."}
+	ErrGetFile    = &Errno{Code: 20003, Message: "File Not uploaded"}
+	ErrUploadFile = &Errno{Code: 20004, Message: "Failed to upload the file"}
 
 	// auth errors
 	ErrTokenInvalid     = &Errno{Code: 20101, Message: "The token was invalid."}

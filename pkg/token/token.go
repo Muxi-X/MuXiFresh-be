@@ -30,12 +30,14 @@ func getJwtKey() string {
 // TokenPayload is a required payload when generates token.
 type TokenPayload struct {
 	Id      uint32        `json:"id"`
+	Role    uint32        `json:"role"`
 	Expired time.Duration `json:"expired"` // 有效时间（nanosecond）
 }
 
 // TokenResolve means returned payload when resolves token.
 type TokenResolve struct {
 	Id        uint32 `json:"id"`
+	Role      uint32 `json:"role"`
 	ExpiresAt int64  `json:"expires_at"` // 过期时间（时间戳，10位）
 }
 
