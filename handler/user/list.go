@@ -50,15 +50,15 @@ func List(c *gin.Context) {
 	}
 	fmt.Println(limit, page, lastId)
 
-	// 构造请求给 list
-	// listReq := &pb.ListRequest{
-	// 	LastId: uint32(lastId),
-	// 	Offset: uint32(page * limit),
-	// 	Limit:  uint32(limit),
-	// }
+	//构造请求给 list
+	listReq := &pb.ListRequest{
+		LastId: uint32(lastId),
+		Offset: uint32(page * limit),
+		Limit:  uint32(limit),
+	}
 
-	// 发送请求
-	// listResp, err := service.UserClient.List(context.Background(), listReq)
+	//发送请求
+	listResp, err := service.UserClient.List(context.Background(), listReq)
 	if err != nil {
 		SendError(c, err, nil, "", GetLine())
 		return
