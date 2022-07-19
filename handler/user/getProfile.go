@@ -6,7 +6,6 @@ import (
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/util"
-	"github.com/go-kit/kit/examples/addsvc/pb"
 	"strconv"
 	// pb "forum-user/proto"
 
@@ -37,29 +36,29 @@ func GetProfile(c *gin.Context) {
 	}
 	fmt.Println(id)
 
-	getProfileReq := &pb.GetRequest{Id: id}
-
-	// 发送请求
-	getProfileResp, err := service.UserClient.GetProfile(context.Background(), getProfileReq)
-	if err != nil {
-		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
-		return
-	}
-
-	// 构造返回 response
-	user := &userProfile{
-		Id:     getProfileResp.Id,
-		Name:   getProfileResp.Name,
-		Avatar: getProfileResp.Avatar,
-		Email:  getProfileResp.Email,
-		Role:   getProfileResp.Role,
-	}
-
-	if err != nil {
-		// TODO: 判断错误是否是用户不存在
-		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
-		return
-	}
-
-	SendResponse(c, nil, user)
+	// getProfileReq := &pb.GetRequest{Id: id}
+	//
+	// // 发送请求
+	// getProfileResp, err := service.UserClient.GetProfile(context.Background(), getProfileReq)
+	// if err != nil {
+	// 	SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
+	// 	return
+	// }
+	//
+	// // 构造返回 response
+	// user := &userProfile{
+	// 	Id:     getProfileResp.Id,
+	// 	Name:   getProfileResp.Name,
+	// 	Avatar: getProfileResp.Avatar,
+	// 	Email:  getProfileResp.Email,
+	// 	Role:   getProfileResp.Role,
+	// }
+	//
+	// if err != nil {
+	// 	// TODO: 判断错误是否是用户不存在
+	// 	SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
+	// 	return
+	// }
+	//
+	// SendResponse(c, nil, user)
 }
