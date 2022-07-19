@@ -31,6 +31,7 @@ func (u *UserModel) Save() error {
 	return model.DB.Self.Save(u).Error
 }
 <<<<<<< HEAD:model/user/userModel.go
+<<<<<<< HEAD:model/user/userModel.go
 
 
 func GetUserByStudentId(studentId string) (*UserModel, error) {
@@ -75,5 +76,7 @@ func IfExist(id, email, name string) error {
 	return nil
 
 }
+=======
+>>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login):model/user/user.go
 =======
 >>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login):model/user/user.go
