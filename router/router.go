@@ -37,7 +37,6 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// user 模块
 	userRouter := g.Group("api/v1/user")
 	{
-		userRouter.POST("/register", user.Register)
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 		userRouter.GET("/list", user.List)
