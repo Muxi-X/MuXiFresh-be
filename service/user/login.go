@@ -2,6 +2,7 @@ package service
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import (
 	"crypto/md5"
 	"encoding/hex"
@@ -17,6 +18,8 @@ import (
 >>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
 =======
 >>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
+=======
+>>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
 //
 // import (
 // 	"github.com/MuXiFresh-be/model/user"
@@ -28,6 +31,7 @@ import (
 // )
 
 // Login ... 登录
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 func Login(email string, pwd string) (string, error) {
@@ -63,6 +67,8 @@ func Login(email string, pwd string) (string, error) {
 =======
 =======
 >>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
+=======
+>>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
 // 否则，用 code 获取 oauth 的 access token，并生成该应用的 auth token，返回给前端。
 func Login(studentId string, pwd string) (string, error) {
 	// 根据 studentId 在 DB 查询 user
@@ -73,6 +79,9 @@ func Login(studentId string, pwd string) (string, error) {
 	// }
 	// if user == nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
+=======
 >>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
 =======
 >>>>>>> parent of 5f5d095 (feat: add init to log; refact: pkg/errno; feat: add demo to login)
