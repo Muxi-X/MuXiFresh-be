@@ -3,6 +3,8 @@ package auth
 import (
 	"errors"
 	"github.com/MuXiFresh-be/log"
+	"github.com/MuXiFresh-be/model"
+	userModel "github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/pkg/token"
 	"github.com/MuXiFresh-be/service"
 
@@ -19,8 +21,9 @@ var (
 
 // Context is the context of the JSON web token.
 type Context struct {
-	Id        uint32
+	Email     string
 	Role      uint32
+	Id        uint32
 	ExpiresAt int64 // 过期时间（时间戳，10位）
 }
 
@@ -31,9 +34,16 @@ func Parse(tokenString string) (*Context, error) {
 		return nil, err
 	}
 
+	var db *model.Database
+	var user userModel.UserModel
+	db.Init()
+	defer db.Close()
+	model.DB.Self.Where("email = ?", t.Email).First(&user)
 	return &Context{
-		Id:        t.Id,
+		Email:     t.Email,
 		ExpiresAt: t.ExpiresAt,
+		Role:      user.Role,
+		Id:        user.Id,
 	}, nil
 }
 

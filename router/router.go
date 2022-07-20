@@ -37,8 +37,18 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// user 模块
 	userRouter := g.Group("api/v1/user")
 	{
+		userRouter.POST("/register", user.Register)
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
+		//api/v1/user/profile/showInfo 展示 c（上下文）中的 id 和 email
+		//userRouter.GET("/profile/showInfo", normalRequired, func(c *gin.Context) {
+		//	id, _ := c.Get("id")
+		//	email, _ := c.Get("email")
+		//	c.JSON(http.StatusOK, gin.H{
+		//		"id":    id,
+		//		"email": email,
+		//	})
+		//})
 		userRouter.GET("/list", user.List)
 	}
 
