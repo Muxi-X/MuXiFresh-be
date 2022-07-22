@@ -13,7 +13,7 @@ import (
 
 func Register(c *gin.Context) {
 	var req RegisterRequest
-	var db *model.Database
+	//var db *model.Database
 
 	if err := c.ShouldBind(&req); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine()) //, errno.ErrBind)
@@ -22,11 +22,14 @@ func Register(c *gin.Context) {
 	}
 
 	if req.Password != req.PasswordAgain {
-		SendBadRequest(c, errno.ErrPasswordRepetition, nil, "please Re-enter the password", GetLine()) //, errno.ErrPasswordRepetition)
+		SendBadRequest(c, errno.ErrPasswordRepetition, nil, "please Re-enter the password", GetLine())
+		return
+		//, errno.ErrPasswordRepetition)
 	}
 
-	db.Init()
-	defer db.Close()
+	var ddbb model.Database
+	ddbb.Init()
+	defer ddbb.Close()
 
 	if err := userModel.IfExist(req.StudentId, req.Email, req.Name); err != nil {
 		SendBadRequest(c, errno.ErrUserExisted, nil, err.Error(), GetLine())

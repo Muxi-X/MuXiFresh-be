@@ -35,7 +35,7 @@ func Login(c *gin.Context) {
 
 	token, err := service.Login(req.Email, req.Password)
 	if err != nil {
-		SendError(c, err, nil, token, GetLine())
+		SendError(c, err, nil, err.Error(), GetLine())
 		return
 	}
 

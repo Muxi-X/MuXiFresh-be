@@ -27,16 +27,11 @@ func Login(email string, pwd string) (string, error) {
 	//user, err := userModel.GetUserByStudentId(studentId)
 
 	var userInfo userModel.UserModel
-	var db *model.Database
-
-	db.Init()
 
 	if err := model.DB.Self.Where("email=?", email).First(&userInfo); err.Error != nil {
 		fmt.Println(err, err.Error)
-		return "", errno.ErrUserExisted
+		return "", errno.ErrUserNotExisted
 	}
-
-	db.Close()
 
 	md5 := md5.New()
 	md5.Write([]byte(pwd))
@@ -72,9 +67,9 @@ func Login(email string, pwd string) (string, error) {
 	// }
 	//
 	// 生成 auth token
-	token, err := token.GenerateToken(email, util.GetExpiredTime())
+	token, err := token.GenerateToken(userInfo.Role, userInfo.Id, userInfo.Email, util.GetExpiredTime())
 	if err != nil {
-		return token, err
+		return "", err
 	}
 
 	return token, nil
