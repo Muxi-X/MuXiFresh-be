@@ -24,7 +24,6 @@ func Register(c *gin.Context) {
 	if req.Password != req.PasswordAgain {
 		SendBadRequest(c, errno.ErrPasswordRepetition, nil, "please Re-enter the password", GetLine())
 		return
-		//, errno.ErrPasswordRepetition)
 	}
 
 	var ddbb model.Database
@@ -33,19 +32,21 @@ func Register(c *gin.Context) {
 
 	if err := userModel.IfExist(req.StudentId, req.Email, req.Name); err != nil {
 		SendBadRequest(c, errno.ErrUserExisted, nil, err.Error(), GetLine())
-	} else {
-		var user userModel.UserModel
-		user.Name = req.Name
-		user.StudentId = req.StudentId
-		user.Email = req.Email
-		md5 := md5.New()
-		md5.Write([]byte(req.Password))
-		user.HashPassword = hex.EncodeToString(md5.Sum(nil))
-		if err := model.DB.Self.Create(&user).Error; err != nil {
-			SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
-		}
-
-		SendResponse(c, nil, "succeed in registration")
-
+		return
 	}
+
+	var user userModel.UserModel
+	user.Name = req.Name
+	user.StudentId = req.StudentId
+	user.Email = req.Email
+	md5 := md5.New()
+	md5.Write([]byte(req.Password))
+	user.HashPassword = hex.EncodeToString(md5.Sum(nil))
+	if err := model.DB.Self.Create(&user).Error; err != nil {
+		SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
+
+	SendResponse(c, nil, "succeed in registration")
+
 }
