@@ -1,9 +1,11 @@
 package router
 
 import (
+	"net/http"
+
+	"github.com/MuXiFresh-be/handler/schedule"
 	"github.com/MuXiFresh-be/handler/sd"
 	"github.com/MuXiFresh-be/pkg/constvar"
-	"net/http"
 
 	_ "github.com/MuXiFresh-be/docs"
 	"github.com/MuXiFresh-be/handler/user"
@@ -31,7 +33,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
-	// adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
+	adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
 	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
 
 	// user 模块
@@ -40,6 +42,14 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 		userRouter.GET("/list", user.List)
+	}
+
+	//schedule 模块
+	scheduleRouter := g.Group("api/v1/schedule").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal)) //设置中间件，并确定用户等级
+	{
+		scheduleRouter.GET("", schedule.ViewOwnSchedule)
+		scheduleRouter.PUT("/admit", adminRequired, schedule.Admit)
+		scheduleRouter.PUT("/cancel_admission", adminRequired, schedule.CancelAdmission)
 	}
 
 	// The health check handlers

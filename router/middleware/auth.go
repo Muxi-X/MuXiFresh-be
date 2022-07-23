@@ -9,7 +9,7 @@ import (
 )
 
 // AuthMiddleware ... 认证中间件
-// limit 为限制的权限等级
+// limit 为限制的权限等级 //以下为对权限等级的限制
 func AuthMiddleware(limit uint32) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// Parse the json web token.
@@ -18,7 +18,8 @@ func AuthMiddleware(limit uint32) gin.HandlerFunc {
 			handler.SendResponse(c, errno.ErrAuthToken, err.Error())
 			c.Abort()
 			return
-		} else if ctx.Role&limit == 0 {
+			//		} else if ctx.Role&limit == 0 {
+		} else if ctx.Role >= limit {
 			handler.SendResponse(c, errno.ErrPermissionDenied, "")
 			c.Abort()
 			return
