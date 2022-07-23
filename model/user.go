@@ -1,9 +1,8 @@
-package userModel
+package model
 
 import (
 	"errors"
 	"fmt"
-	"github.com/MuXiFresh-be/model"
 )
 
 type UserModel struct {
@@ -23,12 +22,12 @@ func (u *UserModel) TableName() string {
 
 // Create ... create user
 func (u *UserModel) Create() error {
-	return model.DB.Self.Create(u).Error
+	return DB.Self.Create(u).Error
 }
 
 // Save ... save user.
 func (u *UserModel) Save() error {
-	return model.DB.Self.Save(u).Error
+	return DB.Self.Save(u).Error
 }
 
 func GetUserByStudentId(studentId string) (*UserModel, error) {
@@ -40,9 +39,9 @@ func IfExist(id, email, name string) error {
 	var user2 UserModel
 	var user3 UserModel
 
-	err1 := model.DB.Self.Debug().Where("student_id=?", id).First(&user1).Error
-	err2 := model.DB.Self.Debug().Where("email=?", email).First(&user2).Error
-	err3 := model.DB.Self.Debug().Where("name=?", name).First(&user3).Error
+	err1 := DB.Self.Debug().Where("student_id=?", id).First(&user1).Error
+	err2 := DB.Self.Debug().Where("email=?", email).First(&user2).Error
+	err3 := DB.Self.Debug().Where("name=?", name).First(&user3).Error
 
 	s := []string{""}
 	i := 0

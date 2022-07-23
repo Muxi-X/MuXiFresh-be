@@ -7,11 +7,11 @@ type loginRequest struct {
 } // @name loginRequest
 
 type RegisterRequest struct {
-	StudentId     string `json:"student_id" form:"student_id"`
-	Password      string `json:"password" form:"password"`
-	PasswordAgain string `json:"password_again" form:"password_again"`
-	Email         string `json:"email" form:"email"`
-	Name          string `json:"name" form:"name"`
+	StudentId string `json:"student_id" form:"student_id"`
+	Password  string `json:"password" form:"password"`
+	//PasswordAgain string `json:"password_again" form:"password_again"`
+	Email string `json:"email" form:"email"`
+	Name  string `json:"name" form:"name"`
 }
 
 // loginResponse login 请求响应

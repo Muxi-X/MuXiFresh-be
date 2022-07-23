@@ -5,7 +5,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/MuXiFresh-be/model"
-	userModel "github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/pkg/token"
 	"github.com/MuXiFresh-be/util"
@@ -26,7 +25,7 @@ func Login(email string, pwd string) (string, error) {
 	// 根据 studentId 在 DB 查询 user
 	//user, err := userModel.GetUserByStudentId(studentId)
 
-	var userInfo userModel.UserModel
+	var userInfo model.UserModel
 
 	if err := model.DB.Self.Where("email=?", email).First(&userInfo); err.Error != nil {
 		fmt.Println(err, err.Error)

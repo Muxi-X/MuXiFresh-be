@@ -3,7 +3,6 @@ package user
 import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
-	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/pkg/errno"
 	service "github.com/MuXiFresh-be/service/user"
 	"github.com/MuXiFresh-be/util"
@@ -28,10 +27,6 @@ func Login(c *gin.Context) {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-
-	var db *model.Database
-	db.Init()
-	defer db.Close()
 
 	token, err := service.Login(req.Email, req.Password)
 	if err != nil {
