@@ -8,7 +8,7 @@ import (
 	"github.com/MuXiFresh-be/pkg/errno"
 )
 
-func Register(req user.RegisterRequest) (err1, err2 error) {
+func Register(req user.RegisterRequest) error {
 	//前端自己验证两次密码是否一致
 	//if req.Password != req.PasswordAgain {
 	//	SendBadRequest(c, errno.ErrPasswordRepetition, nil, "please Re-enter the password", GetLine())
@@ -16,7 +16,7 @@ func Register(req user.RegisterRequest) (err1, err2 error) {
 	//}
 
 	if err := model.IfExist(req.StudentId, req.Email, req.Name); err != nil {
-		return errno.ErrUserExisted, err
+		return errno.ServerErr(errno.ErrUserExisted, err.Error())
 	}
 
 	var user model.UserModel
@@ -27,7 +27,7 @@ func Register(req user.RegisterRequest) (err1, err2 error) {
 	md5.Write([]byte(req.Password))
 	user.HashPassword = hex.EncodeToString(md5.Sum(nil))
 	if err := model.DB.Self.Create(&user).Error; err != nil {
-		return errno.ErrDatabase, err
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
-	return nil, nil
+	return nil
 }
