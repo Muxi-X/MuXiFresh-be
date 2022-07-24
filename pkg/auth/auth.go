@@ -21,6 +21,7 @@ var (
 type Context struct {
 	Id        uint32
 	Role      uint32
+	Email     string
 	ExpiresAt int64 // 过期时间（时间戳，10位）
 }
 
@@ -33,6 +34,8 @@ func Parse(tokenString string) (*Context, error) {
 
 	return &Context{
 		Id:        t.Id,
+		Role:      t.Role,
+		Email:     t.Email,
 		ExpiresAt: t.ExpiresAt,
 	}, nil
 }

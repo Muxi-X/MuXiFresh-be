@@ -23,12 +23,12 @@ func Login(c *gin.Context) {
 	log.Info("student login function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
 	var req loginRequest
-	if err := c.Bind(&req); err != nil {
+	if err := c.ShouldBind(&req); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
 
-	token, err := service.Login("", "")
+	token, err := service.Login(req.Email, req.Password)
 	if err != nil {
 		SendError(c, err, nil, err.Error(), GetLine())
 		return
