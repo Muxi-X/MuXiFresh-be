@@ -34,7 +34,7 @@ var (
 	// user
 	ErrUserNotExisted    = &Errno{Code: 20101, Message: "User not existed"}
 	ErrPasswordIncorrect = &Errno{Code: 20102, Message: "The password was incorrect."}
-	// ErrUserExisted       = &Errno{Code: 20104, Message: "User has existed"}
+	ErrUserExisted       = &Errno{Code: 20104, Message: "User has existed"}
 
 )
 
