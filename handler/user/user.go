@@ -73,11 +73,3 @@ type updateTeamGroupRequest struct {
 	Value uint32   `json:"value"`
 	Kind  uint32   `json:"kind"`
 } // @name updateTeamGroupRequest
-
-type registerRequest struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	StudentId string `json:"studentid"`
-	Password string `json:"password"`
-	ConfirmPassword string `json:"cofirmpassword"`
-}

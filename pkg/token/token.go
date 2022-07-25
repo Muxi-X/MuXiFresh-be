@@ -3,9 +3,8 @@ package token
 import (
 	"errors"
 	"fmt"
-	"time"
-
 	"github.com/dgrijalva/jwt-go"
+	"time"
 
 	"github.com/MuXiFresh-be/log"
 

@@ -1,11 +1,9 @@
 package router
 
 import (
-	"net/http"
-
-	"github.com/MuXiFresh-be/handler/form"
 	"github.com/MuXiFresh-be/handler/sd"
 	"github.com/MuXiFresh-be/pkg/constvar"
+	"net/http"
 
 	_ "github.com/MuXiFresh-be/docs"
 	"github.com/MuXiFresh-be/handler/user"
@@ -36,23 +34,12 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
 	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
 
-	// auth 模块
-	authRouter := g.Group("api/v1/auth")
-	{
-		authRouter.POST("/register", user.Register)
-	}
 	// user 模块
 	userRouter := g.Group("api/v1/user")
 	{
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 		userRouter.GET("/list", user.List)
-	}
-
-	// form 模块
-	formRouter := g.Group("api/v1/form")
-	{
-		formRouter.POST("/create",form.Create)
 	}
 
 	// The health check handlers
