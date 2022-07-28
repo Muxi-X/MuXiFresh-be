@@ -1,0 +1,10 @@
+local_name: demo
+runmode: debug
+addr: 0.0.0.0:8080
+url: http://0.0.0.0:8080
+max_ping_count: 10
+oss:
+  access_key: 0bNiwJGpdwmvvuVAzLDjM6gnxj9MiwmSagVpIW81
+  secret_key: zHA9w8PoSfL6D4dvWNwU2GF4XHUn9MalynbANE3_
+  bucket_name: muxi-fresh-test
+  domain_name: ossfresh-test.muxixyz.com # CDN 域名

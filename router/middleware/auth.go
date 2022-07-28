@@ -15,7 +15,7 @@ func AuthMiddleware(limit uint32) gin.HandlerFunc {
 		// Parse the json web token.
 		ctx, err := auth.ParseRequest(c)
 		if err != nil {
-			handler.SendResponse(c, errno.ErrAuthToken, err.Error())
+			handler.SendResponse(c, errno.ErrTokenInvalid, err.Error())
 			c.Abort()
 			return
 		} else if ctx.Role&limit == 0 {
@@ -24,10 +24,9 @@ func AuthMiddleware(limit uint32) gin.HandlerFunc {
 			return
 		}
 
-		c.Set("email", ctx.Email)
+		c.Set("userId", ctx.Id)
 		c.Set("role", ctx.Role)
 		c.Set("expiresAt", ctx.ExpiresAt)
-		c.Set("id", ctx.Id)
 
 		c.Next()
 	}
