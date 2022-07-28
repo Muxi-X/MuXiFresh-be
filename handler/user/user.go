@@ -1,5 +1,14 @@
 package user
 
+// RegisterRequest Register 请求
+type RegisterRequest struct {
+	StudentId string `json:"student_id" form:"student_id"`
+	Password  string `json:"password" form:"password"`
+	//PasswordAgain string `json:"password_again" form:"password_again"`
+	Email string `json:"email" form:"email"`
+	Name  string `json:"name" form:"name"`
+}
+
 // loginRequest Login 请求
 type loginRequest struct {
 	StudentId string `json:"student_id"`

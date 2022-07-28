@@ -1,6 +1,8 @@
 package user
 
 import (
+	"errors"
+	"fmt"
 	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/model/file"
 )
@@ -45,4 +47,43 @@ func (user *UserModel) GerInfo(id int) error {
 	}
 	user.Avatar = avatar
 	return nil
+}
+
+func IfExist(id, email, name string) error {
+	var user1 UserModel
+	var user2 UserModel
+	var user3 UserModel
+
+	err1 := model.DB.Self.Debug().Where("student_id=?", id).First(&user1).Error
+	err2 := model.DB.Self.Debug().Where("email=?", email).First(&user2).Error
+	err3 := model.DB.Self.Debug().Where("name=?", name).First(&user3).Error
+
+	s := []string{""}
+	i := 0
+	if err1 == nil {
+		s = append(s, "*学号*")
+		i++
+	}
+
+	if err2 == nil {
+		s = append(s, "*邮箱*")
+		i++
+	}
+
+	if err3 == nil {
+		s = append(s, "*姓名*")
+		i++
+
+	}
+
+	if i > 0 {
+		s = append(s, "已被注册")
+	}
+
+	if i > 0 {
+		return errors.New(fmt.Sprintf("%s", s))
+	}
+
+	return nil
+
 }
