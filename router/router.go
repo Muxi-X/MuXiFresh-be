@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/MuXiFresh-be/handler/auth"
 	"github.com/MuXiFresh-be/handler/sd"
 	"net/http"
 
@@ -30,8 +31,18 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// swagger API doc
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	//normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
+	// adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
+	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
+
+	// auth
+	authRouter := g.Group("api/v1/auth")
+	{
+		authRouter.POST("/register", auth.Register)
+	}
+
 	// user 模块
-	userRouter := g.Group("api/v1/user")
+	userRouter := g.Group("api/v1/user").Use()
 	{
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", user.GetProfile)

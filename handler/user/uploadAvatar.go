@@ -2,10 +2,9 @@ package user
 
 import (
 	. "github.com/MuXiFresh-be/handler"
-<<<<<<< HEAD
+
 	File "github.com/MuXiFresh-be/model/file"
-=======
->>>>>>> 1afd5cfef9cc9660cb3bfe90edbf358953b860d3
+
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/service"
 	"github.com/gin-gonic/gin"
@@ -22,10 +21,9 @@ import (
 // @Success 200 {object} loginResponse
 // @Router /user/login [post]
 func UploadAvatar(c *gin.Context) {
-<<<<<<< HEAD
+
 	c.Header("Access-Control-Allow-Origin", "*")
-=======
->>>>>>> 1afd5cfef9cc9660cb3bfe90edbf358953b860d3
+
 	file, fileHeader, err := c.Request.FormFile("file")
 	if err != nil {
 		SendError(c, errno.ErrGetFile, nil, err.Error(), GetLine())
@@ -39,7 +37,7 @@ func UploadAvatar(c *gin.Context) {
 		SendError(c, errno.ErrUploadFile, nil, err.Error(), GetLine())
 		return
 	}
-<<<<<<< HEAD
+
 	// Store user's avatar information into the database
 	var avatar File.Picture
 	avatar.URL = url
@@ -48,9 +46,7 @@ func UploadAvatar(c *gin.Context) {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-=======
 
->>>>>>> 1afd5cfef9cc9660cb3bfe90edbf358953b860d3
 	SendResponse(c, nil, map[string]string{
 		"Url": url,
 	})

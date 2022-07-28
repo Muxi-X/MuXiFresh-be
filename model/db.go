@@ -2,6 +2,8 @@ package model
 
 import (
 	"fmt"
+	"github.com/MuXiFresh-be/model/file"
+	"github.com/MuXiFresh-be/model/user"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 
@@ -34,6 +36,7 @@ func openDB(username, password, addr, name string) *gorm.DB {
 
 	// set for db connection
 	setupDB(db)
+	migrateTable(db)
 
 	return db
 }
@@ -46,6 +49,11 @@ func setupDB(db *gorm.DB) {
 	if viper.GetString("runmode") == "debug" {
 		db.LogMode(true)
 	}
+}
+
+// migrateTable used for create table
+func migrateTable(db *gorm.DB) {
+	db.AutoMigrate(&user.UserModel{}, &file.Picture{}, &file.Homework{})
 }
 
 // InitSelfDB used for cli

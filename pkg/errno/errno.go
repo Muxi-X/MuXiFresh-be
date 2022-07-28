@@ -16,7 +16,7 @@ var (
 	ErrRewriteRedisList = &Errno{Code: 10004, Message: "rewrite list to Redis when cancel"}
 	ErrRedis            = &Errno{Code: 10005, Message: "Redis error"}
 
-	// oauth
+	// auth
 	ErrRegister          = &Errno{Code: 10101, Message: "Error occurred while registering on auth-server"}
 	ErrRemoteAccessToken = &Errno{Code: 10102, Message: "Error occurred while getting oauth access token from auth-server"}
 	ErrLocalAccessToken  = &Errno{Code: 10103, Message: "Error occurred while getting oauth access token from local"}
@@ -31,6 +31,8 @@ var (
 	ErrPathParam        = &Errno{Code: 20004, Message: "Error occurred while getting path param."}
 	ErrAuthToken        = &Errno{Code: 20005, Message: "Error occurred while handling the auth token"}
 	ErrPermissionDenied = &Errno{Code: 20006, Message: "Permission denied."}
+	ErrUploadFile       = &Errno{Code: 20007, Message: "Failed to upload file."}
+	ErrGetFile          = &Errno{Code: 20008, Message: "Error occurred while get the file."}
 
 	// user
 	ErrUserNotExisted     = &Errno{Code: 20101, Message: "User not existed"}
