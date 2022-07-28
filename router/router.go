@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	_ "github.com/MuXiFresh-be/docs"
+	Homework "github.com/MuXiFresh-be/handler/homework"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/router/middleware"
 
@@ -35,6 +36,15 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", user.GetProfile)
 		userRouter.GET("/list", user.List)
+		userRouter.POST("/avatar", user.UploadAvatar)
+
+	}
+
+	// homework 模块
+	homework := g.Group("api/v1/homework")
+	{
+		homework.POST("/publish", Homework.PublishHomework)
+		homework.POST("", Homework.UploadHomework)
 	}
 
 	// The health check handlers

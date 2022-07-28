@@ -27,6 +27,7 @@ import (
 // @Success 200 {object} listResponse
 // @Router /user/list/{group_id}/{team_id} [get]
 func List(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
 	// 获取 limit

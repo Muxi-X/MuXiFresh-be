@@ -1,0 +1,9 @@
+{"level":"error","time":"2022-07-20T15:24:04.593+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
+{"level":"info","time":"2022-07-20T15:24:04.594+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: 0.0.0.0:8080"}
+{"level":"info","time":"2022-07-20T15:24:04.595+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"error","time":"2022-07-20T15:30:37.064+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
+{"level":"info","time":"2022-07-20T15:30:37.065+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: 0.0.0.0:8080"}
+{"level":"info","time":"2022-07-20T15:30:37.065+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"error","time":"2022-07-23T22:22:40.035+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
+{"level":"info","time":"2022-07-23T22:22:40.036+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: 0.0.0.0:8080"}
+{"level":"info","time":"2022-07-23T22:22:40.037+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}

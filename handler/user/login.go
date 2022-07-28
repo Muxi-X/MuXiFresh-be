@@ -20,6 +20,7 @@ import (
 // @Success 200 {object} loginResponse
 // @Router /user/login [post]
 func Login(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 	log.Info("student login function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
 	var req loginRequest
