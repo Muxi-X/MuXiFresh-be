@@ -23,6 +23,7 @@ func Register(req USER.RegisterRequest) error {
 		Name:      req.Name,
 		StudentId: req.StudentId,
 		Email:     req.Email,
+		Role:      1,
 	}
 
 	md5 := MD5.New()

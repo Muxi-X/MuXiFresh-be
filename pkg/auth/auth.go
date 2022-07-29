@@ -20,6 +20,7 @@ var (
 // Context is the context of the JSON web token.
 type Context struct {
 	Id        uint32
+	Email     string
 	Role      uint32
 	ExpiresAt int64 // 过期时间（时间戳，10位）
 }
@@ -33,6 +34,8 @@ func Parse(tokenString string) (*Context, error) {
 
 	return &Context{
 		Id:        t.Id,
+		Email:     t.Email,
+		Role:      t.Role,
 		ExpiresAt: t.ExpiresAt,
 	}, nil
 }

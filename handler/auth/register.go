@@ -30,8 +30,10 @@ func Register(c *gin.Context) {
 	}
 
 	err := service.Register(req)
+
 	if err != nil {
-		SendBadRequest(c, err, nil, err.Error(), GetLine())
+		SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
 	}
 
 	SendResponse(c, nil, "succeed in registration")

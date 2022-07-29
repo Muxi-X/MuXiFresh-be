@@ -2,9 +2,9 @@ package homework
 
 import (
 	. "github.com/MuXiFresh-be/handler"
-	File "github.com/MuXiFresh-be/model/file"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/service"
+	Service "github.com/MuXiFresh-be/service/file"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -38,13 +38,9 @@ func UploadHomework(c *gin.Context) {
 		return
 	}
 
-	var homework File.Homework
-	homework.URL = url
-	homework.Email = email
-	homework.HomeworkID = homeworkID
-	if err := homework.Create(); err != nil {
+	if err := Service.CreateHomework(url, email, homeworkID); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, homework)
+	SendResponse(c, nil, "Success")
 }

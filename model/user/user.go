@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/model/file"
+	"github.com/jinzhu/gorm"
 )
 
 type UserModel struct {
-	Id           uint32       `json:"id" gorm:"column:id;not null" binding:"required"`
+	gorm.Model
 	Name         string       `json:"name" gorm:"column:name;not null" binding:"required"`
 	Email        string       `json:"email" gorm:"column:email;default:null;unique"`
 	Avatar       file.Picture `gorm:"foreignKey:Email;reference:Email"`

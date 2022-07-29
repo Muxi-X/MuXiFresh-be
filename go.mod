@@ -25,4 +25,5 @@ require (
 	github.com/willf/pad v0.0.0-20200313202418-172aa767f2a4
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	go.uber.org/zap v1.21.0
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )

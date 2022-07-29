@@ -1,5 +1,16 @@
 package service
 
+import (
+	Md5 "crypto/md5"
+	"encoding/hex"
+	"fmt"
+	"github.com/MuXiFresh-be/model"
+	"github.com/MuXiFresh-be/model/user"
+	"github.com/MuXiFresh-be/pkg/errno"
+	Token "github.com/MuXiFresh-be/pkg/token"
+	"github.com/MuXiFresh-be/util"
+)
+
 //
 // import (
 // 	"github.com/MuXiFresh-be/model/user"
@@ -11,15 +22,31 @@ package service
 // )
 
 // Login ... 登录
-// 否则，用 code 获取 oauth 的 access token，并生成该应用的 auth token，返回给前端。
-func Login(studentId string, pwd string) (string, error) {
+func Login(email string, pwd string) (string, error) {
 	// 根据 studentId 在 DB 查询 user
-	// user, err := user.GetUserByStudentId(studentId)
-	//
-	// if err != nil {
-	// 	return "", err
-	// }
-	// if user == nil {
+	//user, err := userModel.GetUserByStudentId(studentId)
+
+	var userInfo user.UserModel
+
+	if err := model.DB.Self.Where("email=?", email).First(&userInfo); err.Error != nil {
+		fmt.Println(err, err.Error)
+		return "", errno.ErrUserNotExisted
+	}
+
+	md5 := Md5.New()
+	md5.Write([]byte(pwd))
+	hashPwd := hex.EncodeToString(md5.Sum(nil))
+
+	if userInfo.HashPassword != hashPwd {
+		return "", errno.ErrPasswordIncorrect
+	}
+
+	//if err != nil {
+	//	return "", errno.ServerErr(errno.ErrDatabase, err.Error())
+	//}
+	//if user == nil {
+	// 注册
+	//}
 	// 	if err := auth.GetUserInfoFormOne(studentId, pwd); err != nil {
 	// 		return "", err
 	// 	}
@@ -39,16 +66,18 @@ func Login(studentId string, pwd string) (string, error) {
 	// 	}
 	// }
 	//
-	// // 生成 auth token
-	// token, err := token.GenerateToken(&token.TokenPayload{
-	// 	Id:      user.Id,
-	// 	Expired: util.GetExpiredTime(),
-	// })
-	// if err != nil {
-	// 	return "", err
-	// }
-	//
-	// return token, nil
+	// 生成 auth token
+	var payload = Token.TokenPayload{
+		Id:      userInfo.ID,
+		Role:    userInfo.Role,
+		Email:   userInfo.Email,
+		Expired: util.GetExpiredTime(),
+	}
+	token, err := payload.GenerateToken()
+	if err != nil {
+		return "", err
+	}
 
-	return "", nil
+	return token, nil
+
 }

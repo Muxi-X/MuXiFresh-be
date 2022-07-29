@@ -3,6 +3,7 @@ package token
 import (
 	"errors"
 	"fmt"
+	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 
@@ -29,27 +30,36 @@ func getJwtKey() string {
 
 // TokenPayload is a required payload when generates token.
 type TokenPayload struct {
-	Id      uint32        `json:"id"`
+	Id      uint          `json:"id"`
+	Email   string        `json:"email"`
 	Role    uint32        `json:"role"`
 	Expired time.Duration `json:"expired"` // 有效时间（nanosecond）
 }
 
 // TokenResolve means returned payload when resolves token.
 type TokenResolve struct {
-	Id        uint32 `json:"id"`
+	Id        uint   `json:"id"`
 	Role      uint32 `json:"role"`
+	Email     string `json:"email"`
 	ExpiresAt int64  `json:"expires_at"` // 过期时间（时间戳，10位）
 }
 
 // GenerateToken generates token.
-func GenerateToken(payload *TokenPayload) (string, error) {
+func (payload *TokenPayload) GenerateToken() (string, error) {
 	claims := &TokenClaims{
+		Role:      payload.Role,
 		Id:        payload.Id,
+		Email:     payload.Email,
 		ExpiresAt: time.Now().Unix() + int64(payload.Expired.Seconds()),
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(getJwtKey()))
+	encodedString := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token, err := encodedString.SignedString([]byte(getJwtKey()))
+	if err != nil {
+		return "", errno.ErrFormToken
+	}
+
+	return token, nil
 }
 
 // ResolveToken resolves token.
@@ -74,6 +84,8 @@ func ResolveToken(tokenStr string) (*TokenResolve, error) {
 
 	t := &TokenResolve{
 		Id:        claims.Id,
+		Email:     claims.Email,
+		Role:      claims.Role,
 		ExpiresAt: claims.ExpiresAt,
 	}
 	return t, nil

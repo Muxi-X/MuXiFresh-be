@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/MuXiFresh-be/handler/auth"
 	"github.com/MuXiFresh-be/handler/sd"
+	"github.com/MuXiFresh-be/pkg/constvar"
 	"net/http"
 
 	_ "github.com/MuXiFresh-be/docs"
@@ -31,8 +32,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// swagger API doc
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	//normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
-	// adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
+	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
+	adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
 	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
 
 	// auth
@@ -42,20 +43,23 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	}
 
 	// user 模块
-	userRouter := g.Group("api/v1/user").Use()
+	userRouter := g.Group("api/v1/user")
 	{
 		userRouter.POST("/login", user.Login)
-		userRouter.GET("/profile/:id", user.GetProfile)
+		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 		userRouter.GET("/list", user.List)
 		userRouter.POST("/avatar", user.UploadAvatar)
 
 	}
 
 	// homework 模块
-	homework := g.Group("api/v1/homework")
+	homework := g.Group("api/v1/homework").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal))
 	{
-		homework.POST("/publish", Homework.PublishHomework)
+		homework.POST("/publish", adminRequired, Homework.PublishHomework)
+
 		homework.POST("", Homework.UploadHomework)
+		//homework.GET("", Homework.DownloadHomework)
+
 	}
 
 	// The health check handlers

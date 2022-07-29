@@ -11,8 +11,8 @@ type RegisterRequest struct {
 
 // loginRequest Login 请求
 type loginRequest struct {
-	StudentId string `json:"student_id" binding:"required"`
-	Password  string `json:"password" binding:"required"`
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
 } // @name loginRequest
 
 // loginResponse login 请求响应
