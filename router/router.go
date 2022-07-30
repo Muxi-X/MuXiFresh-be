@@ -53,6 +53,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	formRouter := g.Group("api/v1/form")
 	{
 		formRouter.POST("/create",form.Create)
+		formRouter.POST("/edit",form.Edit)
+		formRouter.GET("/view",form.View)
 	}
 
 	// The health check handlers

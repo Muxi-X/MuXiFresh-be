@@ -37,3 +37,11 @@ func (f *FormModel) Save() error {
 	return model.DB.Self.Save(f).Error
 }
 
+// 
+func ViewForm(email string) (FormModel, error) {
+	var form FormModel
+	if err := model.DB.Self.Table("forms").Where("email=?", email).Find(&form).Error; err != nil {
+		return FormModel{}, err
+	}
+	return form, nil
+}
