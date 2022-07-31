@@ -38,7 +38,7 @@ func UploadHomework(c *gin.Context) {
 		return
 	}
 
-	if err := Service.CreateHomework(url, email, homeworkID); err != nil {
+	if err := Service.HandInHomework(url, email, homeworkID); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

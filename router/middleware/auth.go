@@ -26,6 +26,10 @@ func AuthMiddleware(limit uint32) gin.HandlerFunc {
 			handler.SendResponse(c, errno.ErrAuthToken, err.Error())
 			c.Abort()
 			return
+		} else if ctx.Role >= limit {
+			handler.SendResponse(c, errno.ErrPermissionDenied, "")
+			c.Abort()
+			return
 		}
 
 		c.Set("userId", ctx.Id)

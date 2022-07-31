@@ -1,11 +1,12 @@
 package user
 
 import (
-	"fmt"
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
-	User "github.com/MuXiFresh-be/service/user"
+
+	service "github.com/MuXiFresh-be/service/user"
+
 	"github.com/MuXiFresh-be/util"
 	"strconv"
 	// pb "forum-user/proto"
@@ -35,10 +36,10 @@ func GetProfile(c *gin.Context) {
 		SendBadRequest(c, errno.ErrPathParam, nil, err.Error(), GetLine())
 		return
 	}
-	fmt.Println(id)
 
 	// 发送请求
-	getProfileResp, err := User.GetProfile(id)
+	getProfileResp, err := service.GetProfile(id)
+
 	if err != nil {
 		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
 		return
@@ -46,11 +47,17 @@ func GetProfile(c *gin.Context) {
 
 	// 构造返回 response
 	user := &userProfile{
-		Id:     getProfileResp.Id,
+		Id:     getProfileResp.ID,
 		Name:   getProfileResp.Name,
 		Avatar: getProfileResp.Avatar.URL,
 		Email:  getProfileResp.Email,
 		Role:   getProfileResp.Role,
+	}
+
+	if err != nil {
+		// TODO: 判断错误是否是用户不存在
+		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
+		return
 	}
 
 	SendResponse(c, nil, user)

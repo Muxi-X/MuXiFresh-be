@@ -44,7 +44,7 @@ type getProfileRequest struct {
 
 // userProfile 获取 profile 响应
 type userProfile struct {
-	Id     uint32 `json:"id"`
+	Id     uint   `json:"id"`
 	Name   string `json:"name"`
 	Avatar string `json:"avatar"`
 	Email  string `json:"email"`
