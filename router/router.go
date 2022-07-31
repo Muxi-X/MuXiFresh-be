@@ -59,6 +59,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		homework.POST("/comment", adminRequired, Homework.Comment)
 
+		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
+
 		homework.POST("", Homework.UploadHomework)
 
 		//homework.GET("", Homework.DownloadHomework)

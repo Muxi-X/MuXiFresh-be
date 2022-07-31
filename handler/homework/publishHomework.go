@@ -2,9 +2,12 @@ package homework
 
 import (
 	. "github.com/MuXiFresh-be/handler"
+	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
 	Service "github.com/MuXiFresh-be/service/file"
+	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 // PublishHomework ... 发布作业
@@ -21,13 +24,15 @@ import (
 // @Failure 500 {object} errno.Errno
 // @Router /homework [post]
 func PublishHomework(c *gin.Context) {
+	log.Info("Idea getIdeaList function called.",
+		zap.String("X-Request-Id", util.GetReqID(c)))
 	var homework HomeworkRequest
 	email := c.MustGet("email").(string)
 	if err := c.ShouldBind(&homework); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-	if err := Service.PublishHomework(email, homework.GroupID, homework.Content); err != nil {
+	if err := Service.PublishHomework(email, homework.GroupID, homework.Title, homework.Content); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
