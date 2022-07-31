@@ -30,27 +30,27 @@ func getJwtKey() string {
 
 // TokenPayload is a required payload when generates token.
 type TokenPayload struct {
-	Id      uint32        `json:id`
-	Role    uint32        `json:Role`
+	Id      uint          `json:"id"`
 	Email   string        `json:"email"`
+	Role    uint32        `json:"role"`
 	Expired time.Duration `json:"expired"` // 有效时间（nanosecond）
 }
 
 // TokenResolve means returned payload when resolves token.
 type TokenResolve struct {
-	Id        uint32 `json:id`
-	Role      uint32 `json:Role`
+	Id        uint   `json:"id"`
+	Role      uint32 `json:"role"`
 	Email     string `json:"email"`
 	ExpiresAt int64  `json:"expires_at"` // 过期时间（时间戳，10位）
 }
 
 // GenerateToken generates token.
-func GenerateToken(role, id uint32, email string, day time.Duration) (string, error) {
+func (payload *TokenPayload) GenerateToken() (string, error) {
 	claims := &TokenClaims{
-		Role:      role,
-		Id:        id,
-		Email:     email,
-		ExpiresAt: time.Now().Unix() + int64(day.Seconds()),
+		Role:      payload.Role,
+		Id:        payload.Id,
+		Email:     payload.Email,
+		ExpiresAt: time.Now().Unix() + int64(payload.Expired.Seconds()),
 	}
 
 	encodedString := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -84,8 +84,8 @@ func ResolveToken(tokenStr string) (*TokenResolve, error) {
 
 	t := &TokenResolve{
 		Id:        claims.Id,
-		Role:      claims.Role,
 		Email:     claims.Email,
+		Role:      claims.Role,
 		ExpiresAt: claims.ExpiresAt,
 	}
 	return t, nil

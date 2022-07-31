@@ -27,6 +27,7 @@ import (
 // @Success 200 {object} listResponse
 // @Router /user/list/{group_id}/{team_id} [get]
 func List(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
 	// 获取 limit
@@ -60,7 +61,7 @@ func List(c *gin.Context) {
 	// 发送请求
 	// listResp, err := service.UserClient.List(context.Background(), listReq)
 	if err != nil {
-		SendError(c, err, nil, "", GetLine())
+		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
 		return
 	}
 

@@ -1,11 +1,13 @@
 package router
 
 import (
+	"github.com/MuXiFresh-be/handler/auth"
 	"github.com/MuXiFresh-be/handler/sd"
 	"github.com/MuXiFresh-be/pkg/constvar"
 	"net/http"
 
 	_ "github.com/MuXiFresh-be/docs"
+	Homework "github.com/MuXiFresh-be/handler/homework"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/router/middleware"
 
@@ -31,25 +33,36 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
-	// adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
+	adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
 	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
+
+	// auth
+	authRouter := g.Group("api/v1/auth")
+	{
+		authRouter.POST("/register", auth.Register)
+	}
 
 	// user 模块
 	userRouter := g.Group("api/v1/user")
 	{
-		userRouter.POST("/register", user.Register)
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
-		//api/v1/user/profile/showInfo 展示 c（上下文）中的 id 和 email
-		//userRouter.GET("/profile/showInfo", normalRequired, func(c *gin.Context) {
-		//	id, _ := c.Get("id")
-		//	email, _ := c.Get("email")
-		//	c.JSON(http.StatusOK, gin.H{
-		//		"id":    id,
-		//		"email": email,
-		//	})
-		//})
 		userRouter.GET("/list", user.List)
+		userRouter.POST("/avatar", user.UploadAvatar)
+
+	}
+
+	// homework 模块
+	homework := g.Group("api/v1/homework").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal))
+	{
+		homework.POST("/publish", adminRequired, Homework.PublishHomework)
+
+		homework.POST("/comment", adminRequired, Homework.Comment)
+
+		homework.POST("", Homework.UploadHomework)
+
+		//homework.GET("", Homework.DownloadHomework)
+
 	}
 
 	// The health check handlers

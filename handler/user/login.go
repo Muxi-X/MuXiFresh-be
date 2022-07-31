@@ -20,17 +20,18 @@ import (
 // @Success 200 {object} loginResponse
 // @Router /user/login [post]
 func Login(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 	log.Info("student login function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
 	var req loginRequest
-	if err := c.ShouldBind(&req); err != nil {
+	if err := c.Bind(&req); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
 
 	token, err := service.Login(req.Email, req.Password)
 	if err != nil {
-		SendError(c, err, nil, err.Error(), GetLine())
+		SendError(c, errno.ErrBadRequest, nil, err.Error(), GetLine())
 		return
 	}
 

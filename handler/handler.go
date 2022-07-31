@@ -53,17 +53,9 @@ func SendError(c *gin.Context, err error, data interface{}, cause string, source
 		zap.String("cause", cause),
 		zap.String("source", source))
 
-	var responseCode = http.StatusInternalServerError
-
-	if code == http.StatusNotFound {
-		responseCode = http.StatusNotFound
-	} else if code > 20000 {
-		responseCode = http.StatusBadRequest
-	}
-
-	c.JSON(responseCode, Response{
+	c.JSON(http.StatusInternalServerError, Response{
 		Code:    code,
-		Message: message + " " + cause,
+		Message: message + ": " + cause,
 		Data:    data,
 	})
 }

@@ -1,18 +1,19 @@
 package user
 
+// RegisterRequest Register 请求
+type RegisterRequest struct {
+	StudentId string `json:"student_id" form:"student_id" binding:"required"`
+	Password  string `json:"password" form:"password" binding:"required"`
+	//PasswordAgain string `json:"password_again" form:"password_again"`
+	Email string `json:"email" form:"email" binding:"required"`
+	Name  string `json:"name" form:"name" binding:"required"`
+}
+
 // loginRequest Login 请求
 type loginRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
 } // @name loginRequest
-
-type RegisterRequest struct {
-	StudentId string `json:"student_id" form:"student_id"`
-	Password  string `json:"password" form:"password"`
-	//PasswordAgain string `json:"password_again" form:"password_again"`
-	Email string `json:"email" form:"email"`
-	Name  string `json:"name" form:"name"`
-}
 
 // loginResponse login 请求响应
 type loginResponse struct {
@@ -43,7 +44,7 @@ type getProfileRequest struct {
 
 // userProfile 获取 profile 响应
 type userProfile struct {
-	Id     uint32 `json:"id"`
+	Id     uint   `json:"id"`
 	Name   string `json:"name"`
 	Avatar string `json:"avatar"`
 	Email  string `json:"email"`
