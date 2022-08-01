@@ -46,9 +46,10 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	userRouter := g.Group("api/v1/user")
 	{
 		userRouter.POST("/login", user.Login)
+		userRouter.PUT("", normalRequired, user.UpdateInfo)
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 		userRouter.GET("/list", user.List)
-		userRouter.POST("/avatar", user.UploadAvatar)
+		userRouter.POST("/qiniu_token", normalRequired, user.GetUserToken)
 
 	}
 
@@ -61,7 +62,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
 
-		homework.POST("", Homework.UploadHomework)
+		homework.GET("/", Homework.UploadHomework)
 
 		//homework.GET("", Homework.DownloadHomework)
 

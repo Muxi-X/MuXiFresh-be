@@ -10,13 +10,13 @@ import (
 
 type UserModel struct {
 	gorm.Model
-	Name         string       `json:"name" gorm:"column:name;not null" binding:"required"`
-	Email        string       `json:"email" gorm:"column:email;default:null;unique"`
-	Avatar       file.Picture `gorm:"foreignKey:Email;reference:Email"`
-	Role         uint32       `json:"role" gorm:"column:role;" binding:"required"`
-	Message      uint32       `json:"message" gorm:"column:message;" binding:"required"`
-	HashPassword string       `json:"hash_password" gorm:"column:hash_password;" binding:"required"`
-	StudentId    string       `json:"student_id" gorm:"column:student_id;unique™"`
+	Name         string `json:"name" gorm:"column:name;not null" binding:"required"`
+	Email        string `json:"email" gorm:"column:email;default:null;unique"`
+	Avatar       string `json:"avatar"gorm:"column:avatar"`
+	Role         uint32 `json:"role" gorm:"column:role;" binding:"required"`
+	Message      uint32 `json:"message" gorm:"column:message;" binding:"required"`
+	HashPassword string `json:"hash_password" gorm:"column:hash_password;" binding:"required"`
+	StudentId    string `json:"student_id" gorm:"column:student_id;unique™"`
 }
 
 func (u *UserModel) TableName() string {
@@ -65,13 +65,6 @@ func (user *UserModel) GerInfo(id int) error {
 		First(user).Error; err != nil {
 		return err
 	}
-	var avatar file.Picture
-	if err := model.DB.Self.
-		Where("email  = ?", user.Email).
-		First(&avatar).Error; err != nil {
-		return err
-	}
-	user.Avatar = avatar
 	return nil
 }
 
@@ -113,4 +106,19 @@ func IfExist(id, email, name string) error {
 
 	return nil
 
+}
+
+func (user *UserModel) UpdateInfo(email string) error {
+	tx := model.DB.Self.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if err := tx.Model(user).Where("email = ?", user.Email).Update(user).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
 }

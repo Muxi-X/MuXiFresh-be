@@ -49,7 +49,7 @@ func GetProfile(c *gin.Context) {
 	user := &userProfile{
 		Id:     getProfileResp.ID,
 		Name:   getProfileResp.Name,
-		Avatar: getProfileResp.Avatar.URL,
+		Avatar: getProfileResp.Avatar,
 		Email:  getProfileResp.Email,
 		Role:   getProfileResp.Role,
 	}

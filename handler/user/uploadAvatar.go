@@ -2,12 +2,12 @@ package user
 
 import (
 	. "github.com/MuXiFresh-be/handler"
+	"github.com/MuXiFresh-be/log"
+	user "github.com/MuXiFresh-be/service/user"
 
-	File "github.com/MuXiFresh-be/model/file"
-
-	"github.com/MuXiFresh-be/pkg/errno"
-	"github.com/MuXiFresh-be/service"
+	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 // UploadAvatar ... 上传头像
@@ -17,37 +17,16 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param Authorization header string true "token 用户令牌"
-// @Param file formData file true "文件"
 // @Success 200 {object} loginResponse
-// @Router /user/login [post]
-func UploadAvatar(c *gin.Context) {
-
-	c.Header("Access-Control-Allow-Origin", "*")
-
-	file, fileHeader, err := c.Request.FormFile("file")
-	if err != nil {
-		SendError(c, errno.ErrGetFile, nil, err.Error(), GetLine())
-		return
-	}
-	fileSize := fileHeader.Size
-	id, _ := c.MustGet("id").(uint32)
-
-	url, err := service.UploadFile(fileHeader.Filename, id, file, fileSize)
-	if err != nil {
-		SendError(c, errno.ErrUploadFile, nil, err.Error(), GetLine())
-		return
-	}
-
-	// Store user's avatar information into the database
-	var avatar File.Picture
-	avatar.URL = url
-	avatar.Email = c.MustGet("email").(string)
-	if err := avatar.Update(); err != nil {
-		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
-		return
-	}
-
+// @Failure 401 {object} error.Error "{"error_code":"10001", "message":"Token Invalid."} 身份认证失败 重新登录"
+// @Failure 400 {object} error.Error "{"error_code":"20001", "message":"Fail."} or {"error_code":"00002", "message":"Lack Param Or Param Not Satisfiable."}"
+// @Failure 500 {object} error.Error "{"error_code":"30001", "message":"Fail."} 失败"
+// @Router /user/qiniu_token [post]
+func GetUserToken(c *gin.Context) {
+	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))
+	Token := user.GetToken()
 	SendResponse(c, nil, map[string]string{
-		"Url": url,
+		"Token": Token,
 	})
+
 }

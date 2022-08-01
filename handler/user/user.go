@@ -73,7 +73,9 @@ type listResponse struct {
 
 // updateInfoRequest 更新 userInfo 请求
 type updateInfoRequest struct {
-	userInfo
+	Name      string `json:"name"`
+	AvatarURL string `json:"avatar_url"`
+	Email     string `json:"email"`
 } // @name updateInfoRequest
 
 // updateTeamGroupRequest
