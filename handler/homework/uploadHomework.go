@@ -2,8 +2,12 @@ package homework
 
 import (
 	. "github.com/MuXiFresh-be/handler"
-	user "github.com/MuXiFresh-be/service/user"
+	"github.com/MuXiFresh-be/log"
+	"github.com/MuXiFresh-be/pkg/errno"
+	"github.com/MuXiFresh-be/service/file"
+	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 // UploadHomework ... 上传作业
@@ -18,6 +22,8 @@ import (
 // @Success 200 {object} loginResponse
 // @Router /homework [post]
 func UploadHomework(c *gin.Context) {
+	log.Info("Idea getIdeaList function called.",
+		zap.String("X-Request-Id", util.GetReqID(c)))
 	email := c.MustGet("email").(string)
 	//IntHomework, _ := strconv.Atoi(c.PostForm("homeworkID"))
 	//homeworkID := uint(IntHomework)
@@ -39,6 +45,15 @@ func UploadHomework(c *gin.Context) {
 	//	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 	//	return
 	//}
-	Token := user.GetToken()
-	SendResponse(c, nil, "Token")
+
+	var homework HomeworkRequest
+	if err := c.ShouldBind(&homework); err != nil {
+		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
+		return
+	}
+	if err := file.HandInHomework(homework.Title, homework.Content, homework.HomeworkID, homework.FileUrl, email); err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
+	SendResponse(c, nil, "Success")
 }

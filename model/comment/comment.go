@@ -34,7 +34,7 @@ func (comment *Comment) Create() error {
 
 func DeleteComment(id string, email string) error {
 	var comment Comment
-	model.DB.Self.Where("id  = ?", id).Find(&comment)
+	model.DB.Self.Where("id  = ?", id).First(&comment)
 	if comment.Publisher != email {
 		return errors.New("permission denied")
 	}
@@ -52,4 +52,29 @@ func DeleteComment(id string, email string) error {
 	}
 
 	return tx.Commit().Error
+}
+
+// 查询评论
+func GetCommentList(id string, offset int, limit int) ([]Comment, int, error) {
+	var item []Comment
+	d := model.DB.Self.Table("comments").
+		Where("post_id = ?", id).
+		Offset(offset).Limit(limit).
+		Order("created_at desc").Find(&item)
+	if err := d.Error; err != nil {
+		return item, 0, err
+	}
+	var num int
+	var comments []Comment
+	d = model.DB.Self.Table("comments").
+		Where("post_id = ?", id).
+		Offset(offset).Limit(limit).
+		Order("created_at desc").Find(&comments)
+	if err := d.Error; err != nil {
+		return item, 0, err
+	}
+	for i, _ := range comments {
+		num = i + 1
+	}
+	return item, num, nil
 }

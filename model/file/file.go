@@ -8,7 +8,9 @@ type HomeworkPublished struct {
 	gorm.Model
 	Publisher string `json:"publisher" gorm:"column:publisher"`
 	GroupID   uint   `json:"group_id" gorm:"column:group_id"`
+	Title     string `json:"title" gorm:"column:title"`
 	Content   string `json:"content" gorm:"column:content"`
+	FileUrl   string `json:"file_url"gorm:"column:url"`
 	Homeworks []Homework
 }
 

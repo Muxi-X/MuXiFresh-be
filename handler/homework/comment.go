@@ -8,6 +8,7 @@ import (
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"strconv"
 )
 
 type CommentRequest struct {
@@ -42,6 +43,46 @@ func Comment(c *gin.Context) {
 	SendResponse(c, nil, "Success")
 }
 
+// @Summary 获取某帖子评论
+// @Description 查看已发布帖子的评论内容
+// @Tags
+// @Accept  json/application
+// @Produce  json/application
+// @Param Authorization header string true  "获取email"
+// @Param id query integer true "id--帖子的id"
+// @Param limit query integer true "limit--偏移量指定开始返回记录之前要跳过的记录数 "
+// @Param page  query integer true "page--限制指定要检索的记录数 "
+// @Success 200 {string}  json "{"code":0,"message":"OK","data":{}}"
+// @Failure 400 {object} errno.Errno
+// @Failure 404 {object} errno.Errno
+// @Failure 500 {object} errno.Errno
+// @Router /homework/comment [get]
+func GetComment(c *gin.Context) {
+	log.Info("Idea getIdeaList function called.",
+		zap.String("X-Request-Id", util.GetReqID(c)))
+	id := c.Query("id")
+	limit, err := strconv.Atoi(c.DefaultQuery("limit", "10"))
+	if err != nil {
+		SendBadRequest(c, errno.ErrQuery, nil, err.Error(), GetLine())
+		return
+	}
+
+	page, err := strconv.Atoi(c.DefaultQuery("page", "0"))
+	if err != nil {
+		SendBadRequest(c, errno.ErrQuery, nil, err.Error(), GetLine())
+		return
+	}
+	comments, num, err := file.GetComment(id, limit*page, limit)
+	if err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
+	SendResponse(c, nil, map[string]interface{}{
+		"Comments": comments,
+		"Num":      num,
+	})
+}
+
 // @Summary delete comment
 // @Description 删除用户发布的帖子
 // @Tags forum
@@ -59,7 +100,7 @@ func DeleteComment(c *gin.Context) {
 		zap.String("X-Request-Id", util.GetReqID(c)))
 
 	email := c.MustGet("email").(string)
-	id := c.PostForm("id")
+	id := c.Param("id")
 	if err := file.Delete(id, email); err != nil {
 		SendError(c, errno.ErrPathParam, nil, err.Error(), GetLine())
 		return
