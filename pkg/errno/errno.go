@@ -8,7 +8,8 @@ package errno
 var (
 	OK = &Errno{Code: 0, Message: "OK"}
 
-	ErrItemNotFound = &Errno{Code: 404, Message: "Item not found"}
+	ErrIncorrectAPIRoute = &Errno{Code: 404, Message: "The incorrect API route"}
+	ErrItemNotFound      = &Errno{Code: 404, Message: "Item not found"}
 
 	InternalServerError = &Errno{Code: 10001, Message: "Internal server error"}
 	ErrDatabase         = &Errno{Code: 10002, Message: "Database error"}

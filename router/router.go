@@ -1,10 +1,11 @@
 package router
 
 import (
+	"github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/handler/auth"
 	"github.com/MuXiFresh-be/handler/sd"
 	"github.com/MuXiFresh-be/pkg/constvar"
-	"net/http"
+	"github.com/MuXiFresh-be/pkg/errno"
 
 	_ "github.com/MuXiFresh-be/docs"
 	Homework "github.com/MuXiFresh-be/handler/homework"
@@ -26,7 +27,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.Use(mw...)
 	// 404 Handler.
 	g.NoRoute(func(c *gin.Context) {
-		c.String(http.StatusNotFound, "The incorrect API route.")
+		handler.SendError(c, errno.ErrIncorrectAPIRoute, nil, "", "")
 	})
 
 	// swagger API doc
@@ -62,7 +63,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		homework.POST("/publish", adminRequired, Homework.PublishHomework)
 
-		homework.POST("/comment", adminRequired, Homework.Comment)
+		// homework.POST("/comment", adminRequired, Homework.Comment) // TODO
 
 		homework.GET("/comment", adminRequired, Homework.GetComment)
 
@@ -70,7 +71,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		homework.POST("", normalRequired, Homework.UploadHomework)
 
-		//homework.GET("", Homework.DownloadHomework)
+		// homework.GET("", Homework.DownloadHomework)
 
 	}
 
