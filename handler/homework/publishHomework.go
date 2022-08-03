@@ -27,11 +27,14 @@ func PublishHomework(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",
 		zap.String("X-Request-Id", util.GetReqID(c)))
 	var homework PublishHomeworkRequest
+
 	email := c.MustGet("email").(string)
+
 	if err := c.ShouldBind(&homework); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
+
 	if err := Service.PublishHomework(email, homework.GroupID, homework.Title, homework.Content, homework.FileUrl); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return

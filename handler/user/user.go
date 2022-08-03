@@ -15,7 +15,7 @@ type loginRequest struct {
 	Password string `json:"password" binding:"required"`
 } // @name loginRequest
 
-// loginResponse login 请求响应
+// loginResponse Login 请求响应
 type loginResponse struct {
 	Token string `json:"token"`
 } // @name loginResponse

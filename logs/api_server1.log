@@ -7,3 +7,10 @@
 {"level":"error","time":"2022-07-23T22:22:40.035+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
 {"level":"info","time":"2022-07-23T22:22:40.036+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: 0.0.0.0:8080"}
 {"level":"info","time":"2022-07-23T22:22:40.037+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-03T15:48:39.448+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-03T15:48:39.449+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-03T15:48:40.455+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-03T18:05:42.365+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-03T18:05:42.366+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-03T18:09:19.146+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-03T18:09:19.147+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}

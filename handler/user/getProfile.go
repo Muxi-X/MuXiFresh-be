@@ -54,11 +54,11 @@ func GetProfile(c *gin.Context) {
 		Role:   getProfileResp.Role,
 	}
 
-	if err != nil {
-		// TODO: 判断错误是否是用户不存在
-		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
-		return
-	}
+	//if err != nil {
+	//	// TODO: 判断错误是否是用户不存在
+	//	SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
+	//	return
+	//}
 
 	SendResponse(c, nil, user)
 }

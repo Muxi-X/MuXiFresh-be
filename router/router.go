@@ -52,7 +52,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 
-		userRouter.GET("/list", user.List)
+		//userRouter.GET("/list", user.List)
 
 		userRouter.GET("/qiniu_token", normalRequired, user.GetUserToken)
 
