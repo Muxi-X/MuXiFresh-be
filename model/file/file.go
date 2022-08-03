@@ -17,6 +17,8 @@ type HomeworkPublished struct {
 type Homework struct {
 	gorm.Model
 	HomeworkID uint   `json:"homework_id" gorm:"column:homework_id"`
+	Title      string `json:"title" gorm:"column:title"`
+	Content    string `json:"content" gorm:"column:content"`
 	Email      string `json:"email" gorm:"column:email"`
 	URL        string `json:"url" gorm:"column:url"`
 }

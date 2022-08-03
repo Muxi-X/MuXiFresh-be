@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/MuXiFresh-be/model"
-	"github.com/MuXiFresh-be/model/file"
 	"github.com/jinzhu/gorm"
 )
 
@@ -37,15 +36,6 @@ func (u *UserModel) CreateUser() error {
 	}
 
 	if err := tx.Create(u).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	var avatar file.Picture
-	avatar.Email = u.Email
-	avatar.Class = "Avatar"
-
-	if err := tx.Create(&avatar).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
@@ -108,7 +98,12 @@ func IfExist(id, email, name string) error {
 
 }
 
-func (user *UserModel) UpdateInfo(email string) error {
+func UpdateInfo(email string, avatar string, name string) error {
+	var user = UserModel{
+		Email:  email,
+		Avatar: avatar,
+		Name:   name,
+	}
 	tx := model.DB.Self.Begin()
 	defer func() {
 		if r := recover(); r != nil {

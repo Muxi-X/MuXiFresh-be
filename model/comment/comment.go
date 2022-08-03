@@ -13,7 +13,12 @@ type Comment struct {
 	Content    string `gorm:"size:255"`
 }
 
-func (comment *Comment) Create() error {
+func Create(email string, id uint, content string) error {
+	var comment = Comment{
+		HomeworkID: id,
+		Publisher:  email,
+		Content:    content,
+	}
 	tx := model.DB.Self.Begin()
 	defer func() {
 		if r := recover(); r != nil {
@@ -24,7 +29,7 @@ func (comment *Comment) Create() error {
 		tx.Rollback()
 		return err
 	}
-	if err := tx.Create(comment).Error; err != nil {
+	if err := tx.Create(&comment).Error; err != nil {
 		tx.Rollback()
 		return err
 	}

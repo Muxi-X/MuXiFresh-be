@@ -22,7 +22,7 @@ import (
 // @Failure 400 {object} errno.Errno
 // @Failure 404 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
-// @Router /homework [post]
+// @Router /homework/publish [post]
 func PublishHomework(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",
 		zap.String("X-Request-Id", util.GetReqID(c)))

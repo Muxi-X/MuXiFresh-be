@@ -2,7 +2,7 @@ package auth
 
 import (
 	"fmt"
-	. "github.com/MuXiFresh-be/handler"
+	"github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/pkg/errno"
 	service "github.com/MuXiFresh-be/service/user"
@@ -24,18 +24,18 @@ func Register(c *gin.Context) {
 	var req user.RegisterRequest
 
 	if err := c.ShouldBind(&req); err != nil {
-		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine()) //, errno.ErrBind)
+		handler.SendBadRequest(c, errno.ErrBind, nil, err.Error(), handler.GetLine()) //, errno.ErrBind)
 		fmt.Println(req)
 		return
 	}
 
-	err := service.Register(req)
+	err := service.Register(req.StudentId, req.Email, req.Name, req.Password)
 
 	if err != nil {
-		SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
 		return
 	}
 
-	SendResponse(c, nil, "succeed in registration")
+	handler.SendResponse(c, nil, "succeed in registration")
 
 }

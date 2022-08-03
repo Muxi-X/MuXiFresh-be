@@ -18,8 +18,7 @@ import (
 // @Param  token header string true  "UserId--用户ID"
 // @Param req body updateInfoRequest true  "Avatar头像|| NickName昵称"
 // @Success  200 "成功"
-// @Router /api/v1/user [put]
-// UpdateUserInfo ... 更改用户的信息
+// @Router /user [put]
 func UpdateInfo(c *gin.Context) {
 	log.Info("student login function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 	var req updateInfoRequest

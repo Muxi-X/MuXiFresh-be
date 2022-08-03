@@ -29,6 +29,8 @@ type CommentRequest struct {
 // @Failure 500 {object} errno.Errno
 // @Router /homework/comment [post]
 func Comment(c *gin.Context) {
+	log.Info("Idea getIdeaList function called.",
+		zap.String("X-Request-Id", util.GetReqID(c)))
 	email := c.MustGet("email").(string)
 	var req CommentRequest
 	if err := c.ShouldBind(&req); err != nil {
@@ -94,7 +96,7 @@ func GetComment(c *gin.Context) {
 // @Failure 400 {object} errno.Errno
 // @Failure 404 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
-// @Router /forum/comment/:comment_id [delete]
+// @Router /homework/comment/:comment_id [delete]
 func DeleteComment(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",
 		zap.String("X-Request-Id", util.GetReqID(c)))

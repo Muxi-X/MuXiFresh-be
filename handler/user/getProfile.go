@@ -24,7 +24,7 @@ import (
 // @Param id path int true "user_id"
 // @Param Authorization header string true "token 用户令牌"
 // @Success 200 {object} userProfile
-// @Router /user/profile/{id} [get]
+// @Router /user/profile/:id [get]
 func GetProfile(c *gin.Context) {
 	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 

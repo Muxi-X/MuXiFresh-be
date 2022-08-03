@@ -7,35 +7,20 @@ import (
 
 // 提交作业
 func HandInHomework(title string, content string, homeworkID uint, url string, email string) error {
-	var homework File.Homework
-	homework.URL = url
-	homework.Email = email
-	homework.HomeworkID = homeworkID
 
-	return homework.Create()
+	return File.Create(title, content, homeworkID, url, email)
 }
 
 // 发布作业
-func PublishHomework(email string, groupID uint, title string, content string, url string) error {
-	var homework = File.HomeworkPublished{
-		Publisher: email,
-		Title:     title,
-		GroupID:   groupID,
-		Content:   content,
-		FileUrl:   url,
-	}
-	return homework.Publish()
+func PublishHomework(email string, ID uint, title string, content string, url string) error {
+
+	return File.Publish(ID, title, content, email, url)
 
 }
 
 // 评论作业
 func CommentHomework(email string, id uint, content string) error {
-	var comment = Comment.Comment{
-		Publisher:  email,
-		HomeworkID: id,
-		Content:    content,
-	}
-	return comment.Create()
+	return Comment.Create(email, id, content)
 }
 
 // 删除评论
@@ -51,4 +36,9 @@ func GetComment(id string, offset int, limit int) ([]Comment.Comment, int, error
 		return nil, 0, err
 	}
 	return comments, num, err
+}
+
+// 审阅作业
+func Review(id string, offset int, limit int) ([]File.Homework, int, error) {
+	return File.ReviewHomework(id, offset, limit)
 }
