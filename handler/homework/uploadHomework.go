@@ -19,7 +19,7 @@ import (
 // @Param Authorization header string true "token 用户令牌"
 // @Param homework formData file true "文件"
 // @Param id
-// @Success 200 {object} loginResponse
+// @Success 200 {object} handler.Response
 // @Router /homework [post]
 func UploadHomework(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",
