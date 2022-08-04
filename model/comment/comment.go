@@ -2,6 +2,7 @@ package comment
 
 import (
 	"errors"
+	"fmt"
 	"github.com/MuXiFresh-be/model"
 	"github.com/jinzhu/gorm"
 )
@@ -19,6 +20,7 @@ func Create(email string, id uint, content string) error {
 		Publisher:  email,
 		Content:    content,
 	}
+	fmt.Println("comment", comment)
 	tx := model.DB.Self.Begin()
 	defer func() {
 		if r := recover(); r != nil {
@@ -39,7 +41,8 @@ func Create(email string, id uint, content string) error {
 
 func DeleteComment(id string, email string) error {
 	var comment Comment
-	model.DB.Self.Where("id  = ?", id).First(&comment)
+	model.DB.Self.Model(Comment{}).Where("id  = ?", id).First(&comment)
+	fmt.Println("publisher", comment.Publisher, "    email", email)
 	if comment.Publisher != email {
 		return errors.New("permission denied")
 	}
@@ -63,22 +66,18 @@ func DeleteComment(id string, email string) error {
 func GetCommentList(id string, offset int, limit int) ([]Comment, int, error) {
 	var item []Comment
 	d := model.DB.Self.Table("comments").
-		Where("post_id = ?", id).
+		Where("homework_id = ?", id).
 		Offset(offset).Limit(limit).
 		Order("created_at desc").Find(&item)
 	if err := d.Error; err != nil {
 		return item, 0, err
 	}
 	var num int
-	var comments []Comment
-	d = model.DB.Self.Table("comments").
-		Where("post_id = ?", id).
-		Offset(offset).Limit(limit).
-		Order("created_at desc").Find(&comments)
+
 	if err := d.Error; err != nil {
 		return item, 0, err
 	}
-	for i, _ := range comments {
+	for i, _ := range item {
 		num = i + 1
 	}
 	return item, num, nil

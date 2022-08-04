@@ -17,8 +17,7 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param Authorization header string true "token 用户令牌"
-// @Param homework formData file true "文件"
-// @Param id
+// @Param req body HomeworkRequest true "提交作业内容"
 // @Success 200 {object} handler.Response
 // @Router /homework [post]
 func UploadHomework(c *gin.Context) {

@@ -16,7 +16,7 @@ import (
 // @Tags user
 // @Accept  json
 // @Produce  json
-// @Param  token header string true  "UserId--用户ID"
+// @Param Authorization header string true  "token 用户令牌"
 // @Param req body updateInfoRequest true  "Avatar头像|| NickName昵称"
 // @Success  200 "成功"
 // @Router /user [put]

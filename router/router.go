@@ -35,12 +35,14 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
 	adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
-	//superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
+	superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
 
 	// auth
 	authRouter := g.Group("api/v1/auth")
 	{
 		authRouter.POST("/register", auth.Register)
+
+		authRouter.PUT("/authorize/:id/:role", superAdminRequired, auth.Authorize)
 	}
 
 	// user 模块
@@ -49,8 +51,6 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		userRouter.POST("/login", user.Login)
 
 		userRouter.PUT("", normalRequired, user.UpdateInfo)
-
-		//userRouter.PUT("/authorize", superAdminRequired, user.Authorize)
 
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 
@@ -65,11 +65,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		homework.POST("/publish", adminRequired, Homework.PublishHomework)
 
+		homework.GET("/publish", Homework.GetHomework)
+
 		homework.GET("/review", adminRequired, Homework.ReviewHomework)
 
 		homework.POST("/comment", adminRequired, Homework.Comment)
 
-		homework.GET("/comment", adminRequired, Homework.GetComment)
+		homework.GET("/comment", adminRequired, Homework.GetComments)
 
 		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
 

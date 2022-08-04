@@ -59,7 +59,7 @@ func Comment(c *gin.Context) {
 // @Failure 404 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
 // @Router /homework/comment [get]
-func GetComment(c *gin.Context) {
+func GetComments(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",
 		zap.String("X-Request-Id", util.GetReqID(c)))
 	id := c.Query("id")
@@ -91,8 +91,7 @@ func GetComment(c *gin.Context) {
 // @Accept  json/application
 // @Produce  json/application
 // @Param Authorization header string true  "获取email"
-// @Param id path string true "id--评论的ID"
-// @Success 200 {string}  json "{"code":0,"message":"OK","data":{}}"
+// @Success comment_id 200 {string}  json "{"code":0,"message":"OK","data":{}}"
 // @Failure 400 {object} errno.Errno
 // @Failure 404 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
@@ -102,7 +101,7 @@ func DeleteComment(c *gin.Context) {
 		zap.String("X-Request-Id", util.GetReqID(c)))
 
 	email := c.MustGet("email").(string)
-	id := c.Param("id")
+	id := c.Param("comment_id")
 	if err := file.Delete(id, email); err != nil {
 		SendError(c, errno.ErrPathParam, nil, err.Error(), GetLine())
 		return

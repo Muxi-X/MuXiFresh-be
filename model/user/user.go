@@ -117,3 +117,21 @@ func UpdateInfo(email string, avatar string, name string) error {
 
 	return tx.Commit().Error
 }
+
+// Authorize ...授权
+func Authorize(id int, role int) error {
+	Role := uint32(role)
+	tx := model.DB.Self.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+
+	if err := tx.Model(&UserModel{}).Where("id = ?", id).Update(UserModel{Role: Role}).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
+}

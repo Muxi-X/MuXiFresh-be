@@ -21,7 +21,7 @@ func Create(title string, content string, homeworkID uint, url string, email str
 		tx.Rollback()
 		return err
 	}
-	if err := tx.Create(homework).Error; err != nil {
+	if err := tx.Create(&homework).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
@@ -48,12 +48,29 @@ func Publish(groupID uint, title string, content string, email string, url strin
 		tx.Rollback()
 		return err
 	}
-	if err := tx.Create(homework).Error; err != nil {
+	if err := tx.Create(&homework).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
 
 	return tx.Commit().Error
+}
+
+// 查看不同组已发布的作业
+func GetHomework(id int, offset int, limit int) ([]HomeworkPublished, int, error) {
+	var item []HomeworkPublished
+	d := model.DB.Self.Table("homework_publisheds").
+		Where("group_id = ?", id).
+		Offset(offset).Limit(limit).
+		Order("created_at desc").Find(&item)
+	if err := d.Error; err != nil {
+		return item, 0, err
+	}
+	var num int = 0
+	for i, _ := range item {
+		num = i + 1
+	}
+	return item, num, nil
 }
 
 // 审阅作业

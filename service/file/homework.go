@@ -18,6 +18,11 @@ func PublishHomework(email string, ID uint, title string, content string, url st
 
 }
 
+// GetHomework ...获取不同组别的作业
+func GetHomework(id int, offset int, limit int) ([]File.HomeworkPublished, int, error) {
+	return File.GetHomework(id, offset, limit)
+}
+
 // 评论作业
 func CommentHomework(email string, id uint, content string) error {
 	return Comment.Create(email, id, content)
