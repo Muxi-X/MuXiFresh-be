@@ -14,7 +14,7 @@ import (
 // @Description 邮箱注册登录
 // @Accept application/json
 // @Produce application/json
-// @Param object body auth.CreateUserRequest true "注册用户信息"
+// @Param object body user.RegisterRequest true "注册用户信息"
 // @Success 200 {object} handler.Response "{"msg":"将student_id作为token保留"}"
 // @Failure 401 {object} errno.Errno "{"error_code":"10001", "message":"The email address has been registered"} "
 // @Failure 400 {object} errno.Errno "{"error_code":"20001", "message":"Fail."} or {"error_code":"00002", "message":"Lack Param Or Param Not Satisfiable."}"

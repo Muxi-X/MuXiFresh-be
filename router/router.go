@@ -35,7 +35,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
 	adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
-	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
+	superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
 
 	// auth
 	authRouter := g.Group("api/v1/auth")
@@ -50,11 +50,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		userRouter.PUT("", normalRequired, user.UpdateInfo)
 
+		//userRouter.PUT("/authorize", superAdminRequired, user.Authorize)
+
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 
 		//userRouter.GET("/list", user.List)
 
-		userRouter.GET("/qiniu_token", normalRequired, user.GetUserToken)
+		userRouter.GET("/qiniu_token", adminRequired, user.GetQiniuToken)
 
 	}
 

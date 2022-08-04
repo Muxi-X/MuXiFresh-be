@@ -22,7 +22,7 @@ import (
 // @Failure 400 {object} error.Error "{"error_code":"20001", "message":"Fail."} or {"error_code":"00002", "message":"Lack Param Or Param Not Satisfiable."}"
 // @Failure 500 {object} error.Error "{"error_code":"30001", "message":"Fail."} 失败"
 // @Router /user/qiniu_token [get]
-func GetUserToken(c *gin.Context) {
+func GetQiniuToken(c *gin.Context) {
 	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 	Token := U.GetToken()
 	SendResponse(c, nil, map[string]string{

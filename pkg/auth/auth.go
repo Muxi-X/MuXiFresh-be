@@ -27,7 +27,9 @@ type Context struct {
 
 // Parse parses the token, and returns the context if the token is valid.
 func Parse(tokenString string) (*Context, error) {
+
 	t, err := token.ResolveToken(tokenString)
+
 	if err != nil {
 		return nil, err
 	}

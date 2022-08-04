@@ -1,16 +1,63 @@
-{"level":"error","time":"2022-07-20T15:24:04.593+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
-{"level":"info","time":"2022-07-20T15:24:04.594+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: 0.0.0.0:8080"}
-{"level":"info","time":"2022-07-20T15:24:04.595+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
-{"level":"error","time":"2022-07-20T15:30:37.064+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
-{"level":"info","time":"2022-07-20T15:30:37.065+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: 0.0.0.0:8080"}
-{"level":"info","time":"2022-07-20T15:30:37.065+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
-{"level":"error","time":"2022-07-23T22:22:40.035+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
-{"level":"info","time":"2022-07-23T22:22:40.036+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: 0.0.0.0:8080"}
-{"level":"info","time":"2022-07-23T22:22:40.037+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
-{"level":"info","time":"2022-08-03T15:48:39.448+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
-{"level":"info","time":"2022-08-03T15:48:39.449+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
-{"level":"info","time":"2022-08-03T15:48:40.455+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
-{"level":"info","time":"2022-08-03T18:05:42.365+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
-{"level":"info","time":"2022-08-03T18:05:42.366+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
-{"level":"info","time":"2022-08-03T18:09:19.146+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
-{"level":"info","time":"2022-08-03T18:09:19.147+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:46:19.763+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:46:19.764+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-04T14:46:20.769+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"error","time":"2022-08-04T14:46:27.692+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"Token parsing failed because of an internal error","cause":"the token is expired"}
+{"level":"info","time":"2022-08-04T14:46:27.693+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Error occurred while handling the auth token","X-Request-Id":"42c7db1b-73c6-4d27-9de4-eea135705902"}
+{"level":"info","time":"2022-08-04T14:46:27.693+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"948µs         | ::1          | PUT /api/v1/user | {code: 20005, message: Error occurred while handling the auth token}"}
+{"level":"info","time":"2022-08-04T14:48:21.560+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:48:21.561+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-04T14:48:22.567+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:48:25.828+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"dcbc2516-452b-493a-8fd9-c3ab0facaa22"}
+{"level":"info","time":"2022-08-04T14:48:25.831+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"dcbc2516-452b-493a-8fd9-c3ab0facaa22"}
+{"level":"info","time":"2022-08-04T14:48:25.831+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"3.955ms       | ::1          | POST /api/v1/user/login | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-04T14:48:38.167+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Permission denied.","X-Request-Id":"fa1ec72f-d2d5-46b1-93e3-b811669b733c"}
+{"level":"info","time":"2022-08-04T14:48:38.168+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"418µs         | ::1          | PUT /api/v1/user | {code: 20006, message: Permission denied.}"}
+{"level":"info","time":"2022-08-04T14:50:10.071+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:50:10.071+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:50:12.978+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Permission denied.","X-Request-Id":"a8c5ba8d-3660-4bc0-bd5c-19e0ea3546ca"}
+{"level":"info","time":"2022-08-04T14:50:12.978+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"450µs         | ::1          | PUT /api/v1/user | {code: 20006, message: Permission denied.}"}
+{"level":"info","time":"2022-08-04T14:50:38.807+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:50:38.808+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:50:41.380+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Permission denied.","X-Request-Id":"24f5c7be-4c22-4be3-b84d-9a06dfc488a2"}
+{"level":"info","time":"2022-08-04T14:50:41.380+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"1.075ms       | ::1          | PUT /api/v1/user | {code: 20006, message: Permission denied.}"}
+{"level":"info","time":"2022-08-04T14:51:04.437+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:51:04.438+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:51:11.431+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Permission denied.","X-Request-Id":"c6167b56-f2f7-4e0a-946e-5f871fc335c7"}
+{"level":"info","time":"2022-08-04T14:51:11.432+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"975µs         | ::1          | PUT /api/v1/user | {code: 20006, message: Permission denied.}"}
+{"level":"info","time":"2022-08-04T14:51:49.046+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:51:49.047+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:51:54.158+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Permission denied.","X-Request-Id":"91b238dd-5f55-45ed-aa64-3998de07575e"}
+{"level":"info","time":"2022-08-04T14:51:54.159+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"949µs         | ::1          | PUT /api/v1/user | {code: 20006, message: Permission denied.}"}
+{"level":"info","time":"2022-08-04T14:52:36.228+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:52:36.229+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:53:36.076+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:53:36.078+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:53:38.411+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"da3c18ae-cbbd-450b-be20-8ac358e65990"}
+{"level":"error","time":"2022-08-04T14:53:38.413+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"JSON unmarshal failed","reason":"unexpected end of JSON input","detail":"response body can not unmarshal to model.Response struct, body: ``"}
+{"level":"info","time":"2022-08-04T14:53:38.413+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"2.942ms       | ::1          | PUT /api/v1/user | {code: 10001, message: unexpected end of JSON input}"}
+{"level":"info","time":"2022-08-04T14:54:40.076+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"4805a445-5204-475c-aebb-4fd2268f183f"}
+{"level":"error","time":"2022-08-04T14:54:40.079+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"JSON unmarshal failed","reason":"unexpected end of JSON input","detail":"response body can not unmarshal to model.Response struct, body: ``"}
+{"level":"info","time":"2022-08-04T14:54:40.079+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"3.594ms       | ::1          | PUT /api/v1/user | {code: 10001, message: unexpected end of JSON input}"}
+{"level":"info","time":"2022-08-04T14:56:45.647+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:56:45.649+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:56:48.279+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"271a2010-00f2-426e-bd9f-c3268a1d27f4"}
+{"level":"error","time":"2022-08-04T14:56:48.281+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:84","msg":"JSON unmarshal failed","reason":"unexpected end of JSON input","detail":"response body can not unmarshal to model.Response struct, body: ``"}
+{"level":"info","time":"2022-08-04T14:56:48.281+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"2.533ms       | ::1          | PUT /api/v1/user | {code: 10001, message: unexpected end of JSON input}"}
+{"level":"info","time":"2022-08-04T14:58:44.767+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T14:58:44.769+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T14:58:47.316+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"ab88f220-a94a-46dc-ab7e-ec333c0c63f5"}
+{"level":"info","time":"2022-08-04T14:58:47.334+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"ab88f220-a94a-46dc-ab7e-ec333c0c63f5"}
+{"level":"info","time":"2022-08-04T14:58:47.335+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"23.308ms      | ::1          | PUT /api/v1/user | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-04T15:00:49.670+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"User getInfo function called.","X-Request-Id":"c34ce822-9b6d-43f9-8e4b-b2070dadcf0e"}
+{"level":"info","time":"2022-08-04T15:00:49.674+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"c34ce822-9b6d-43f9-8e4b-b2070dadcf0e"}
+{"level":"info","time":"2022-08-04T15:00:49.674+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"4.1ms         | ::1          | GET /api/v1/user/profile/1 | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-04T15:02:24.485+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"User getInfo function called.","X-Request-Id":"ec9b8b66-1821-4ee7-a82d-584be2be5ca5"}
+{"level":"info","time":"2022-08-04T15:02:24.487+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"ec9b8b66-1821-4ee7-a82d-584be2be5ca5"}
+{"level":"info","time":"2022-08-04T15:02:24.487+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"1.948ms       | ::1          | GET /api/v1/user/qiniu_token | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-04T15:02:56.205+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"User getInfo function called.","X-Request-Id":"b626e798-650d-4cf8-9b90-83538fcb495a"}
+{"level":"info","time":"2022-08-04T15:02:56.209+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"b626e798-650d-4cf8-9b90-83538fcb495a"}
+{"level":"info","time":"2022-08-04T15:02:56.209+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"5.078ms       | ::1          | GET /api/v1/user/qiniu_token | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-04T15:03:08.770+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-04T15:03:08.772+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-04T15:03:11.377+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Permission denied.","X-Request-Id":"a4036783-e1be-4ff8-9bdf-26236b91c52b"}
+{"level":"info","time":"2022-08-04T15:03:11.377+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"948µs         | ::1          | GET /api/v1/user/qiniu_token | {code: 20006, message: Permission denied.}"}

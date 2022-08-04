@@ -28,7 +28,7 @@ func Login(email string, pwd string) (string, error) {
 
 	var userInfo user.UserModel
 
-	if err := model.DB.Self.Where("email=?", email).First(&userInfo); err.Error != nil {
+	if err := model.DB.Self.Where("email = ?", email).First(&userInfo); err.Error != nil {
 		fmt.Println(err, err.Error)
 		return "", errno.ErrUserNotExisted
 	}

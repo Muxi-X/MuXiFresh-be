@@ -52,8 +52,9 @@ func (payload *TokenPayload) GenerateToken() (string, error) {
 		Email:     payload.Email,
 		ExpiresAt: time.Now().Unix() + int64(payload.Expired.Seconds()),
 	}
-
+	fmt.Println("ExpiresAt: ", time.Now().Unix()+int64(payload.Expired.Seconds()))
 	encodedString := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
 	token, err := encodedString.SignedString([]byte(getJwtKey()))
 	if err != nil {
 		return "", errno.ErrFormToken
@@ -82,11 +83,12 @@ func ResolveToken(tokenStr string) (*TokenResolve, error) {
 		return nil, ErrTokenInvalid
 	}
 
-	t := &TokenResolve{
+	t := TokenResolve{
 		Id:        claims.Id,
 		Email:     claims.Email,
 		Role:      claims.Role,
 		ExpiresAt: claims.ExpiresAt,
 	}
-	return t, nil
+	fmt.Println("token resolve", t)
+	return &t, nil
 }

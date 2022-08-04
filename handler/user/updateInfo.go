@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -26,8 +27,14 @@ func UpdateInfo(c *gin.Context) {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-	if err := service.UpdateInfo(req.Email, req.Email, req.AvatarURL); err != nil {
+
+	fmt.Println("------req:", req, "---------")
+	if req.Email == "" {
+		req.Email = c.MustGet("email").(string)
+	}
+	if err := service.UpdateInfo(req.Email, req.AvatarURL, req.Name); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
+	SendResponse(c, nil, "Success")
 }
