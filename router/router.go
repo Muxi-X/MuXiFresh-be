@@ -35,7 +35,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
 	adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
-	superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
+	//superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
 
 	// auth
 	authRouter := g.Group("api/v1/auth")
