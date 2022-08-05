@@ -1,6 +1,9 @@
 package user
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/model/file"
 )
@@ -38,15 +41,6 @@ func (u *UserModel) CreateUser() error {
 		return err
 	}
 
-	// var avatar file.Picture
-	// avatar.Email = u.Email
-	// avatar.Class = "Avatar"
-
-	// if err := tx.Create(&avatar).Error; err != nil {
-	// 	tx.Rollback()
-	// 	return err
-	// }
-
 	return tx.Commit().Error
 }
 
@@ -62,52 +56,43 @@ func (user *UserModel) GerInfo(id int) error {
 		First(user).Error; err != nil {
 		return err
 	}
-	var avatar file.Picture
-	if err := model.DB.Self.
-		Where("email  = ?", user.Email).
-		First(&avatar).Error; err != nil {
-		return err
-	}
-	user.Avatar = avatar
 	return nil
 }
+func IfExist(id, email, name string) error {
+	var user1 UserModel
+	var user2 UserModel
+	var user3 UserModel
 
-// func IfExist(id, email, name string) error {
-// 	var user1 UserModel
-// 	var user2 UserModel
-// 	var user3 UserModel
+	err1 := model.DB.Self.Debug().Where("student_id=?", id).First(&user1).Error
+	err2 := model.DB.Self.Debug().Where("email=?", email).First(&user2).Error
+	err3 := model.DB.Self.Debug().Where("name=?", name).First(&user3).Error
 
-// 	err1 := model.DB.Self.Debug().Where("student_id=?", id).First(&user1).Error
-// 	err2 := model.DB.Self.Debug().Where("email=?", email).First(&user2).Error
-// 	err3 := model.DB.Self.Debug().Where("name=?", name).First(&user3).Error
+	s := []string{""}
+	i := 0
+	if err1 == nil {
+		s = append(s, "*学号*")
+		i++
+	}
 
-// 	s := []string{""}
-// 	i := 0
+	if err2 == nil {
+		s = append(s, "*邮箱*")
+		i++
+	}
 
-// 	if err1 == nil {
-// 		s = append(s, "*学号*")
-// 		i++
-// 	}
+	if err3 == nil {
+		s = append(s, "*姓名*")
+		i++
 
-// 	if err2 == nil {
-// 		s = append(s, "*邮箱*")
-// 		i++
-// 	}
+	}
 
-// 	if err3 == nil {
-// 		s = append(s, "*姓名*")
-// 		i++
+	if i > 0 {
+		s = append(s, "已被注册")
+	}
 
-// 	}
+	if i > 0 {
+		return errors.New(fmt.Sprintf("%s", s))
+	}
 
-// 	if i > 0 {
-// 		s = append(s, "已被注册")
-// 	}
+	return nil
 
-// 	if i > 0 {
-// 		return errors.New(fmt.Sprintf("%s", s))
-// 	}
-
-// 	return nil
-
-// }
+}

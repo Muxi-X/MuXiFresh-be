@@ -1,8 +1,6 @@
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
-DROP DATABASE IF EXISTS `MuxiFresh`;
-
 CREATE DATABASE `MuxiFresh`;
 
 USE `MuxiFresh`;
@@ -34,7 +32,7 @@ CREATE TABLE `forms`
     `email`           varchar(35) NOT NULL,
     `avatar`          varchar(100) DEFAULT NULL,
     `student_id`      char(10)     DEFAULT NULL,
-    `collage`         varchar(20)  DEFAULT NULL,
+    `college`         varchar(20)  DEFAULT NULL,
     `major`           varchar(20)  DEFAULT NULL,
     `grade`           varchar(20)  DEFAULT NULL,
     `gender`          varchar(20)  DEFAULT NULL,
@@ -59,7 +57,7 @@ CREATE TABLE `schedules`
     `name`              varchar(20) NOT NULL,
     `email`             varchar(35) NOT NULL,  
     `student_id`        char(10)     DEFAULT NULL,
-    `collage`           varchar(20)  DEFAULT NULL,    
+    `college`           varchar(20)  DEFAULT NULL,    
     `major`             varchar(20)  DEFAULT NULL,
     `group`             varchar(20)  DEFAULT NULL,      
     `form_status`       int(3) NOT NULL COMMENT '报名表状态 0-未提交 1-已提交',

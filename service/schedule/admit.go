@@ -1,4 +1,4 @@
-package schedule
+package service
 
 import (
 	"github.com/MuXiFresh-be/model"

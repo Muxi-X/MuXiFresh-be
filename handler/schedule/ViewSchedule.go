@@ -4,7 +4,7 @@ import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
-	"github.com/MuXiFresh-be/service/schedule"
+	service "github.com/MuXiFresh-be/service/schedule"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -15,12 +15,9 @@ import (
 // @Tags schedule
 // @Accept json
 // @Produce json
-// @Param token header string true "token"
+// @param Authorization header string true "token 用户令牌"
 // @Success 200 {object} GetInfoReponse
-// @Failure 400 {object} errno.Errno
-// @Failure 404 {object} errno.Errno
-// @Failure 500 {object} errno.Errno
-// @Router api/v1/schedule [get]
+// @Router schedule [get]
 func ViewOwnSchedule(c *gin.Context) {
 	log.Info("User getOwnSchedule function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
@@ -31,7 +28,7 @@ func ViewOwnSchedule(c *gin.Context) {
 	// 	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 	// 	return
 	// }
-	sche, err := schedule.ViewOwn(email)
+	sche, err := service.ViewOwn(email)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return

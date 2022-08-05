@@ -19,11 +19,8 @@ import (
 // @Produce json
 // @Param Authorization header string true "token 用户令牌"
 // @Param object body modifyRoleRequest true "modifyRoleRequest"
-// @Success 200
-// @Failure 400 {object} errno.Errno
-// @Failure 404 {object} errno.Errno
-// @Failure 500 {object} errno.Errno
-// @Router api/v1/user/role [put]
+// @success 200 {object} handler.Response
+// @Router user/role [put]
 func SetRole(c *gin.Context) {
 	log.Info("Set one member's role function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
@@ -33,7 +30,7 @@ func SetRole(c *gin.Context) {
 	fmt.Println(12367, ownRole)
 	//	userId := c.MustGet("userId").(uint32)
 
-	var role modifyRoleRequest
+	var role ModifyRoleRequest
 
 	if err := c.Bind(&role); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())

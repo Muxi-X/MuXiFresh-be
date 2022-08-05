@@ -14,7 +14,7 @@ type Schedules struct {
 }
 
 // GetInfoResponse 获取 info 响应
-type GetInfoReponse struct {
+type GetInfoResponse struct {
 	Name            string `json:"name"`
 	Collage         string `json:"collage"`
 	Major           string `json:"major"`
@@ -22,4 +22,4 @@ type GetInfoReponse struct {
 	FormStatus      int    `json:"form_status"`
 	WorkStatus      int    `json:"work_status"`
 	AdmissionStatus int    `json:"admission_status"`
-} // @name getInfoResponse
+} // @name GetInfoResponse

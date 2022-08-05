@@ -4,7 +4,7 @@ import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
-	"github.com/MuXiFresh-be/service/schedule"
+	service "github.com/MuXiFresh-be/service/schedule"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -15,13 +15,10 @@ import (
 // @Tags schedule
 // @Accept json
 // @Produce json
-// @Param id path int true "target_id"
-// @Param token header string true "token"
-// @Success 200
-// @Failure 400 {object} errno.Errno
-// @Failure 404 {object} errno.Errno
-// @Failure 500 {object} errno.Errno
-// @Router api/v1/schedule/cancel_admission/:name [put]
+// @Param id path int true "name"
+// @param Authorization header string true "token 用户令牌"
+// @success 200 {object} handler.Response
+// @Router schedule/cancel_admission/:name [put]
 func CancelAdmission(c *gin.Context) {
 	log.Info("Cancel one student admission function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
@@ -31,7 +28,7 @@ func CancelAdmission(c *gin.Context) {
 	// 	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 	// 	return
 	// }
-	err := schedule.CancelAdmit(name)
+	err := service.CancelAdmit(name)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return

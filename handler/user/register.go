@@ -7,9 +7,9 @@ import (
 
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/handler/schedule"
-	"github.com/MuXiFresh-be/model"
 	User "github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/pkg/errno"
+	service "github.com/MuXiFresh-be/service/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,17 +32,7 @@ func Register(c *gin.Context) {
 		fmt.Println(req)
 		return
 	}
-	// req.Role = 1
-	// // err := service.Register(req)
-	// if err := model.DB.Self.Table("users").Create(req).Error; err != nil {
-	// 	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
-	// 	return
-	// }
-	// if err := User.IfExist(req.StudentId, req.Email, req.Name); err != nil {
-	// 	SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
-	// 	return
-	// }
-	// errno.ServerErr(errno.ErrUserExisted, err.Error())
+
 	user := User.UserModel{
 		Name:      req.Name,
 		StudentId: req.StudentId,
@@ -53,11 +43,13 @@ func Register(c *gin.Context) {
 	md5 := MD5.New()
 	md5.Write([]byte(req.Password))
 	user.HashPassword = hex.EncodeToString(md5.Sum(nil))
-	if err := user.CreateUser(); err != nil {
+
+	if err := service.Register(user); err != nil {
 		SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 	}
-	// return errno.ServerErr(errno.ErrDatabase, err.Error())
-	SendResponse(c, nil, "succeed in registration")
+	// if err := user.CreateUser(); err != nil {
+	// 	SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+	// }
 
 	//注册成功自动生成进度表
 	var sche schedule.Schedules
@@ -67,9 +59,9 @@ func Register(c *gin.Context) {
 	sche.Name = req.Name
 	sche.StudentId = req.StudentId
 	sche.WorkStatus = 0
-	if err := model.DB.Self.Table("schedules").Create(&sche).Error; err != nil {
+	if err := service.Create(sche); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, "succeed in creating schedules")
+	SendResponse(c, nil, "succeed in registration")
 }
