@@ -4,7 +4,7 @@ import (
 	"github.com/MuXiFresh-be/model"
 )
 
-type scheduleModel struct {
+type ScheduleModel struct {
 	Id              int    `gorm:"column:id;type:int(11);primary_key;AUTO_INCREMENT" json:"id"`
 	Name            string `gorm:"column:name;type:varchar(20);NOT NULL" json:"name"`
 	Email           string `gorm:"column:email;type:varchar(35);NOT NULL" json:"email"`
@@ -17,16 +17,16 @@ type scheduleModel struct {
 	AdmissionStatus int    `gorm:"column:admission_status;type:int(3);comment:录取状态 0-未录取 1-已录取;NOT NULL" json:"admission_status"`
 }
 
-func (s *scheduleModel) TableName() string {
+func (s *ScheduleModel) TableName() string {
 	return "schedules"
 }
 
 // Create ... create schedule
-func (s *scheduleModel) Create() error {
+func (s *ScheduleModel) Create() error {
 	return model.DB.Self.Create(s).Error
 }
 
 // Save ... save schedule.
-func (s *scheduleModel) Save() error {
+func (s *ScheduleModel) Save() error {
 	return model.DB.Self.Save(s).Error
 }

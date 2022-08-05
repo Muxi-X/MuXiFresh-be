@@ -3,8 +3,8 @@ package schedule
 import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
-	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/pkg/errno"
+	"github.com/MuXiFresh-be/service/schedule"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -27,10 +27,15 @@ func Admit(c *gin.Context) {
 
 	name := c.Param("name")
 
-	if err := model.DB.Self.Table("schedules").Where("name = ? ", name).Updates(map[string]interface{}{"admission_status": 1}).Error; err != nil {
+	err := schedule.Admit(name)
+	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
+	// if err := model.DB.Self.Table("schedules").Where("name = ? ", name).Updates(map[string]interface{}{"admission_status": 1}).Error; err != nil {
+	// 	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+	// 	return
+	// }
 
 	SendResponse(c, nil, "录取成功")
 }

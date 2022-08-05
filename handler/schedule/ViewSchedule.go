@@ -3,8 +3,8 @@ package schedule
 import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
-	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/pkg/errno"
+	"github.com/MuXiFresh-be/service/schedule"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -24,13 +24,17 @@ import (
 func ViewOwnSchedule(c *gin.Context) {
 	log.Info("User getOwnSchedule function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
-	email := c.MustGet("email")
+	email := c.MustGet("email").(string)
 
-	var schedule GetInfoReponse
-	if err := model.DB.Self.Table("schedules").Where("email = ? ", email).Find(&schedule).Error; err != nil {
+	// var schedule GetInfoReponse
+	// if err := model.DB.Self.Table("schedules").Where("email = ? ", email).Find(&schedule).Error; err != nil {
+	// 	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+	// 	return
+	// }
+	sche, err := schedule.ViewOwn(email)
+	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-
-	SendResponse(c, nil, schedule)
+	SendResponse(c, nil, sche)
 }

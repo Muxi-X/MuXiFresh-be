@@ -47,7 +47,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	}
 
 	//schedule 模块
-	scheduleRouter := g.Group("api/v1/schedule").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal)) //设置中间件，并确定用户等级
+	scheduleRouter := g.Group("api/v1/schedule").Use(normalRequired) //设置中间件，并确定用户等级
 	{
 		scheduleRouter.GET("", schedule.ViewOwnSchedule)
 		scheduleRouter.PUT("/admit/:name", adminRequired, schedule.Admit)
