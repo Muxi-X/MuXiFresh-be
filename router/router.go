@@ -39,17 +39,19 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// user 模块
 	userRouter := g.Group("api/v1/user")
 	{
+		userRouter.POST("/register", user.Register)
 		userRouter.POST("/login", user.Login)
 		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
 		userRouter.GET("/list", user.List)
+		userRouter.PUT("/role", normalRequired, user.SetRole)
 	}
 
 	//schedule 模块
 	scheduleRouter := g.Group("api/v1/schedule").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal)) //设置中间件，并确定用户等级
 	{
 		scheduleRouter.GET("", schedule.ViewOwnSchedule)
-		scheduleRouter.PUT("/admit", adminRequired, schedule.Admit)
-		scheduleRouter.PUT("/cancel_admission", adminRequired, schedule.CancelAdmission)
+		scheduleRouter.PUT("/admit/:name", adminRequired, schedule.Admit)
+		scheduleRouter.PUT("/cancel_admission/:name", adminRequired, schedule.CancelAdmission)
 	}
 
 	// The health check handlers

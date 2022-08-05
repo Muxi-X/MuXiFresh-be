@@ -17,11 +17,12 @@ func TestToken(t *testing.T) {
 	Convey("Test token", t, func() {
 		Convey("Test token generation", func() {
 			var err error
-			token, err = GenerateToken(&TokenPayload{
+			var tokenPayload = &TokenPayload{
 				Id:      id,
 				Role:    role,
-				Expired: time.Hour * 2,
-			})
+				Expired: time.Hour * 3,
+			}
+			token, err = tokenPayload.GenerateToken()
 			So(err, ShouldBeNil)
 		})
 

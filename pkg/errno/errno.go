@@ -21,6 +21,7 @@ var (
 	ErrRemoteAccessToken = &Errno{Code: 10102, Message: "Error occurred while getting oauth access token from auth-server"}
 	ErrLocalAccessToken  = &Errno{Code: 10103, Message: "Error occurred while getting oauth access token from local"}
 	ErrGetUserInfo       = &Errno{Code: 10104, Message: "Error occurred while getting user info from oauth-server by access token"}
+	ErrFormToken         = &Errno{Code: 10105, Message: "Error occurred while forming the token"}
 
 	// ---------------------------------------------------------------------------
 

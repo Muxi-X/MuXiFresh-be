@@ -18,13 +18,16 @@ import (
 // @Param id path int true "target_id"
 // @Param token header string true "token"
 // @Success 200
-// @Router api/v1/schedule [put]
+// @Failure 400 {object} errno.Errno
+// @Failure 404 {object} errno.Errno
+// @Failure 500 {object} errno.Errno
+// @Router api/v1/schedule/cancel_admission/:name [put]
 func CancelAdmission(c *gin.Context) {
 	log.Info("Cancel one student admission function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
-	id := c.Param("target_id")
+	name := c.Param("name")
 
-	if err := model.DB.Self.Where("id = ? ", id).Updates(map[string]interface{}{"admission_status": 0}).Error; err != nil {
+	if err := model.DB.Self.Table("schedules").Where("name = ? ", name).Updates(map[string]interface{}{"admission_status": 0}).Error; err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

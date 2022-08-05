@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	"fmt"
+
 	"github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/pkg/auth"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -19,7 +21,7 @@ func AuthMiddleware(limit uint32) gin.HandlerFunc {
 			c.Abort()
 			return
 			//		} else if ctx.Role&limit == 0 {
-		} else if ctx.Role >= limit {
+		} else if ctx.Role < limit {
 			handler.SendResponse(c, errno.ErrPermissionDenied, "")
 			c.Abort()
 			return
@@ -27,7 +29,10 @@ func AuthMiddleware(limit uint32) gin.HandlerFunc {
 
 		c.Set("userId", ctx.Id)
 		c.Set("role", ctx.Role)
+		c.Set("email", ctx.Email)
 		c.Set("expiresAt", ctx.ExpiresAt)
+
+		fmt.Println(ctx.Role)
 
 		c.Next()
 	}

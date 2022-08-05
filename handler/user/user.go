@@ -1,9 +1,19 @@
 package user
 
+// RegisterRequest Register 请求
+type RegisterRequest struct {
+	StudentId string `json:"student_id" form:"student_id" binding:"required"`
+	Password  string `json:"password" form:"password" binding:"required"`
+	//PasswordAgain string `json:"password_again" form:"password_again"`
+	Email string `json:"email" form:"email" binding:"required"`
+	Name  string `json:"name" form:"name" binding:"required"`
+	Role  uint32 `json:"role" form:"role" `
+}
+
 // loginRequest Login 请求
 type loginRequest struct {
-	StudentId string `json:"student_id"`
-	Password  string `json:"password"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 } // @name loginRequest
 
 // loginResponse login 请求响应
@@ -73,3 +83,9 @@ type updateTeamGroupRequest struct {
 	Value uint32   `json:"value"`
 	Kind  uint32   `json:"kind"`
 } // @name updateTeamGroupRequest
+
+// modifyRoleRequest 修改role请求
+type modifyRoleRequest struct {
+	Email string `json:"email"`
+	Role  uint32 `json:"role"`
+} // @name modifyRoleRequest

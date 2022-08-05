@@ -2,6 +2,8 @@ package auth
 
 import (
 	"errors"
+	"fmt"
+
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/token"
 	"github.com/MuXiFresh-be/service"
@@ -21,6 +23,7 @@ var (
 type Context struct {
 	Id        uint32
 	Role      uint32
+	Email     string
 	ExpiresAt int64 // 过期时间（时间戳，10位）
 }
 
@@ -33,6 +36,8 @@ func Parse(tokenString string) (*Context, error) {
 
 	return &Context{
 		Id:        t.Id,
+		Email:     t.Email,
+		Role:      t.Role,
 		ExpiresAt: t.ExpiresAt,
 	}, nil
 }
@@ -40,7 +45,9 @@ func Parse(tokenString string) (*Context, error) {
 // ParseRequest gets the token from the header and
 // pass it to the Parse function to parse the token.
 func ParseRequest(c *gin.Context) (*Context, error) {
-	header := c.Request.Header.Get("Authorization")
+	header := c.Request.Header.Get("token")
+	// header := c.Request.Header.Get("Authorization")
+	fmt.Println("hjj", header)
 	if len(header) == 0 {
 		return nil, ErrMissingHeader
 	}

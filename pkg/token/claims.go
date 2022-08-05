@@ -8,6 +8,7 @@ import (
 type TokenClaims struct {
 	Id        uint32 `json:"id"`
 	Role      uint32 `json:"role"`
+	Email     string `json:"email"`
 	ExpiresAt int64  `json:"expires_at"` // 过期时间（时间戳，10位）
 }
 

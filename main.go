@@ -3,9 +3,10 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/MuXiFresh-be/model"
 	"net/http"
 	"time"
+
+	"github.com/MuXiFresh-be/model"
 
 	"github.com/MuXiFresh-be/config"
 	"github.com/MuXiFresh-be/log"
@@ -41,7 +42,9 @@ func main() {
 	// logger sync
 	defer log.SyncLogger()
 
-	model.InitSelfDB()
+	// model.InitSelfDB()
+	model.DB.Init()
+	defer model.DB.Close()
 
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))

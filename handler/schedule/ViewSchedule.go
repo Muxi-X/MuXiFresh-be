@@ -17,14 +17,17 @@ import (
 // @Produce json
 // @Param token header string true "token"
 // @Success 200 {object} GetInfoReponse
+// @Failure 400 {object} errno.Errno
+// @Failure 404 {object} errno.Errno
+// @Failure 500 {object} errno.Errno
 // @Router api/v1/schedule [get]
 func ViewOwnSchedule(c *gin.Context) {
 	log.Info("User getOwnSchedule function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
-	id := c.MustGet("userId")
+	email := c.MustGet("email")
 
 	var schedule GetInfoReponse
-	if err := model.DB.Self.Where("id = ? ", id).Find(&schedule).Error; err != nil {
+	if err := model.DB.Self.Table("schedules").Where("email = ? ", email).Find(&schedule).Error; err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
