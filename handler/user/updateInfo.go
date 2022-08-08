@@ -11,14 +11,16 @@ import (
 	"go.uber.org/zap"
 )
 
-// @Summary 更改用户信息
+// @Summary Update User Info
 // @Description 更改用户信息
 // @Tags user
 // @Accept  json
 // @Produce  json
 // @Param Authorization header string true  "token 用户令牌"
 // @Param req body updateInfoRequest true  "Avatar头像|| NickName昵称"
-// @Success  200 "成功"
+// @Success 200  "Success"
+// @Failure 400 {string} json  "{"Code":400, "Message":"Error occurred while binding the request body to the struct","Data":nil}"
+// @Failure 500 {string} json  "{"Code":500,"Message":"Database error","Data":nil}"
 // @Router /user [put]
 func UpdateInfo(c *gin.Context) {
 	log.Info("student login function called.", zap.String("X-Request-Id", util.GetReqID(c)))

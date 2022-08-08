@@ -7,7 +7,6 @@ import (
 	"github.com/MuXiFresh-be/pkg/constvar"
 	"github.com/MuXiFresh-be/pkg/errno"
 
-	_ "github.com/MuXiFresh-be/docs"
 	Homework "github.com/MuXiFresh-be/handler/homework"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/router/middleware"
@@ -52,11 +51,11 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		userRouter.PUT("", normalRequired, user.UpdateInfo)
 
-		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
+		userRouter.GET("/profile/:id", user.GetProfile)
 
 		//userRouter.GET("/list", user.List)
 
-		userRouter.GET("/qiniu_token", adminRequired, user.GetQiniuToken)
+		userRouter.GET("/qiniu_token", user.GetQiniuToken)
 
 	}
 

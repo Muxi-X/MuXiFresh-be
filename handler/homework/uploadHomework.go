@@ -11,8 +11,8 @@ import (
 )
 
 // UploadHomework ... 上传作业
-// @Summary Homework api
-// @Description
+// @Summary Upload homework
+// @Description 上传完成的作业
 // @Tags homework
 // @Accept application/json
 // @Produce application/json

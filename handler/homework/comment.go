@@ -16,7 +16,7 @@ type CommentRequest struct {
 	Content    string `json:"content" binding:"required"`
 }
 
-// @Summary  comment
+// @Summary  comment on homework
 // @Description Add comment to one's homework
 // @Tags homework
 // @Accept  json
@@ -45,9 +45,9 @@ func Comment(c *gin.Context) {
 	SendResponse(c, nil, "Success")
 }
 
-// @Summary 获取某帖子评论
+// @Summary Get comments
 // @Description 查看已发布帖子的评论内容
-// @Tags
+// @Tags homework
 // @Accept  json/application
 // @Produce  json/application
 // @Param Authorization header string true  "获取email"
@@ -85,13 +85,13 @@ func GetComments(c *gin.Context) {
 	})
 }
 
-// @Summary delete comment
+// @Summary Delete comment
 // @Description 删除用户发布的帖子
-// @Tags forum
+// @Tags homework
 // @Accept  json/application
 // @Produce  json/application
 // @Param Authorization header string true  "获取email"
-// @Success comment_id 200 {string}  json "{"code":0,"message":"OK","data":{}}"
+// @Success 200 {string}  json "{"code":0,"message":"OK","data":{}}"
 // @Failure 400 {object} errno.Errno
 // @Failure 404 {object} errno.Errno
 // @Failure 500 {object} errno.Errno

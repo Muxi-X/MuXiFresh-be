@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 
-// @Summary 审阅作业
+// @Summary Review homework
 // @Tags homework
 // @Description review the homework handed
 // @Accept application/json
@@ -20,7 +20,7 @@ import (
 // @Param id query integer true "不同组别的作业，1-设计组 2-产品组 3-安卓组 4-前端组 5-"
 // @Param limit query integer true "limit--偏移量指定开始返回记录之前要跳过的记录数 "
 // @Param page  query integer true "page--限制指定要检索的记录数 "
-// @Success 200 {object} []model.Task{} "{"msg":"查看成功"}"
+// @Success 200 {object} []file.Homework {} "{"msg":"查看成功"}"
 // @Failure 500 {object} errno.Errno "{"msg":"Error occurred while getting url queries."}"
 // @Router /homework/review [get]
 func ReviewHomework(c *gin.Context) {
