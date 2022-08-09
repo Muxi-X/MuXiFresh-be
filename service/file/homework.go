@@ -42,7 +42,10 @@ func CommentHomework(email string, id uint, content string) error {
 
 // 删除评论
 func Delete(id string, email string) error {
-	return Comment.DeleteComment(id, email)
+	if err := Comment.DeleteComment(id, email); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
 }
 
 // 获取评论
@@ -50,12 +53,16 @@ func GetComment(id string, offset int, limit int) ([]Comment.Comment, int, error
 	var comments []Comment.Comment
 	comments, num, err := Comment.GetCommentList(id, offset, limit)
 	if err != nil {
-		return nil, 0, err
+		return nil, 0, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
-	return comments, num, err
+	return comments, num, nil
 }
 
 // 审阅作业
 func Review(id string, offset int, limit int) ([]File.Homework, int, error) {
-	return File.ReviewHomework(id, offset, limit)
+	homework, num, err := File.ReviewHomework(id, offset, limit)
+	if err != nil {
+		return nil, 0, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return homework, num, nil
 }
