@@ -16,7 +16,7 @@ type CommentRequest struct {
 	Content    string `json:"content" binding:"required"`
 }
 
-// @Summary  comment on homework
+// @Summary  Comment on Homework
 // @Description Add comment to one's homework
 // @Tags homework
 // @Accept  json

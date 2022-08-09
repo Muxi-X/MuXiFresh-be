@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// @Summary Get Homework published
+// @Summary Get Published Homework
 // @Tags homework
 // @Description 查看不同组别的作业
 // @Accept application/json
