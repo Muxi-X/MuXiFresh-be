@@ -184,3 +184,15 @@
 {"level":"info","time":"2022-08-07T21:03:12.611+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"User getInfo function called.","X-Request-Id":"cdcf9401-2532-4b9a-9a10-877337e009f9"}
 {"level":"info","time":"2022-08-07T21:03:12.612+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"cdcf9401-2532-4b9a-9a10-877337e009f9"}
 {"level":"info","time":"2022-08-07T21:03:12.612+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"1.142ms       | ::1          | GET /api/v1/user/qiniu_token | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-09T20:01:42.281+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :2022"}
+{"level":"info","time":"2022-08-09T20:01:42.282+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:43.288+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:44.291+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:45.295+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:46.296+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:47.301+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:48.306+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:49.311+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:50.314+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-09T20:01:51.319+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"fatal","time":"2022-08-09T20:01:52.321+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:74","msg":"The router has no response, or it might took too long to start up.","reason":"cannot connect to the router"}

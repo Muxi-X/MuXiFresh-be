@@ -66,8 +66,6 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		homework.GET("/published", Homework.GetHomeworkPublished)
 
-		homework.POST("")
-
 		homework.GET("/review", adminRequired, Homework.ReviewHomework)
 
 		homework.POST("/comment", adminRequired, Homework.Comment)
@@ -77,8 +75,6 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
 
 		homework.POST("", normalRequired, Homework.UploadHomework)
-
-		// homework.GET("", Homework.DownloadHomework)
 
 	}
 
