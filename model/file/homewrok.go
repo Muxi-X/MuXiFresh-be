@@ -10,6 +10,7 @@ func Create(title string, content string, homeworkID uint, url string, email str
 		Content:    content,
 		Email:      email,
 		URL:        url,
+		Status:     0,
 	}
 	tx := model.DB.Self.Begin()
 	defer func() {
@@ -74,18 +75,10 @@ func GetHomework(id int, offset int, limit int) ([]HomeworkPublished, int, error
 }
 
 // 审阅作业
-func ReviewHomework(id string, offset int, limit int) ([]Homework, int, error) {
-	var item []Homework
-	d := model.DB.Self.Table("homeworks").
-		Where("homework_id = ?", id).
-		Offset(offset).Limit(limit).
-		Order("created_at desc").Find(&item)
-	if err := d.Error; err != nil {
-		return item, 0, err
+func ReviewHomework(id int) error {
+	if err := model.DB.Self.Model(Homework{}).
+		Where("id = ?", id).Updates(Homework{Status: 1}).Error; err != nil {
+		return err
 	}
-	var num int = 0
-	for i, _ := range item {
-		num = i + 1
-	}
-	return item, num, nil
+	return nil
 }

@@ -21,6 +21,7 @@ type Homework struct {
 	Content    string `json:"content" gorm:"column:content"`
 	Email      string `json:"email" gorm:"column:email"`
 	URL        string `json:"url" gorm:"column:url"`
+	Status     int    `json:"status" gorm:"column:status"`
 }
 
 type Picture struct {

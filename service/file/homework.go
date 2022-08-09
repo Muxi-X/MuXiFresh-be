@@ -59,10 +59,9 @@ func GetComment(id string, offset int, limit int) ([]Comment.Comment, int, error
 }
 
 // 审阅作业
-func Review(id string, offset int, limit int) ([]File.Homework, int, error) {
-	homework, num, err := File.ReviewHomework(id, offset, limit)
-	if err != nil {
-		return nil, 0, errno.ServerErr(errno.ErrDatabase, err.Error())
+func Review(id int) error {
+	if err := File.ReviewHomework(id); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
-	return homework, num, nil
+	return nil
 }
