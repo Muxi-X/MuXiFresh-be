@@ -76,9 +76,9 @@ func GetHomework(id int, offset int, limit int) ([]HomeworkPublished, int, error
 
 // ReviewHomework ...查阅作业
 func ReviewHomework(id int) (*Homework, error) {
-	var homework *Homework
-	if err := model.DB.Self.Model(Homework{}).Where("id = ?", id).First(homework).Error; err != nil {
+	var homework Homework
+	if err := model.DB.Self.Model(Homework{}).Where("id = ?", id).Find(&homework).Error; err != nil {
 		return nil, err
 	}
-	return homework, nil
+	return &homework, nil
 }

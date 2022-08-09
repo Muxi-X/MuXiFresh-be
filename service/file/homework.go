@@ -1,6 +1,7 @@
 package file
 
 import (
+	"fmt"
 	Comment "github.com/MuXiFresh-be/model/comment"
 	File "github.com/MuXiFresh-be/model/file"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -61,6 +62,7 @@ func GetComment(id string, offset int, limit int) ([]Comment.Comment, int, error
 // Review ...查阅作业
 func Review(id int) (*File.Homework, error) {
 	homework, err := File.ReviewHomework(id)
+	fmt.Println("------", homework, "-------")
 	if err != nil {
 		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
