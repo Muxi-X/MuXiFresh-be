@@ -3,29 +3,41 @@ package file
 import (
 	Comment "github.com/MuXiFresh-be/model/comment"
 	File "github.com/MuXiFresh-be/model/file"
+	"github.com/MuXiFresh-be/pkg/errno"
 )
 
 // 提交作业
 func HandInHomework(title string, content string, homeworkID uint, url string, email string) error {
-
-	return File.Create(title, content, homeworkID, url, email)
+	if err := File.Create(title, content, homeworkID, url, email); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
 }
 
 // 发布作业
 func PublishHomework(email string, ID uint, title string, content string, url string) error {
+	if err := File.Publish(ID, title, content, email, url); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
 
-	return File.Publish(ID, title, content, email, url)
-
+	return nil
 }
 
 // GetHomework ...获取不同组别的作业
 func GetHomework(id int, offset int, limit int) ([]File.HomeworkPublished, int, error) {
-	return File.GetHomework(id, offset, limit)
+	HW, num, err := File.GetHomework(id, offset, limit)
+	if err != nil {
+		return nil, 0, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return HW, num, nil
 }
 
 // 评论作业
 func CommentHomework(email string, id uint, content string) error {
-	return Comment.Create(email, id, content)
+	if err := Comment.Create(email, id, content); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
 }
 
 // 删除评论

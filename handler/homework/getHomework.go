@@ -47,7 +47,7 @@ func GetHomework(c *gin.Context) {
 		return
 	}
 	SendResponse(c, nil, map[string]interface{}{
-		"Homework": homework,
-		"Num":      num,
+		"homework": homework,
+		"num":      num,
 	})
 }

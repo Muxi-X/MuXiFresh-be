@@ -48,8 +48,8 @@ func ReviewHomework(c *gin.Context) {
 	}
 
 	SendResponse(c, nil, map[string]interface{}{
-		"Homework": homework,
-		"Num":      num,
+		"homework": homework,
+		"num":      num,
 	})
 
 }

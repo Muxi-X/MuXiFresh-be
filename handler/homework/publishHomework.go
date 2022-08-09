@@ -20,25 +20,24 @@ import (
 // @Param object body HomeworkRequest  true "content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组"
 // @Success 200 {string} json "{"Code":"200","Message":"Success","Data":nil}"
 // @Failure 400 {object} errno.Errno
-// @Failure 404 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
 // @Router /homework/publish [post]
 func PublishHomework(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",
 		zap.String("X-Request-Id", util.GetReqID(c)))
-	var homework PublishHomeworkRequest
+	var req PublishHomeworkRequest
 
 	email := c.MustGet("email").(string)
 
-	if err := c.ShouldBind(&homework); err != nil {
+	if err := c.ShouldBind(&req); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
 
-	if err := Service.PublishHomework(email, homework.GroupID, homework.Title, homework.Content, homework.FileUrl); err != nil {
+	if err := Service.PublishHomework(email, req.GroupID, req.Title, req.Content, req.FileUrl); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, "Success")
+	SendResponse(c, nil, "success")
 
 }

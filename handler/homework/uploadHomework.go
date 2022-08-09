@@ -55,5 +55,5 @@ func UploadHomework(c *gin.Context) {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, "Success")
+	SendResponse(c, nil, "success")
 }

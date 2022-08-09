@@ -23,7 +23,7 @@ type CommentRequest struct {
 // @Produce  json
 // @Param Authorization header string true "token 用户令牌"
 // @Param req body CommentRequest true  "HomeworkID 评论作业的id || Content 评论内容"
-// @Success 200 "成功"
+// @Success 200 {object} handler.Response
 // @Failure 400 {object} errno.Errno
 // @Failure 404 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
@@ -39,14 +39,14 @@ func Comment(c *gin.Context) {
 	}
 	// 发布评论
 	if err := file.CommentHomework(email, req.HomeworkID, req.Content); err != nil {
-		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		SendError(c, err, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, "Success")
+	SendResponse(c, nil, "success")
 }
 
 // @Summary Get comments
-// @Description 查看已发布帖子的评论内容
+// @Description 查看已发布的评论
 // @Tags homework
 // @Accept  json/application
 // @Produce  json/application
@@ -54,10 +54,7 @@ func Comment(c *gin.Context) {
 // @Param id query integer true "id--帖子的id"
 // @Param limit query integer true "limit--偏移量指定开始返回记录之前要跳过的记录数 "
 // @Param page  query integer true "page--限制指定要检索的记录数 "
-// @Success 200 {string}  json "{"code":0,"message":"OK","data":{}}"
-// @Failure 400 {object} errno.Errno
-// @Failure 404 {object} errno.Errno
-// @Failure 500 {object} errno.Errno
+// @Success 200 {object}  handler.Response
 // @Router /homework/comment [get]
 func GetComments(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",
@@ -80,8 +77,8 @@ func GetComments(c *gin.Context) {
 		return
 	}
 	SendResponse(c, nil, map[string]interface{}{
-		"Comments": comments,
-		"Num":      num,
+		"comments": comments,
+		"num":      num,
 	})
 }
 
