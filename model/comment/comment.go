@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/MuXiFresh-be/model"
+	"github.com/MuXiFresh-be/model/file"
 	"github.com/jinzhu/gorm"
 )
 
@@ -20,6 +21,7 @@ func Create(email string, id uint, content string) error {
 		Publisher:  email,
 		Content:    content,
 	}
+
 	fmt.Println("comment", comment)
 	tx := model.DB.Self.Begin()
 	defer func() {
@@ -32,6 +34,12 @@ func Create(email string, id uint, content string) error {
 		return err
 	}
 	if err := tx.Create(&comment).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	if err := tx.Model(file.Homework{}).Where("id = ?", id).Updates(file.Homework{Status: 1}).Error;
+		err != nil {
 		tx.Rollback()
 		return err
 	}

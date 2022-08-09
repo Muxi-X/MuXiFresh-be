@@ -30,11 +30,12 @@ func ReviewHomework(c *gin.Context) {
 		return
 	}
 
-	if err := file.Review(id); err != nil {
+	homework, err := file.Review(id)
+	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
 
-	SendResponse(c, nil, "Success")
+	SendResponse(c, nil, homework)
 
 }

@@ -64,7 +64,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		homework.POST("/publish", adminRequired, Homework.PublishHomework)
 
-		homework.GET("/publish", Homework.GetHomework)
+		homework.GET("/published", Homework.GetHomeworkPublished)
+
+		homework.POST("")
 
 		homework.GET("/review", adminRequired, Homework.ReviewHomework)
 

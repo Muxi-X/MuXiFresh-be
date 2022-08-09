@@ -6,7 +6,7 @@ import (
 	"github.com/MuXiFresh-be/pkg/errno"
 )
 
-// 提交作业
+// HandInHomework ...提交作业
 func HandInHomework(title string, content string, homeworkID uint, url string, email string) error {
 	if err := File.Create(title, content, homeworkID, url, email); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
@@ -14,7 +14,7 @@ func HandInHomework(title string, content string, homeworkID uint, url string, e
 	return nil
 }
 
-// 发布作业
+// PublishHomework ...发布作业
 func PublishHomework(email string, ID uint, title string, content string, url string) error {
 	if err := File.Publish(ID, title, content, email, url); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
@@ -32,7 +32,7 @@ func GetHomework(id int, offset int, limit int) ([]File.HomeworkPublished, int, 
 	return HW, num, nil
 }
 
-// 评论作业
+// CommentHomework ...评论作业
 func CommentHomework(email string, id uint, content string) error {
 	if err := Comment.Create(email, id, content); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
@@ -40,7 +40,7 @@ func CommentHomework(email string, id uint, content string) error {
 	return nil
 }
 
-// 删除评论
+// Delete ...删除评论
 func Delete(id string, email string) error {
 	if err := Comment.DeleteComment(id, email); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
@@ -48,7 +48,7 @@ func Delete(id string, email string) error {
 	return nil
 }
 
-// 获取评论
+// GetComment ...获取评论
 func GetComment(id string, offset int, limit int) ([]Comment.Comment, int, error) {
 	var comments []Comment.Comment
 	comments, num, err := Comment.GetCommentList(id, offset, limit)
@@ -58,10 +58,12 @@ func GetComment(id string, offset int, limit int) ([]Comment.Comment, int, error
 	return comments, num, nil
 }
 
-// 审阅作业
-func Review(id int) error {
-	if err := File.ReviewHomework(id); err != nil {
-		return errno.ServerErr(errno.ErrDatabase, err.Error())
+// Review ...查阅作业
+func Review(id int) (*File.Homework, error) {
+	homework, err := File.ReviewHomework(id)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
-	return nil
+
+	return homework, nil
 }

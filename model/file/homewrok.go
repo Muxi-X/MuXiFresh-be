@@ -2,7 +2,7 @@ package file
 
 import "github.com/MuXiFresh-be/model"
 
-// 提交作业
+// Create ...提交作业
 func Create(title string, content string, homeworkID uint, url string, email string) error {
 	var homework = Homework{
 		HomeworkID: homeworkID,
@@ -30,7 +30,7 @@ func Create(title string, content string, homeworkID uint, url string, email str
 	return tx.Commit().Error
 }
 
-// 发布作业
+// Publish 发布作业
 func Publish(groupID uint, title string, content string, email string, url string) error {
 	var homework = HomeworkPublished{
 		GroupID:   groupID,
@@ -57,7 +57,7 @@ func Publish(groupID uint, title string, content string, email string, url strin
 	return tx.Commit().Error
 }
 
-// 查看不同组已发布的作业
+// GetHomework 查看不同组已发布的作业
 func GetHomework(id int, offset int, limit int) ([]HomeworkPublished, int, error) {
 	var item []HomeworkPublished
 	d := model.DB.Self.Table("homework_publisheds").
@@ -74,11 +74,11 @@ func GetHomework(id int, offset int, limit int) ([]HomeworkPublished, int, error
 	return item, num, nil
 }
 
-// 审阅作业
-func ReviewHomework(id int) error {
-	if err := model.DB.Self.Model(Homework{}).
-		Where("id = ?", id).Updates(Homework{Status: 1}).Error; err != nil {
-		return err
+// ReviewHomework ...查阅作业
+func ReviewHomework(id int) (*Homework, error) {
+	var homework *Homework
+	if err := model.DB.Self.Model(Homework{}).Where("id = ?", id).First(homework).Error; err != nil {
+		return nil, err
 	}
-	return nil
+	return homework, nil
 }

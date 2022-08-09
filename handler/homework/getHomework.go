@@ -19,8 +19,8 @@ import (
 // @Param page  query integer true "page--限制指定要检索的记录数 "
 // @Success 200 {object} []file.HomeworkPublished {} "{"msg":"查看成功"}"
 // @Failure 500 {object} errno.Errno "{"msg":"Error occurred while getting url queries."}"
-// @Router /homework/publish [get]
-func GetHomework(c *gin.Context) {
+// @Router /homework/published [get]
+func GetHomeworkPublished(c *gin.Context) {
 	ID, err := strconv.Atoi(c.DefaultQuery("group_id", "1"))
 	if err != nil {
 		SendError(c, errno.ErrQuery, nil, err.Error(), GetLine())
