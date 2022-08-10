@@ -41,7 +41,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		authRouter.POST("/register", auth.Register)
 
-		authRouter.PUT("/authorize/:id/:role", superAdminRequired, auth.Authorize)
+		authRouter.PUT("/authorize/:email/:role", superAdminRequired, auth.Authorize)
 	}
 
 	// user 模块

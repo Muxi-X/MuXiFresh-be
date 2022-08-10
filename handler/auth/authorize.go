@@ -17,16 +17,16 @@ import (
 // @Accept  application/json
 // @Produce application/json
 // @Param Authorization header string true  "token 用户令牌"
-// @Param id header int true  "被修改用户的id"
-// @Param role header int true "权限等级"
+// @Param email path string true  "被修改用户的id"
+// @Param role path int true "权限等级"
 // @Success  200 "成功"
 // @Failure 500 "失败"
-// @Router /auth/authorize/:id/:role [put]
+// @Router /auth/authorize/:email/:role [put]
 func Authorize(c *gin.Context) {
 	log.Info("student login function called.", zap.String("X-Request-Id", util.GetReqID(c)))
-	id, _ := strconv.Atoi(c.Param("id"))
+	email := c.Param("email")
 	role, _ := strconv.Atoi(c.Param("role"))
-	if err := service.Authorize(id, role); err != nil {
+	if err := service.Authorize(email, role); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

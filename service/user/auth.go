@@ -6,8 +6,8 @@ import (
 )
 
 // Authorize ... 授权
-func Authorize(id int, role int) error {
-	if err := user.Authorize(id, role); err != nil {
+func Authorize(email string, role int) error {
+	if err := user.Authorize(email, role); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return nil

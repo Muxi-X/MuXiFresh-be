@@ -249,3 +249,14 @@
 {"level":"info","time":"2022-08-10T11:34:15.667+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"User getInfo function called.","X-Request-Id":"70b792ba-f06a-4233-a922-4187dce80cb7"}
 {"level":"info","time":"2022-08-10T11:34:15.673+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"70b792ba-f06a-4233-a922-4187dce80cb7"}
 {"level":"info","time":"2022-08-10T11:34:15.673+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"6.137ms       | ::1          | GET /api/v1/user/profile/1903180340@qq.com | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T11:41:29.004+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :2022"}
+{"level":"info","time":"2022-08-10T11:41:29.005+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Waiting for the router, retry in 1 second."}
+{"level":"info","time":"2022-08-10T11:41:30.009+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-10T11:41:56.546+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"ce56140d-e404-4014-9f69-b4c0c3c31a4c"}
+{"level":"info","time":"2022-08-10T11:41:56.556+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"ce56140d-e404-4014-9f69-b4c0c3c31a4c"}
+{"level":"info","time":"2022-08-10T11:41:56.556+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"10.634ms      | ::1          | PUT /api/v1/auth/authorize/666/1 | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T11:43:14.930+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :2022"}
+{"level":"info","time":"2022-08-10T11:43:14.932+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-10T11:43:37.595+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"c9eb8928-2282-4054-8776-16b5eb05d6ac"}
+{"level":"info","time":"2022-08-10T11:43:37.622+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"c9eb8928-2282-4054-8776-16b5eb05d6ac"}
+{"level":"info","time":"2022-08-10T11:43:37.623+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"28.061ms      | ::1          | PUT /api/v1/auth/authorize/666/1 | {code: 0, message: OK}"}

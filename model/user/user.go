@@ -119,7 +119,7 @@ func UpdateInfo(email string, avatar string, name string) error {
 }
 
 // Authorize ...授权
-func Authorize(id int, role int) error {
+func Authorize(email string, role int) error {
 	Role := uint32(role)
 	tx := model.DB.Self.Begin()
 	defer func() {
@@ -128,7 +128,7 @@ func Authorize(id int, role int) error {
 		}
 	}()
 
-	if err := tx.Model(&UserModel{}).Where("id = ?", id).Update(UserModel{Role: Role}).Error; err != nil {
+	if err := tx.Model(&UserModel{}).Where("email = ?", email).Update(UserModel{Role: Role}).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
