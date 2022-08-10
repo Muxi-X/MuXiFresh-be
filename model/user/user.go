@@ -135,3 +135,13 @@ func Authorize(email string, role int) error {
 
 	return tx.Commit().Error
 }
+
+// GetAdmin ...获取管理员
+func GetAdimin(role int) ([]UserModel, error) {
+	var user []UserModel
+	err := model.DB.Self.Model(&UserModel{}).Where("role = ?", role).Find(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}

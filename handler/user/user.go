@@ -84,3 +84,13 @@ type updateTeamGroupRequest struct {
 	Value uint32   `json:"value"`
 	Kind  uint32   `json:"kind"`
 } // @name updateTeamGroupRequest
+
+// AdminResponse
+type AdminResponse struct {
+	ID        uint   `json:"id"`
+	StudentID string `json:"student_id"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	Role      int    `json:"role"`
+	Avatar    string `json:"avatar"`
+}

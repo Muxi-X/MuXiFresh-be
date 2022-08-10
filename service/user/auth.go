@@ -12,3 +12,12 @@ func Authorize(email string, role int) error {
 	}
 	return nil
 }
+
+// GetAuthority ...获取管理员信息
+func GetAuthority(role int) ([]user.UserModel, error) {
+	admin, err := user.GetAdimin(role)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return admin, nil
+}

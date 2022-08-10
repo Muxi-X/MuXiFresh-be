@@ -23,7 +23,46 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/auth/authorize/:id/:role": {
+        "/auth/administrator": {
+            "get": {
+                "description": "查看所有管理员",
+                "consumes": [
+                    "json/application"
+                ],
+                "produces": [
+                    "json/application"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get Authority",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "获取email",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "2--管理员   4--超管",
+                        "name": "role",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/user.AdminResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/authorize/:email/:role": {
             "put": {
                 "description": "Modifying User Rights",
                 "consumes": [
@@ -45,17 +84,17 @@ var doc = `{
                         "required": true
                     },
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "被修改用户的id",
-                        "name": "id",
-                        "in": "header",
+                        "name": "email",
+                        "in": "path",
                         "required": true
                     },
                     {
                         "type": "integer",
                         "description": "权限等级",
                         "name": "role",
-                        "in": "header",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -164,7 +203,7 @@ var doc = `{
         },
         "/homework/comment": {
             "get": {
-                "description": "查看已发布帖子的评论内容",
+                "description": "查看已发布的评论",
                 "consumes": [
                     "json/application"
                 ],
@@ -207,27 +246,9 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\":0,\"message\":\"OK\",\"data\":{}}",
+                        "description": "OK",
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/errno.Errno"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/errno.Errno"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/errno.Errno"
+                            "$ref": "#/definitions/Response"
                         }
                     }
                 }
@@ -243,7 +264,7 @@ var doc = `{
                 "tags": [
                     "homework"
                 ],
-                "summary": "comment on homework",
+                "summary": "Comment on Homework",
                 "parameters": [
                     {
                         "type": "string",
@@ -264,7 +285,10 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "成功"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
                     },
                     "400": {
                         "description": "Bad Request",
@@ -338,6 +362,58 @@ var doc = `{
             }
         },
         "/homework/publish": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Publish homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/homework.HomeworkRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"Code\":\"200\",\"Message\":\"Success\",\"Data\":nil}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
+                        }
+                    }
+                }
+            }
+        },
+        "/homework/published": {
             "get": {
                 "description": "查看不同组别的作业",
                 "consumes": [
@@ -349,7 +425,7 @@ var doc = `{
                 "tags": [
                     "homework"
                 ],
-                "summary": "Get Homework",
+                "summary": "Get Published Homework",
                 "parameters": [
                     {
                         "type": "string",
@@ -397,62 +473,6 @@ var doc = `{
                         }
                     }
                 }
-            },
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "homework"
-                ],
-                "summary": "Publish homework",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token 用户令牌",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组",
-                        "name": "object",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/homework.HomeworkRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"Code\":\"200\",\"Message\":\"Success\",\"Data\":nil}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/errno.Errno"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/errno.Errno"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/errno.Errno"
-                        }
-                    }
-                }
             }
         },
         "/homework/review": {
@@ -478,22 +498,8 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "不同组别的作业，1-设计组 2-产品组 3-安卓组 4-前端组 5-",
+                        "description": "作业id",
                         "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "limit--偏移量指定开始返回记录之前要跳过的记录数 ",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "page--限制指定要检索的记录数 ",
-                        "name": "page",
                         "in": "query",
                         "required": true
                     }
@@ -506,12 +512,6 @@ var doc = `{
                             "items": {
                                 "$ref": "#/definitions/file.Homework"
                             }
-                        }
-                    },
-                    "500": {
-                        "description": "{\"msg\":\"Error occurred while getting url queries.\"}",
-                        "schema": {
-                            "$ref": "#/definitions/errno.Errno"
                         }
                     }
                 }
@@ -679,9 +679,9 @@ var doc = `{
                 "summary": "Get user_profile api",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "user_id",
-                        "name": "id",
+                        "type": "string",
+                        "description": "user_email",
+                        "name": "email",
                         "in": "path",
                         "required": true
                     }
@@ -783,6 +783,9 @@ var doc = `{
                     "type": "integer"
                 },
                 "id": {
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "title": {
@@ -939,6 +942,29 @@ var doc = `{
                 },
                 "role": {
                     "type": "integer"
+                }
+            }
+        },
+        "user.AdminResponse": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "integer"
+                },
+                "student_id": {
+                    "type": "string"
                 }
             }
         },

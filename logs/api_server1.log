@@ -260,3 +260,17 @@
 {"level":"info","time":"2022-08-10T11:43:37.595+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"student login function called.","X-Request-Id":"c9eb8928-2282-4054-8776-16b5eb05d6ac"}
 {"level":"info","time":"2022-08-10T11:43:37.622+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"c9eb8928-2282-4054-8776-16b5eb05d6ac"}
 {"level":"info","time":"2022-08-10T11:43:37.623+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"28.061ms      | ::1          | PUT /api/v1/auth/authorize/666/1 | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T13:29:54.496+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :2022"}
+{"level":"info","time":"2022-08-10T13:29:54.498+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-10T13:31:35.040+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"24c5db38-0550-405a-8192-5e3fb4e15ae2"}
+{"level":"info","time":"2022-08-10T13:31:35.041+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"62.798ms      | ::1          | GET /api/v1/auth/administrator | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T13:31:40.255+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"03ff281a-fffe-4c6a-8ca8-a821c57a3fc3"}
+{"level":"info","time":"2022-08-10T13:31:40.255+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"4.882ms       | ::1          | GET /api/v1/auth/administrator | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T13:31:45.312+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"1cdaf3f6-4a0c-427e-93a5-696696aabdcd"}
+{"level":"info","time":"2022-08-10T13:31:45.313+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"3.164ms       | ::1          | GET /api/v1/auth/administrator | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T13:35:38.884+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"a864a45d-a609-457b-b197-7d0193ab49bf"}
+{"level":"info","time":"2022-08-10T13:35:38.888+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"81.187ms      | ::1          | GET /api/v1/auth/administrator | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T14:00:59.276+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :2022"}
+{"level":"info","time":"2022-08-10T14:00:59.277+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-10T14:02:04.765+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"eb40df1b-463e-4678-8883-734be1300736"}
+{"level":"info","time":"2022-08-10T14:02:04.766+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"8.229ms       | ::1          | GET /api/v1/auth/administrator | {code: 0, message: OK}"}

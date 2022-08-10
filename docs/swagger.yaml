@@ -29,6 +29,8 @@ definitions:
         type: integer
       id:
         type: integer
+      status:
+        type: integer
       title:
         type: string
       updatedAt:
@@ -132,6 +134,21 @@ definitions:
       role:
         type: integer
     type: object
+  user.AdminResponse:
+    properties:
+      avatar:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        type: integer
+      student_id:
+        type: string
+    type: object
   user.RegisterRequest:
     properties:
       email:
@@ -169,7 +186,33 @@ info:
   title: MuXiFresh-be
   version: "1.0"
 paths:
-  /auth/authorize/:id/:role:
+  /auth/administrator:
+    get:
+      consumes:
+      - json/application
+      description: 查看所有管理员
+      parameters:
+      - description: 获取email
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 2--管理员   4--超管
+        in: query
+        name: role
+        required: true
+        type: integer
+      produces:
+      - json/application
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.AdminResponse'
+      summary: Get Authority
+      tags:
+      - auth
+  /auth/authorize/:email/:role:
     put:
       consumes:
       - application/json
@@ -181,12 +224,12 @@ paths:
         required: true
         type: string
       - description: 被修改用户的id
-        in: header
-        name: id
+        in: path
+        name: email
         required: true
-        type: integer
+        type: string
       - description: 权限等级
-        in: header
+        in: path
         name: role
         required: true
         type: integer
@@ -267,7 +310,7 @@ paths:
     get:
       consumes:
       - json/application
-      description: 查看已发布帖子的评论内容
+      description: 查看已发布的评论
       parameters:
       - description: 获取email
         in: header
@@ -293,21 +336,9 @@ paths:
       - json/application
       responses:
         "200":
-          description: '{"code":0,"message":"OK","data":{}}'
+          description: OK
           schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/errno.Errno'
+            $ref: '#/definitions/Response'
       summary: Get comments
       tags:
       - homework
@@ -331,7 +362,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: 成功
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
@@ -344,7 +377,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/errno.Errno'
-      summary: comment on homework
+      summary: Comment on Homework
       tags:
       - homework
   /homework/comment/:comment_id:
@@ -381,6 +414,40 @@ paths:
       tags:
       - homework
   /homework/publish:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/homework.HomeworkRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"Code":"200","Message":"Success","Data":nil}'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errno.Errno'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errno.Errno'
+      summary: Publish homework
+      tags:
+      - homework
+  /homework/published:
     get:
       consumes:
       - application/json
@@ -419,44 +486,7 @@ paths:
           description: '{"msg":"Error occurred while getting url queries."}'
           schema:
             $ref: '#/definitions/errno.Errno'
-      summary: Get Homework
-      tags:
-      - homework
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: token 用户令牌
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组
-        in: body
-        name: object
-        required: true
-        schema:
-          $ref: '#/definitions/homework.HomeworkRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"Code":"200","Message":"Success","Data":nil}'
-          schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/errno.Errno'
-      summary: Publish homework
+      summary: Get Published Homework
       tags:
       - homework
   /homework/review:
@@ -470,19 +500,9 @@ paths:
         name: Authorization
         required: true
         type: string
-      - description: 不同组别的作业，1-设计组 2-产品组 3-安卓组 4-前端组 5-
+      - description: 作业id
         in: query
         name: id
-        required: true
-        type: integer
-      - description: 'limit--偏移量指定开始返回记录之前要跳过的记录数 '
-        in: query
-        name: limit
-        required: true
-        type: integer
-      - description: 'page--限制指定要检索的记录数 '
-        in: query
-        name: page
         required: true
         type: integer
       produces:
@@ -494,10 +514,6 @@ paths:
             items:
               $ref: '#/definitions/file.Homework'
             type: array
-        "500":
-          description: '{"msg":"Error occurred while getting url queries."}'
-          schema:
-            $ref: '#/definitions/errno.Errno'
       summary: Review homework
       tags:
       - homework
@@ -605,11 +621,11 @@ paths:
       - application/json
       description: 通过 userId 获取完整 user 信息
       parameters:
-      - description: user_id
+      - description: user_email
         in: path
-        name: id
+        name: email
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:

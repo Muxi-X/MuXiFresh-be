@@ -42,6 +42,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		authRouter.POST("/register", auth.Register)
 
 		authRouter.PUT("/authorize/:email/:role", superAdminRequired, auth.Authorize)
+
+		authRouter.GET("/administrator", normalRequired, auth.GetAdministrator)
 	}
 
 	// user 模块
@@ -50,6 +52,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		userRouter.POST("/login", user.Login)
 
 		userRouter.PUT("", normalRequired, user.UpdateInfo)
+
+		//userRouter.GET("/info",normalRequired,user.GetInfo)
 
 		userRouter.GET("/profile/:email", user.GetProfile)
 
