@@ -31,6 +31,7 @@ func GetProfile(c *gin.Context) {
 	var err error
 
 	email := c.Param("email")
+
 	if err != nil {
 		SendBadRequest(c, errno.ErrPathParam, nil, err.Error(), GetLine())
 		return

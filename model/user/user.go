@@ -49,10 +49,13 @@ func (u *UserModel) Save() error {
 }
 
 // Get Information
-func (user *UserModel) GerInfo(email string) error {
-	if err := model.DB.Self.
+func (user *UserModel) GetInfo(email string) error {
+	fmt.Printf("email:%s\n", email)
+	if err := model.DB.Self.Model(UserModel{}).
 		Where("email = ?", email).
-		First(user).Error; err != nil {
+		First(user).Error;
+		err != nil {
+		fmt.Println("error", err)
 		return err
 	}
 	return nil

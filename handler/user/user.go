@@ -57,18 +57,19 @@ type listRequest struct {
 	Group uint32 `json:"group"`
 } // @name listRequest
 
-type user struct {
-	Id     uint32 `json:"id"`
-	Name   string `json:"name"`
-	Email  string `json:"email"`
-	Avatar string `json:"avatar"`
-	Role   uint32 `json:"role"`
+type User struct {
+	Id        uint   `json:"id"`
+	StudentID string `json:"student_id"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	Avatar    string `json:"avatar"`
+	Role      uint32 `json:"role"`
 } // @name user
 
 // listResponse 获取 userList 响应
 type listResponse struct {
 	Count uint32 `json:"count"`
-	List  []user `json:"list"`
+	List  []User `json:"list"`
 } // @name listResponse
 
 // updateInfoRequest 更新 userInfo 请求

@@ -53,7 +53,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		userRouter.PUT("", normalRequired, user.UpdateInfo)
 
-		//userRouter.GET("/info",normalRequired,user.GetInfo)
+		userRouter.GET("/info", normalRequired, user.GetInfo)
 
 		userRouter.GET("/profile/:email", user.GetProfile)
 
