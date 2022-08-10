@@ -25,7 +25,7 @@ import (
 // @Param group_id path int true "group_id"
 // @Param team_id path int true "team_id"
 // @Success 200 {object} listResponse
-// @Router /user/list/{group_id}/{team_id} [get]
+// @Router /user/list [get]
 func List(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
 	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))

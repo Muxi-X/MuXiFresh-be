@@ -2,7 +2,7 @@ package auth
 
 import (
 	"fmt"
-	. "github.com/MuXiFresh-be/handler"
+	"github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/pkg/errno"
 	service "github.com/MuXiFresh-be/service/user"
@@ -14,7 +14,7 @@ import (
 // @Description 邮箱注册登录
 // @Accept application/json
 // @Produce application/json
-// @Param object body auth.CreateUserRequest true "注册用户信息"
+// @Param object body user.RegisterRequest true "注册用户信息"
 // @Success 200 {object} handler.Response "{"msg":"将student_id作为token保留"}"
 // @Failure 401 {object} errno.Errno "{"error_code":"10001", "message":"The email address has been registered"} "
 // @Failure 400 {object} errno.Errno "{"error_code":"20001", "message":"Fail."} or {"error_code":"00002", "message":"Lack Param Or Param Not Satisfiable."}"
@@ -24,18 +24,18 @@ func Register(c *gin.Context) {
 	var req user.RegisterRequest
 
 	if err := c.ShouldBind(&req); err != nil {
-		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine()) //, errno.ErrBind)
+		handler.SendBadRequest(c, errno.ErrBind, nil, err.Error(), handler.GetLine()) //, errno.ErrBind)
 		fmt.Println(req)
 		return
 	}
 
-	err := service.Register(req)
+	err := service.Register(req.StudentId, req.Email, req.Name, req.Password)
 
 	if err != nil {
-		SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
 		return
 	}
 
-	SendResponse(c, nil, "succeed in registration")
+	handler.SendResponse(c, nil, "succeed in registration")
 
 }

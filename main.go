@@ -4,6 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/MuXiFresh-be/model"
+	"github.com/MuXiFresh-be/model/comment"
+	"github.com/MuXiFresh-be/model/file"
+	"github.com/MuXiFresh-be/model/user"
 	"net/http"
 	"time"
 
@@ -41,7 +44,13 @@ func main() {
 	// logger sync
 	defer log.SyncLogger()
 
-	model.InitSelfDB()
+	//model.InitSelfDB()
+	model.DB.Init()
+	defer model.DB.Close()
+
+	if err := model.DB.Self.AutoMigrate(&user.UserModel{}, &comment.Comment{}, &file.Homework{}, &file.HomeworkPublished{}).Error; err != nil {
+		fmt.Println("error", err)
+	}
 
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))

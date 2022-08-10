@@ -7,7 +7,6 @@ import (
 	"github.com/MuXiFresh-be/pkg/constvar"
 	"github.com/MuXiFresh-be/pkg/errno"
 
-	_ "github.com/MuXiFresh-be/docs"
 	Homework "github.com/MuXiFresh-be/handler/homework"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/router/middleware"
@@ -35,21 +34,29 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	normalRequired := middleware.AuthMiddleware(constvar.AuthLevelNormal)
 	adminRequired := middleware.AuthMiddleware(constvar.AuthLevelAdmin)
-	// superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
+	superAdminRequired := middleware.AuthMiddleware(constvar.AuthLevelSuperAdmin)
 
 	// auth
 	authRouter := g.Group("api/v1/auth")
 	{
 		authRouter.POST("/register", auth.Register)
+
+		authRouter.PUT("/authorize/:email/:role", superAdminRequired, auth.Authorize)
 	}
 
 	// user 模块
 	userRouter := g.Group("api/v1/user")
 	{
 		userRouter.POST("/login", user.Login)
-		userRouter.GET("/profile/:id", normalRequired, user.GetProfile)
-		userRouter.GET("/list", user.List)
-		userRouter.POST("/avatar", user.UploadAvatar) // TODO
+
+		userRouter.PUT("", normalRequired, user.UpdateInfo)
+
+		userRouter.GET("/profile/:email", user.GetProfile)
+
+		//userRouter.GET("/list", user.List)
+
+		userRouter.GET("/qiniu_token", user.GetQiniuToken)
+
 	}
 
 	// homework 模块
@@ -57,11 +64,17 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		homework.POST("/publish", adminRequired, Homework.PublishHomework)
 
-		// homework.POST("/comment", adminRequired, Homework.Comment) // TODO
+		homework.GET("/published", Homework.GetHomeworkPublished)
 
-		homework.POST("", Homework.UploadHomework)
+		homework.GET("/review", adminRequired, Homework.ReviewHomework)
 
-		// homework.GET("", Homework.DownloadHomework)
+		homework.POST("/comment", adminRequired, Homework.Comment)
+
+		homework.GET("/comment", adminRequired, Homework.GetComments)
+
+		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
+
+		homework.POST("", normalRequired, Homework.UploadHomework)
 
 	}
 

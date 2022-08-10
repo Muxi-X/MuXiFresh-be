@@ -15,7 +15,7 @@ type loginRequest struct {
 	Password string `json:"password" binding:"required"`
 } // @name loginRequest
 
-// loginResponse login 请求响应
+// loginResponse Login 请求响应
 type loginResponse struct {
 	Token string `json:"token"`
 } // @name loginResponse
@@ -73,7 +73,9 @@ type listResponse struct {
 
 // updateInfoRequest 更新 userInfo 请求
 type updateInfoRequest struct {
-	userInfo
+	Name      string `json:"name"`
+	AvatarURL string `json:"avatar_url"`
+	Email     string `json:"email"`
 } // @name updateInfoRequest
 
 // updateTeamGroupRequest
