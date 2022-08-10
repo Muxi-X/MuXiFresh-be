@@ -49,9 +49,9 @@ func (u *UserModel) Save() error {
 }
 
 // Get Information
-func (user *UserModel) GerInfo(id int) error {
+func (user *UserModel) GerInfo(email string) error {
 	if err := model.DB.Self.
-		Where("id = ?", id).
+		Where("email = ?", email).
 		First(user).Error; err != nil {
 		return err
 	}

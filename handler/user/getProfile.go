@@ -8,7 +8,6 @@ import (
 	service "github.com/MuXiFresh-be/service/user"
 
 	"github.com/MuXiFresh-be/util"
-	"strconv"
 	// pb "forum-user/proto"
 
 	"github.com/gin-gonic/gin"
@@ -21,7 +20,7 @@ import (
 // @Tags user
 // @Accept application/json
 // @Produce application/json
-// @Param id path int true "user_id"
+// @Param email path string true "user_email"
 // @Success 200 {object} userProfile
 // @Failure 400 {string} json  "{"Code":400,"Message":"Error occurred while getting path param.","Data":nil}"
 // @Failure 500 {string} json  "{"Code":500,"Message":"Internal server error","Data":nil}"
@@ -29,17 +28,16 @@ import (
 func GetProfile(c *gin.Context) {
 	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
-	var id int
 	var err error
 
-	id, err = strconv.Atoi(c.Param("id"))
+	email := c.Param("email")
 	if err != nil {
 		SendBadRequest(c, errno.ErrPathParam, nil, err.Error(), GetLine())
 		return
 	}
 
 	// 发送请求
-	getProfileResp, err := service.GetProfile(id)
+	getProfileResp, err := service.GetProfile(email)
 
 	if err != nil {
 		SendError(c, errno.InternalServerError, nil, err.Error(), GetLine())
