@@ -40,7 +40,7 @@ func GetHomeworkPublished(c *gin.Context) {
 		return
 	}
 
-	homework, num, err := file.GetHomework(ID, limit*page, limit)
+	homework, num, err := file.GetHomeworkPublished(ID, limit*page, limit)
 
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())

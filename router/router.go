@@ -66,18 +66,31 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// homework 模块
 	homework := g.Group("api/v1/homework").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal))
 	{
+		// 管理员发布作业
 		homework.POST("/publish", adminRequired, Homework.PublishHomework)
 
+		// 获取已经发布的作业
 		homework.GET("/published", Homework.GetHomeworkPublished)
 
+		// 获取已发布作业的详细内容
+		homework.GET("/published/details/:id", Homework.GetHomeworkDetails)
+
+		// 获取作业详细
 		homework.GET("/review", adminRequired, Homework.ReviewHomework)
 
+		// 按小组，获取已经提交的作业
+		homework.GET("/handed", adminRequired, Homework.GetHandedHomework)
+
+		// 评论作业
 		homework.POST("/comment", adminRequired, Homework.Comment)
 
+		// 获取某个作业的全部评论
 		homework.GET("/comment", adminRequired, Homework.GetComments)
 
+		// 删除评论
 		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
 
+		// 上传作业
 		homework.POST("", normalRequired, Homework.UploadHomework)
 
 	}

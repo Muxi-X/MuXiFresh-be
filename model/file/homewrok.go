@@ -22,6 +22,14 @@ func Create(title string, content string, homeworkID uint, url string, email str
 		tx.Rollback()
 		return err
 	}
+
+	var homeworkPublished HomeworkPublished
+	if err := tx.Model(HomeworkPublished{}).Where("id = ?", homeworkID).
+		First(&homeworkPublished).Error; err != nil {
+		return err
+	}
+	homework.GroupID = homeworkPublished.GroupID
+
 	if err := tx.Create(&homework).Error; err != nil {
 		tx.Rollback()
 		return err
@@ -57,8 +65,8 @@ func Publish(groupID uint, title string, content string, email string, url strin
 	return tx.Commit().Error
 }
 
-// GetHomework 查看不同组已发布的作业
-func GetHomework(id int, offset int, limit int) ([]HomeworkPublished, int, error) {
+// GetHomeworkPublished 查看不同组已发布的作业
+func GetHomeworkPublished(id int, offset int, limit int) ([]HomeworkPublished, int, error) {
 	var item []HomeworkPublished
 	d := model.DB.Self.Table("homework_publisheds").
 		Where("group_id = ?", id).
@@ -72,6 +80,33 @@ func GetHomework(id int, offset int, limit int) ([]HomeworkPublished, int, error
 		num = i + 1
 	}
 	return item, num, nil
+}
+
+// GetHomeworkHanded 查看上交的作业
+func GetHomeworkHanded(groupId int, offset int, limit int) ([]Homework, int, error) {
+	var handed []Homework
+	d := model.DB.Self.Table("homeworks").
+		Where("group_id = ?", groupId).
+		Offset(offset).Limit(limit).
+		Order("created_at desc").Find(&handed)
+	if err := d.Error; err != nil {
+		return handed, 0, err
+	}
+	var num int = 0
+	for i, _ := range handed {
+		num = i + 1
+	}
+	return handed, num, nil
+}
+
+// GetPublishedDetails 查看发布作业的细节
+func GetPublishedDetails(id int) (*HomeworkPublished, error) {
+	var homework HomeworkPublished
+	if err := model.DB.Self.Model(HomeworkPublished{}).
+		Where("id  = ?", id).First(&homework).Error; err != nil {
+		return nil, err
+	}
+	return &homework, nil
 }
 
 // ReviewHomework ...查阅作业

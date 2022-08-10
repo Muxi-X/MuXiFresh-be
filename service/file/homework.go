@@ -24,13 +24,22 @@ func PublishHomework(email string, ID uint, title string, content string, url st
 	return nil
 }
 
-// GetHomework ...获取不同组别的作业
-func GetHomework(id int, offset int, limit int) ([]File.HomeworkPublished, int, error) {
-	HW, num, err := File.GetHomework(id, offset, limit)
+// GetHomeworkPublished ...获取不同组别的发布作业
+func GetHomeworkPublished(id int, offset int, limit int) ([]File.HomeworkPublished, int, error) {
+	HW, num, err := File.GetHomeworkPublished(id, offset, limit)
 	if err != nil {
 		return nil, 0, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return HW, num, nil
+}
+
+// GetHomeworkHanded ...获取不同组提交的作业
+func GetHomeworkHanded(groupId int, offset int, limit int) ([]File.Homework, int, error) {
+	handed, num, err := File.GetHomeworkHanded(groupId, offset, limit)
+	if err != nil {
+		return nil, 0, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return handed, num, nil
 }
 
 // CommentHomework ...评论作业
@@ -67,5 +76,14 @@ func Review(id int) (*File.Homework, error) {
 		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 
+	return homework, nil
+}
+
+// GetHomeworkDetails ...获取作业的详细内容
+func GetHomeworkDetails(id int) (*File.HomeworkPublished, error) {
+	homework, err := File.GetPublishedDetails(id)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
 	return homework, nil
 }
