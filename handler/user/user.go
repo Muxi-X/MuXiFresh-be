@@ -95,3 +95,9 @@ type AdminResponse struct {
 	Role      int    `json:"role"`
 	Avatar    string `json:"avatar"`
 }
+
+// ModifyRoleRequest 修改role请求
+type ModifyRoleRequest struct {
+	Email string `json:"email"`
+	Role  uint32 `json:"role"`
+} // @name ModifyRoleRequest

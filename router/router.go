@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/handler/auth"
+	"github.com/MuXiFresh-be/handler/schedule"
 	"github.com/MuXiFresh-be/handler/sd"
 	"github.com/MuXiFresh-be/pkg/constvar"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -61,6 +62,18 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		userRouter.GET("/qiniu_token", user.GetQiniuToken)
 
+		userRouter.PUT("/role", normalRequired, user.SetRole)
+
+	}
+
+	//schedule 模块
+	scheduleRouter := g.Group("api/v1/schedule").Use(normalRequired) //设置中间件，并确定用户等级
+	{
+		scheduleRouter.GET("", schedule.ViewOwnSchedule)
+
+		scheduleRouter.PUT("/admit/:name", adminRequired, schedule.Admit)
+
+		scheduleRouter.PUT("/cancel_admission/:name", adminRequired, schedule.CancelAdmission)
 	}
 
 	// homework 模块

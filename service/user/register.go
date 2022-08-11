@@ -3,6 +3,9 @@ package service
 import (
 	MD5 "crypto/md5"
 	"encoding/hex"
+
+	"github.com/MuXiFresh-be/handler/schedule"
+	"github.com/MuXiFresh-be/model"
 	User "github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/pkg/errno"
 )
@@ -30,6 +33,13 @@ func Register(StudentId string, email string, name string, password string) erro
 	user.HashPassword = hex.EncodeToString(md5.Sum(nil))
 	if err := user.CreateUser(); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}
+
+func Create(sche schedule.Schedules) error {
+	if err := model.DB.Self.Table("schedules").Create(&sche).Error; err != nil {
+		return errno.ErrDatabase
 	}
 	return nil
 }
