@@ -4,8 +4,7 @@ import (
 	MD5 "crypto/md5"
 	"encoding/hex"
 
-	"github.com/MuXiFresh-be/handler/schedule"
-	"github.com/MuXiFresh-be/model"
+	Schedule "github.com/MuXiFresh-be/model/schedule"
 	User "github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/pkg/errno"
 )
@@ -37,9 +36,18 @@ func Register(StudentId string, email string, name string, password string) erro
 	return nil
 }
 
-func Create(sche schedule.Schedules) error {
-	if err := model.DB.Self.Table("schedules").Create(&sche).Error; err != nil {
-		return errno.ErrDatabase
+func Create(email string, name string, StudentID string) error {
+	var schedule = Schedule.ScheduleModel{
+		AdmissionStatus: 0,
+		Email:           email,
+		FormStatus:      0,
+		Name:            name,
+		StudentId:       StudentID,
+		WorkStatus:      0,
+	}
+
+	if err := schedule.Create(); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return nil
 }

@@ -1,5 +1,12 @@
 basePath: /api/v1
 definitions:
+  ModifyRoleRequest:
+    properties:
+      email:
+        type: string
+      role:
+        type: integer
+    type: object
   Response:
     properties:
       code:
@@ -113,6 +120,29 @@ definitions:
     properties:
       token:
         type: string
+    type: object
+  schedule.ScheduleModel:
+    properties:
+      admission_status:
+        type: integer
+      collage:
+        type: string
+      email:
+        type: string
+      form_status:
+        type: integer
+      group:
+        type: string
+      id:
+        type: integer
+      major:
+        type: string
+      name:
+        type: string
+      student_id:
+        type: string
+      work_status:
+        type: integer
     type: object
   updateInfoRequest:
     properties:
@@ -583,6 +613,79 @@ paths:
       summary: Review homework
       tags:
       - homework
+  /schedule:
+    get:
+      consumes:
+      - application/json
+      description: '"进度查询板块呈现的表格"'
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schedule.ScheduleModel'
+      summary: '"查看进度"'
+      tags:
+      - schedule
+  /schedule/admit/:name:
+    put:
+      consumes:
+      - application/json
+      description: '"审阅板块录取某位学生"'
+      parameters:
+      - description: name
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+      summary: '"录取"'
+      tags:
+      - schedule
+  /schedule/cancel_admission/:name:
+    put:
+      consumes:
+      - application/json
+      description: '"审阅板块取消录取某位学生"'
+      parameters:
+      - description: name
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+      summary: '"取消录取"'
+      tags:
+      - schedule
   /user:
     put:
       consumes:
@@ -749,6 +852,33 @@ paths:
           schema:
             type: string
       summary: Get Qiniuyun token
+      tags:
+      - user
+  /user/role:
+    put:
+      consumes:
+      - application/json
+      description: '"修改某个用户的权限等级"'
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: modifyRoleRequest
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/ModifyRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+      summary: '"设置权限"'
       tags:
       - user
 swagger: "2.0"

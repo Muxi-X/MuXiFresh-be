@@ -46,7 +46,7 @@ func Register(c *gin.Context) {
 	sche.Name = req.Name
 	sche.StudentId = req.StudentId
 	sche.WorkStatus = 0
-	if err := service.Create(sche); err != nil {
+	if err := service.Create(req.Email, req.Name, req.StudentId); err != nil {
 		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
 		return
 	}
