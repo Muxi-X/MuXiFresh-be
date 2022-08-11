@@ -59,7 +59,7 @@ func Delete(id string, email string) error {
 }
 
 // GetComment ...获取评论
-func GetComment(id string, offset int, limit int) ([]Comment.Comment, int, error) {
+func GetComment(id string, offset int, limit int) ([]Comment.List, int, error) {
 	comments, num, err := Comment.GetCommentList(id, offset, limit)
 	if err != nil {
 		return nil, 0, errno.ServerErr(errno.ErrDatabase, err.Error())

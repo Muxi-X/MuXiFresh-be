@@ -98,6 +98,7 @@ func GetCommentList(id string, offset int, limit int) ([]List, int, error) {
 		if err2 != nil {
 			return nil, 0, err2
 		}
+		fmt.Println("u--------", u)
 		list[i].Comment = m
 		list[i].Name = u.Name
 		list[i].Avatar = u.Avatar

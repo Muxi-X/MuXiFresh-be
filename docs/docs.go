@@ -361,6 +361,62 @@ var doc = `{
                 }
             }
         },
+        "/homework/handed": {
+            "get": {
+                "description": "Get the submitted homework by group",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Get handed homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "小组id",
+                        "name": "group_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "limit--偏移量指定开始返回记录之前要跳过的记录数 ",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "page--限制指定要检索的记录数 ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\":\"查看成功\"}",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/file.Homework"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/homework/publish": {
             "post": {
                 "consumes": [
@@ -475,6 +531,45 @@ var doc = `{
                 }
             }
         },
+        "/homework/published/details/:id": {
+            "get": {
+                "description": "get the published homework details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Get homework details",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "发布的作业id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\":\"查看成功\"}",
+                        "schema": {
+                            "$ref": "#/definitions/file.HomeworkPublished"
+                        }
+                    }
+                }
+            }
+        },
         "/homework/review": {
             "get": {
                 "description": "review the homework handed",
@@ -508,10 +603,7 @@ var doc = `{
                     "200": {
                         "description": "{\"msg\":\"查看成功\"}",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/file.Homework"
-                            }
+                            "$ref": "#/definitions/file.Homework"
                         }
                     }
                 }
@@ -562,6 +654,38 @@ var doc = `{
                         "description": "{\"Code\":500,\"Message\":\"Database error\",\"Data\":nil}",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/info": {
+            "get": {
+                "description": "得到用户所有的个人信息",
+                "consumes": [
+                    "json/application"
+                ],
+                "produces": [
+                    "json/application"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "GetInfo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/user"
                         }
                     }
                 }
@@ -779,6 +903,9 @@ var doc = `{
                 "email": {
                     "type": "string"
                 },
+                "group_id": {
+                    "type": "integer"
+                },
                 "homework_id": {
                     "type": "integer"
                 },
@@ -942,6 +1069,9 @@ var doc = `{
                 },
                 "role": {
                     "type": "integer"
+                },
+                "student_id": {
+                    "type": "string"
                 }
             }
         },

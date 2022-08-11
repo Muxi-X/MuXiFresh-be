@@ -25,6 +25,8 @@ definitions:
         type: string
       email:
         type: string
+      group_id:
+        type: integer
       homework_id:
         type: integer
       id:
@@ -133,6 +135,8 @@ definitions:
         type: string
       role:
         type: integer
+      student_id:
+        type: string
     type: object
   user.AdminResponse:
     properties:
@@ -413,6 +417,44 @@ paths:
       summary: Delete comment
       tags:
       - homework
+  /homework/handed:
+    get:
+      consumes:
+      - application/json
+      description: Get the submitted homework by group
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 小组id
+        in: query
+        name: group_id
+        required: true
+        type: integer
+      - description: 'limit--偏移量指定开始返回记录之前要跳过的记录数 '
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: 'page--限制指定要检索的记录数 '
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg":"查看成功"}'
+          schema:
+            items:
+              $ref: '#/definitions/file.Homework'
+            type: array
+      summary: Get handed homework
+      tags:
+      - homework
   /homework/publish:
     post:
       consumes:
@@ -489,6 +531,32 @@ paths:
       summary: Get Published Homework
       tags:
       - homework
+  /homework/published/details/:id:
+    get:
+      consumes:
+      - application/json
+      description: get the published homework details
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 发布的作业id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg":"查看成功"}'
+          schema:
+            $ref: '#/definitions/file.HomeworkPublished'
+      summary: Get homework details
+      tags:
+      - homework
   /homework/review:
     get:
       consumes:
@@ -511,9 +579,7 @@ paths:
         "200":
           description: '{"msg":"查看成功"}'
           schema:
-            items:
-              $ref: '#/definitions/file.Homework'
-            type: array
+            $ref: '#/definitions/file.Homework'
       summary: Review homework
       tags:
       - homework
@@ -549,6 +615,27 @@ paths:
           schema:
             type: string
       summary: Update User Info
+      tags:
+      - user
+  /user/info:
+    get:
+      consumes:
+      - json/application
+      description: 得到用户所有的个人信息
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - json/application
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user'
+      summary: GetInfo
       tags:
       - user
   /user/list:

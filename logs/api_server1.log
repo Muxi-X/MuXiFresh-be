@@ -415,3 +415,16 @@
 {"level":"info","time":"2022-08-10T19:22:42.910+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
 {"level":"info","time":"2022-08-10T19:22:47.545+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"91296c9a-305a-4883-b3d9-b2cad18cd32b"}
 {"level":"info","time":"2022-08-10T19:22:47.545+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"11.473ms      | ::1          | GET /api/v1/homework/published/details/1 | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T19:41:22.049+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :2022"}
+{"level":"info","time":"2022-08-10T19:41:22.050+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-10T19:42:23.012+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Idea getIdeaList function called.","X-Request-Id":"6e3c813a-537f-4a8e-b908-47b325fe5c98"}
+{"level":"info","time":"2022-08-10T19:42:23.031+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"6e3c813a-537f-4a8e-b908-47b325fe5c98"}
+{"level":"info","time":"2022-08-10T19:42:23.032+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"20.453ms      | ::1          | GET /api/v1/homework/comment | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T19:43:57.457+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :2022"}
+{"level":"info","time":"2022-08-10T19:43:57.459+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}
+{"level":"info","time":"2022-08-10T19:44:00.222+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Idea getIdeaList function called.","X-Request-Id":"3717ae39-5fb9-4754-8ce5-14371f8b4562"}
+{"level":"info","time":"2022-08-10T19:44:00.228+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"3717ae39-5fb9-4754-8ce5-14371f8b4562"}
+{"level":"info","time":"2022-08-10T19:44:00.228+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"6.735ms       | ::1          | GET /api/v1/homework/comment | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-10T19:45:07.636+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Idea getIdeaList function called.","X-Request-Id":"da15f467-0d96-4555-946b-e7f62be2ecd2"}
+{"level":"info","time":"2022-08-10T19:45:07.657+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"da15f467-0d96-4555-946b-e7f62be2ecd2"}
+{"level":"info","time":"2022-08-10T19:45:07.658+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"22.33ms       | ::1          | GET /api/v1/homework/comment | {code: 0, message: OK}"}
