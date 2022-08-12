@@ -1,5 +1,12 @@
 basePath: /api/v1
 definitions:
+  ModifyRoleRequest:
+    properties:
+      email:
+        type: string
+      role:
+        type: integer
+    type: object
   Response:
     properties:
       code:
@@ -25,9 +32,13 @@ definitions:
         type: string
       email:
         type: string
+      group_id:
+        type: integer
       homework_id:
         type: integer
       id:
+        type: integer
+      status:
         type: integer
       title:
         type: string
@@ -110,6 +121,29 @@ definitions:
       token:
         type: string
     type: object
+  schedule.ScheduleModel:
+    properties:
+      admission_status:
+        type: integer
+      collage:
+        type: string
+      email:
+        type: string
+      form_status:
+        type: integer
+      group:
+        type: string
+      id:
+        type: integer
+      major:
+        type: string
+      name:
+        type: string
+      student_id:
+        type: string
+      work_status:
+        type: integer
+    type: object
   updateInfoRequest:
     properties:
       avatar_url:
@@ -131,6 +165,23 @@ definitions:
         type: string
       role:
         type: integer
+      student_id:
+        type: string
+    type: object
+  user.AdminResponse:
+    properties:
+      avatar:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        type: integer
+      student_id:
+        type: string
     type: object
   user.RegisterRequest:
     properties:
@@ -169,7 +220,33 @@ info:
   title: MuXiFresh-be
   version: "1.0"
 paths:
-  /auth/authorize/:id/:role:
+  /auth/administrator:
+    get:
+      consumes:
+      - json/application
+      description: 查看所有管理员
+      parameters:
+      - description: 获取email
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 2--管理员   4--超管
+        in: query
+        name: role
+        required: true
+        type: integer
+      produces:
+      - json/application
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.AdminResponse'
+      summary: Get Authority
+      tags:
+      - auth
+  /auth/authorize/:email/:role:
     put:
       consumes:
       - application/json
@@ -181,12 +258,12 @@ paths:
         required: true
         type: string
       - description: 被修改用户的id
-        in: header
-        name: id
+        in: path
+        name: email
         required: true
-        type: integer
+        type: string
       - description: 权限等级
-        in: header
+        in: path
         name: role
         required: true
         type: integer
@@ -267,7 +344,7 @@ paths:
     get:
       consumes:
       - json/application
-      description: 查看已发布帖子的评论内容
+      description: 查看已发布的评论
       parameters:
       - description: 获取email
         in: header
@@ -293,21 +370,9 @@ paths:
       - json/application
       responses:
         "200":
-          description: '{"code":0,"message":"OK","data":{}}'
+          description: OK
           schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/errno.Errno'
+            $ref: '#/definitions/Response'
       summary: Get comments
       tags:
       - homework
@@ -331,7 +396,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: 成功
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
@@ -344,7 +411,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/errno.Errno'
-      summary: comment on homework
+      summary: Comment on Homework
       tags:
       - homework
   /homework/comment/:comment_id:
@@ -380,7 +447,79 @@ paths:
       summary: Delete comment
       tags:
       - homework
+  /homework/handed:
+    get:
+      consumes:
+      - application/json
+      description: Get the submitted homework by group
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 小组id
+        in: query
+        name: group_id
+        required: true
+        type: integer
+      - description: 'limit--偏移量指定开始返回记录之前要跳过的记录数 '
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: 'page--限制指定要检索的记录数 '
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg":"查看成功"}'
+          schema:
+            items:
+              $ref: '#/definitions/file.Homework'
+            type: array
+      summary: Get handed homework
+      tags:
+      - homework
   /homework/publish:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/homework.HomeworkRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"Code":"200","Message":"Success","Data":nil}'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errno.Errno'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errno.Errno'
+      summary: Publish homework
+      tags:
+      - homework
+  /homework/published:
     get:
       consumes:
       - application/json
@@ -419,44 +558,33 @@ paths:
           description: '{"msg":"Error occurred while getting url queries."}'
           schema:
             $ref: '#/definitions/errno.Errno'
-      summary: Get Homework
+      summary: Get Published Homework
       tags:
       - homework
-    post:
+  /homework/published/details/:id:
+    get:
       consumes:
       - application/json
+      description: get the published homework details
       parameters:
-      - description: token 用户令牌
+      - description: token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组
-        in: body
-        name: object
+      - description: 发布的作业id
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/homework.HomeworkRequest'
+        type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: '{"Code":"200","Message":"Success","Data":nil}'
+          description: '{"msg":"查看成功"}'
           schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/errno.Errno'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/errno.Errno'
-      summary: Publish homework
+            $ref: '#/definitions/file.HomeworkPublished'
+      summary: Get homework details
       tags:
       - homework
   /homework/review:
@@ -470,19 +598,9 @@ paths:
         name: Authorization
         required: true
         type: string
-      - description: 不同组别的作业，1-设计组 2-产品组 3-安卓组 4-前端组 5-
+      - description: 作业id
         in: query
         name: id
-        required: true
-        type: integer
-      - description: 'limit--偏移量指定开始返回记录之前要跳过的记录数 '
-        in: query
-        name: limit
-        required: true
-        type: integer
-      - description: 'page--限制指定要检索的记录数 '
-        in: query
-        name: page
         required: true
         type: integer
       produces:
@@ -491,16 +609,83 @@ paths:
         "200":
           description: '{"msg":"查看成功"}'
           schema:
-            items:
-              $ref: '#/definitions/file.Homework'
-            type: array
-        "500":
-          description: '{"msg":"Error occurred while getting url queries."}'
-          schema:
-            $ref: '#/definitions/errno.Errno'
+            $ref: '#/definitions/file.Homework'
       summary: Review homework
       tags:
       - homework
+  /schedule:
+    get:
+      consumes:
+      - application/json
+      description: '"进度查询板块呈现的表格"'
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schedule.ScheduleModel'
+      summary: '"查看进度"'
+      tags:
+      - schedule
+  /schedule/admit/:name:
+    put:
+      consumes:
+      - application/json
+      description: '"审阅板块录取某位学生"'
+      parameters:
+      - description: name
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+      summary: '"录取"'
+      tags:
+      - schedule
+  /schedule/cancel_admission/:name:
+    put:
+      consumes:
+      - application/json
+      description: '"审阅板块取消录取某位学生"'
+      parameters:
+      - description: name
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+      summary: '"取消录取"'
+      tags:
+      - schedule
   /user:
     put:
       consumes:
@@ -533,6 +718,27 @@ paths:
           schema:
             type: string
       summary: Update User Info
+      tags:
+      - user
+  /user/info:
+    get:
+      consumes:
+      - json/application
+      description: 得到用户所有的个人信息
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - json/application
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user'
+      summary: GetInfo
       tags:
       - user
   /user/list:
@@ -605,11 +811,11 @@ paths:
       - application/json
       description: 通过 userId 获取完整 user 信息
       parameters:
-      - description: user_id
+      - description: user_email
         in: path
-        name: id
+        name: email
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -646,6 +852,33 @@ paths:
           schema:
             type: string
       summary: Get Qiniuyun token
+      tags:
+      - user
+  /user/role:
+    put:
+      consumes:
+      - application/json
+      description: '"修改某个用户的权限等级"'
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: modifyRoleRequest
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/ModifyRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+      summary: '"设置权限"'
       tags:
       - user
 swagger: "2.0"

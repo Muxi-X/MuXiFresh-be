@@ -3,6 +3,8 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/MuXiFresh-be/model/schedule"
+
 	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/model/comment"
 	"github.com/MuXiFresh-be/model/file"
@@ -48,7 +50,7 @@ func main() {
 	model.DB.Init()
 	defer model.DB.Close()
 
-	if err := model.DB.Self.AutoMigrate(&user.UserModel{}, &comment.Comment{}, &file.Homework{}, &file.HomeworkPublished{}).Error; err != nil {
+	if err := model.DB.Self.AutoMigrate(&user.UserModel{}, &comment.Comment{}, &file.Homework{}, &file.HomeworkPublished{}, &schedule.ScheduleModel{}).Error; err != nil {
 		fmt.Println("error", err)
 	}
 

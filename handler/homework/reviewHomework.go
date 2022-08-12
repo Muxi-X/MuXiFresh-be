@@ -18,7 +18,7 @@ import (
 // @Produce application/json
 // @Param Authorization header string true "token"
 // @Param id query integer true "作业id"
-// @Success 200 {object} []file.Homework {} "{"msg":"查看成功"}"
+// @Success 200 {object} file.Homework {} "{"msg":"查看成功"}"
 // @Router /homework/review [get]
 func ReviewHomework(c *gin.Context) {
 	log.Info("Idea getIdeaList function called.",

@@ -51,9 +51,10 @@ func UploadHomework(c *gin.Context) {
 		return
 	}
 
-	if err := file.HandInHomework(homework.Title, homework.Content, homework.HomeworkID, homework.FileUrl, email); err != nil {
+	hw, err := file.HandInHomework(homework.Title, homework.Content, homework.HomeworkID, homework.FileUrl, email)
+	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, "success")
+	SendResponse(c, nil, hw)
 }

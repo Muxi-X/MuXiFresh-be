@@ -49,10 +49,12 @@ func (u *UserModel) Save() error {
 }
 
 // Get Information
-func (user *UserModel) GerInfo(email string) error {
-	if err := model.DB.Self.
+func (user *UserModel) GetInfo(email string) error {
+	fmt.Printf("email:%s\n", email)
+	if err := model.DB.Self.Model(UserModel{}).
 		Where("email = ?", email).
 		First(user).Error; err != nil {
+		fmt.Println("error", err)
 		return err
 	}
 	return nil
@@ -63,9 +65,9 @@ func IfExist(id, email, name string) error {
 	var user2 UserModel
 	var user3 UserModel
 
-	err1 := model.DB.Self.Debug().Where("student_id=?", id).First(&user1).Error
-	err2 := model.DB.Self.Debug().Where("email=?", email).First(&user2).Error
-	err3 := model.DB.Self.Debug().Where("name=?", name).First(&user3).Error
+	err1 := model.DB.Self.Debug().Where("student_id=?", id).Find(&user1).Error
+	err2 := model.DB.Self.Debug().Where("email=?", email).Find(&user2).Error
+	err3 := model.DB.Self.Debug().Where("name=?", name).Find(&user3).Error
 
 	s := []string{""}
 	i := 0
@@ -122,6 +124,11 @@ func UpdateInfo(email string, avatar string, name string) error {
 func Authorize(email string, role int) error {
 	Role := uint32(role)
 	tx := model.DB.Self.Begin()
+	var user UserModel
+	model.DB.Self.Model(UserModel{}).Where("email = ?", email).Find(&user)
+	if user.Role == 4 {
+		return errors.New("can't change super admin")
+	}
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
@@ -134,4 +141,14 @@ func Authorize(email string, role int) error {
 	}
 
 	return tx.Commit().Error
+}
+
+// GetAdmin ...获取管理员
+func GetAdimin(role int) ([]UserModel, error) {
+	var user []UserModel
+	err := model.DB.Self.Model(&UserModel{}).Where("role = ?", role).Find(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }

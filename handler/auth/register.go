@@ -2,6 +2,7 @@ package auth
 
 import (
 	"fmt"
+
 	"github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -32,6 +33,12 @@ func Register(c *gin.Context) {
 	err := service.Register(req.StudentId, req.Email, req.Name, req.Password)
 
 	if err != nil {
+		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
+		return
+	}
+
+	//注册成功自动生成进度表
+	if err := service.Create(req.Email, req.Name, req.StudentId); err != nil {
 		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
 		return
 	}

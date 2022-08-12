@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/token"
 	"github.com/MuXiFresh-be/service"

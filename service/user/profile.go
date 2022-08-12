@@ -6,9 +6,9 @@ import (
 )
 
 func GetProfile(email string) (*user.UserModel, error) {
-	var user user.UserModel
-	if err := user.GerInfo(email); err != nil {
+	user := &user.UserModel{}
+	if err := user.GetInfo(email); err != nil {
 		return nil, errno.ServerErr(errno.ErrGetUserInfo, err.Error())
 	}
-	return &user, nil
+	return user, nil
 }
