@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/MuXiFresh-be/handler"
-	"github.com/MuXiFresh-be/handler/schedule"
 	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/pkg/errno"
 	service "github.com/MuXiFresh-be/service/user"
@@ -39,13 +38,6 @@ func Register(c *gin.Context) {
 	}
 
 	//注册成功自动生成进度表
-	var sche schedule.Schedules
-	sche.AdmissionStatus = 0
-	sche.Email = req.Email
-	sche.FormStatus = 0
-	sche.Name = req.Name
-	sche.StudentId = req.StudentId
-	sche.WorkStatus = 0
 	if err := service.Create(req.Email, req.Name, req.StudentId); err != nil {
 		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
 		return
