@@ -36,6 +36,7 @@ func GetAdministrator(c *gin.Context) {
 			StudentID: m.StudentId,
 			Name:      m.Name,
 			Email:     m.Email,
+			Avatar:    m.Avatar,
 			Role:      m.Role,
 		}
 	}
