@@ -24,7 +24,12 @@ import (
 // @Router /auth/authorize/:email/:role [put]
 func Authorize(c *gin.Context) {
 	log.Info("student login function called.", zap.String("X-Request-Id", util.GetReqID(c)))
+	Email := c.MustGet("email").(string)
 	email := c.Param("email")
+	if Email == email {
+		SendBadRequest(c, nil, nil, "can't authorize yourself", GetLine())
+		return
+	}
 	role, _ := strconv.Atoi(c.Param("role"))
 	if err := service.Authorize(email, role); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())

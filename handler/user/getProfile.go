@@ -24,7 +24,7 @@ import (
 // @Success 200 {object} userProfile
 // @Failure 400 {string} json  "{"Code":400,"Message":"Error occurred while getting path param.","Data":nil}"
 // @Failure 500 {string} json  "{"Code":500,"Message":"Internal server error","Data":nil}"
-// @Router /user/profile/:id [get]
+// @Router /user/profile/:email [get]
 func GetProfile(c *gin.Context) {
 	log.Info("User getInfo function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 

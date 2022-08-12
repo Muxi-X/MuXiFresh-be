@@ -53,8 +53,7 @@ func (user *UserModel) GetInfo(email string) error {
 	fmt.Printf("email:%s\n", email)
 	if err := model.DB.Self.Model(UserModel{}).
 		Where("email = ?", email).
-		First(user).Error;
-		err != nil {
+		First(user).Error; err != nil {
 		fmt.Println("error", err)
 		return err
 	}
@@ -125,6 +124,11 @@ func UpdateInfo(email string, avatar string, name string) error {
 func Authorize(email string, role int) error {
 	Role := uint32(role)
 	tx := model.DB.Self.Begin()
+	var user UserModel
+	model.DB.Self.Model(UserModel{}).Where("email = ?", email).First(&user)
+	if user.Role == 4 {
+		return errors.New("can't change super admin")
+	}
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
