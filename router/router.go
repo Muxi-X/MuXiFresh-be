@@ -58,7 +58,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		userRouter.GET("/profile/:email", user.GetProfile)
 
-		//userRouter.GET("/list", user.List)
+		// userRouter.GET("/list", user.List)
 
 		userRouter.GET("/qiniu_token", user.GetQiniuToken)
 
@@ -66,9 +66,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	}
 
-	//schedule 模块
-	scheduleRouter := g.Group("api/v1/schedule").Use(normalRequired) //设置中间件，并确定用户等级
+	// schedule 模块
+	scheduleRouter := g.Group("api/v1/schedule").Use(normalRequired) // 设置中间件，并确定用户等级
 	{
+		scheduleRouter.POST("/create", schedule.Create)
+
+		scheduleRouter.POST("/edit", schedule.Edit)
+
 		scheduleRouter.GET("", schedule.ViewOwnSchedule)
 
 		scheduleRouter.PUT("/admit/:name", adminRequired, schedule.Admit)

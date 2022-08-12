@@ -519,3 +519,6 @@
 {"level":"info","time":"2022-08-12T09:23:13.249+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"Idea getIdeaList function called.","X-Request-Id":"e69c1261-82a5-40c7-a2e4-4661543d0838"}
 {"level":"info","time":"2022-08-12T09:23:13.284+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"OK","X-Request-Id":"e69c1261-82a5-40c7-a2e4-4661543d0838"}
 {"level":"info","time":"2022-08-12T09:23:13.285+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:69","msg":"35.817ms      | 127.0.0.1    | POST /api/v1/homework | {code: 0, message: OK}"}
+{"level":"error","time":"2022-08-13T00:03:22.197+0800","caller":"/Users/taodei/Desktop/src/MuXiFresh-be/log/log.go:84","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
+{"level":"info","time":"2022-08-13T00:04:13.649+0800","caller":"/Users/taodei/Desktop/src/MuXiFresh-be/log/log.go:69","msg":"Start to listening the incoming requests on http address: :8080"}
+{"level":"info","time":"2022-08-13T00:04:13.650+0800","caller":"/Users/taodei/Desktop/src/MuXiFresh-be/log/log.go:69","msg":"The router has been deployed successfully."}

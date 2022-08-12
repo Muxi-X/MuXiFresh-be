@@ -23,3 +23,17 @@ type GetInfoResponse struct {
 	WorkStatus      int    `json:"work_status"`
 	AdmissionStatus int    `json:"admission_status"`
 } // @name GetInfoResponse
+
+type createRequest struct {
+	Name      string `json:"name"`
+	StudentId string `json:"student_id"`
+	Major     string `json:"major"`
+	Group     string `json:"group" `
+} // @name createRequest
+
+// editRequest edit请求
+type editRequest struct {
+	Name  string `json:"name"`
+	Major string `json:"major"`
+	Group string `json:"group" `
+} // @name editRequest

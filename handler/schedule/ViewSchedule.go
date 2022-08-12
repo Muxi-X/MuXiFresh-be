@@ -23,7 +23,7 @@ func ViewOwnSchedule(c *gin.Context) {
 
 	email := c.MustGet("email").(string)
 
-	// var schedule GetInfoReponse
+	// var schedule GetInfoResponse
 	// if err := model.DB.Self.Table("schedules").Where("email = ? ", email).Find(&schedule).Error; err != nil {
 	// 	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 	// 	return

@@ -31,3 +31,24 @@ func (s *ScheduleModel) Create() error {
 func (s *ScheduleModel) Save() error {
 	return model.DB.Self.Save(s).Error
 }
+
+func Create(email string, name string, studentId string, major string, group string) error {
+	var schedule = ScheduleModel{
+		Name:      name,
+		Email:     email,
+		StudentId: studentId,
+		Major:     major,
+		Group:     group,
+	}
+	if err := schedule.Create(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func Edit(email string, name string, group string, major string) error {
+	if err := model.DB.Self.Table("forms").Where("email=?", email).Updates(map[string]interface{}{"name": name, "major": major, "group": group}).Error; err != nil {
+		return err
+	}
+	return nil
+}
