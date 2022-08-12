@@ -36,7 +36,7 @@ func GetAdministrator(c *gin.Context) {
 			StudentID: m.StudentId,
 			Name:      m.Name,
 			Email:     m.Email,
-			Role:      role,
+			Role:      m.Role,
 		}
 	}
 	SendResponse(c, nil, resp)
