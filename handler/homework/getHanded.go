@@ -17,7 +17,7 @@ import (
 // @Param group_id query integer true "小组id"
 // @Param limit query integer true "limit--偏移量指定开始返回记录之前要跳过的记录数 "
 // @Param page  query integer true "page--限制指定要检索的记录数 "
-// @Success 200 {object} []file.Homework "{"msg":"查看成功"}"
+// @Success 200 {string} json "{"homwork":"","num":"作业数量"}"
 // @Router /homework/handed [get]
 func GetHandedHomework(c *gin.Context) {
 	ID, err := strconv.Atoi(c.Query("group_id"))
@@ -46,7 +46,7 @@ func GetHandedHomework(c *gin.Context) {
 		return
 	}
 
-	SendResponse(c, nil, map[string]interface{}{
+	SendResponse(c, nil, gin.H{
 		"homework": homework,
 		"num":      num,
 	})
