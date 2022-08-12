@@ -92,7 +92,7 @@ type AdminResponse struct {
 	StudentID string `json:"student_id"`
 	Name      string `json:"name"`
 	Email     string `json:"email"`
-	Role      int    `json:"role"`
+	Role      uint32 `json:"role"`
 	Avatar    string `json:"avatar"`
 }
 

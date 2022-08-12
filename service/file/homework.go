@@ -16,12 +16,13 @@ func HandInHomework(title string, content string, homeworkID uint, url string, e
 }
 
 // PublishHomework ...发布作业
-func PublishHomework(email string, ID uint, title string, content string, url string) error {
-	if err := File.Publish(ID, title, content, email, url); err != nil {
-		return errno.ServerErr(errno.ErrDatabase, err.Error())
+func PublishHomework(email string, ID uint, title string, content string, url string) (*File.HomeworkPublished, error) {
+	homework, err := File.Publish(ID, title, content, email, url)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 
-	return nil
+	return homework, nil
 }
 
 // GetHomeworkPublished ...获取不同组别的发布作业

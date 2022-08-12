@@ -39,7 +39,7 @@ func Create(title string, content string, homeworkID uint, url string, email str
 }
 
 // Publish 发布作业
-func Publish(groupID uint, title string, content string, email string, url string) error {
+func Publish(groupID uint, title string, content string, email string, url string) (*HomeworkPublished, error) {
 	var homework = HomeworkPublished{
 		GroupID:   groupID,
 		Title:     title,
@@ -55,14 +55,16 @@ func Publish(groupID uint, title string, content string, email string, url strin
 	}()
 	if err := tx.Error; err != nil {
 		tx.Rollback()
-		return err
+		return nil, err
 	}
 	if err := tx.Create(&homework).Error; err != nil {
 		tx.Rollback()
-		return err
+		return nil, err
 	}
-
-	return tx.Commit().Error
+	if err := tx.Commit().Error; err != nil {
+		return nil, err
+	}
+	return &homework, nil
 }
 
 // GetHomeworkPublished 查看不同组已发布的作业

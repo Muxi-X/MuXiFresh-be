@@ -18,7 +18,7 @@ import (
 // @Produce application/json
 // @Param Authorization header string true "token 用户令牌"
 // @Param object body HomeworkRequest  true "content--作业内容 ; group_id--小组id   1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组"
-// @Success 200 {string} json "{"Code":"200","Message":"Success","Data":nil}"
+// @Success 200 {object}
 // @Failure 400 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
 // @Router /homework/publish [post]
@@ -34,10 +34,11 @@ func PublishHomework(c *gin.Context) {
 		return
 	}
 
-	if err := Service.PublishHomework(email, req.GroupID, req.Title, req.Content, req.FileUrl); err != nil {
+	homework, err := Service.PublishHomework(email, req.GroupID, req.Title, req.Content, req.FileUrl)
+	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, "success")
+	SendResponse(c, nil, homework)
 
 }
