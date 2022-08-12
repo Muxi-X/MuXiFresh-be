@@ -3,7 +3,12 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/MuXiFresh-be/model/schedule"
+
 	"github.com/MuXiFresh-be/model"
+	"github.com/MuXiFresh-be/model/comment"
+	"github.com/MuXiFresh-be/model/file"
+	"github.com/MuXiFresh-be/model/user"
 	"net/http"
 	"time"
 
@@ -41,7 +46,13 @@ func main() {
 	// logger sync
 	defer log.SyncLogger()
 
-	model.InitSelfDB()
+	//model.InitSelfDB()
+	model.DB.Init()
+	defer model.DB.Close()
+
+	if err := model.DB.Self.AutoMigrate(&user.UserModel{}, &comment.Comment{}, &file.Homework{}, &file.HomeworkPublished{}, &schedule.ScheduleModel{}).Error; err != nil {
+		fmt.Println("error", err)
+	}
 
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))
@@ -62,13 +73,11 @@ func main() {
 	// Ping the server to make sure the router is working.
 	go func() {
 		if err := pingServer(); err != nil {
-			log.Fatal("The router has no response, or it might took too long to start up.",
-				zap.String("reason", err.Error()))
+			log.Fatal("The router has no response, or it might took too long to start up.", zap.String("reason", err.Error()))
 		}
-		log.Info("The router has been deployed successfully.")
+		log.Info(fmt.Sprintf("The router has been deployed on %s successfully.", viper.GetString("addr")))
 	}()
 
-	log.Info(fmt.Sprintf("Start to listening the incoming requests on http address: %s", viper.GetString("addr")))
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 }
 

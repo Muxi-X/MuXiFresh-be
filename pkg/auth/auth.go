@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/token"
 	"github.com/MuXiFresh-be/service"
@@ -19,20 +20,25 @@ var (
 
 // Context is the context of the JSON web token.
 type Context struct {
-	Id        uint32
+	Id        uint
+	Email     string
 	Role      uint32
 	ExpiresAt int64 // 过期时间（时间戳，10位）
 }
 
 // Parse parses the token, and returns the context if the token is valid.
 func Parse(tokenString string) (*Context, error) {
+
 	t, err := token.ResolveToken(tokenString)
+
 	if err != nil {
 		return nil, err
 	}
 
 	return &Context{
 		Id:        t.Id,
+		Email:     t.Email,
+		Role:      t.Role,
 		ExpiresAt: t.ExpiresAt,
 	}, nil
 }
