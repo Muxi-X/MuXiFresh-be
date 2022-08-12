@@ -54,7 +54,7 @@ func Create(email string, id uint, content string) error {
 
 func DeleteComment(id string, email string) error {
 	var comment Comment
-	model.DB.Self.Model(Comment{}).Where("id  = ?", id).First(&comment)
+	model.DB.Self.Model(Comment{}).Where("id  = ?", id).Find(&comment)
 	fmt.Println("publisher", comment.Publisher, "    email", email)
 	if comment.Publisher != email {
 		return errors.New("permission denied")

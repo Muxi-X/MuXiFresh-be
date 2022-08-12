@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"errors"
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -27,7 +28,7 @@ func Authorize(c *gin.Context) {
 	Email := c.MustGet("email").(string)
 	email := c.Param("email")
 	if Email == email {
-		SendBadRequest(c, nil, nil, "can't authorize yourself", GetLine())
+		SendBadRequest(c, errors.New("logic problem"), nil, "can't authorize yourself", GetLine())
 		return
 	}
 	role, _ := strconv.Atoi(c.Param("role"))

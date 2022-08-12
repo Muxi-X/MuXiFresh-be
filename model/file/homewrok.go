@@ -25,7 +25,7 @@ func Create(title string, content string, homeworkID uint, url string, email str
 
 	var homeworkPublished HomeworkPublished
 	if err := tx.Model(HomeworkPublished{}).Where("id = ?", homeworkID).
-		First(&homeworkPublished).Error; err != nil {
+		Find(&homeworkPublished).Error; err != nil {
 		return nil, err
 	}
 	homework.GroupID = homeworkPublished.GroupID
@@ -109,7 +109,7 @@ func GetHomeworkHanded(groupId int, offset int, limit int) ([]Homework, int, err
 func GetPublishedDetails(id int) (*HomeworkPublished, error) {
 	var homework HomeworkPublished
 	if err := model.DB.Self.Model(HomeworkPublished{}).
-		Where("id  = ?", id).First(&homework).Error; err != nil {
+		Where("id  = ?", id).Find(&homework).Error; err != nil {
 		return nil, err
 	}
 	return &homework, nil

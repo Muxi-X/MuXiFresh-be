@@ -65,9 +65,9 @@ func IfExist(id, email, name string) error {
 	var user2 UserModel
 	var user3 UserModel
 
-	err1 := model.DB.Self.Debug().Where("student_id=?", id).First(&user1).Error
-	err2 := model.DB.Self.Debug().Where("email=?", email).First(&user2).Error
-	err3 := model.DB.Self.Debug().Where("name=?", name).First(&user3).Error
+	err1 := model.DB.Self.Debug().Where("student_id=?", id).Find(&user1).Error
+	err2 := model.DB.Self.Debug().Where("email=?", email).Find(&user2).Error
+	err3 := model.DB.Self.Debug().Where("name=?", name).Find(&user3).Error
 
 	s := []string{""}
 	i := 0
@@ -125,7 +125,7 @@ func Authorize(email string, role int) error {
 	Role := uint32(role)
 	tx := model.DB.Self.Begin()
 	var user UserModel
-	model.DB.Self.Model(UserModel{}).Where("email = ?", email).First(&user)
+	model.DB.Self.Model(UserModel{}).Where("email = ?", email).Find(&user)
 	if user.Role == 4 {
 		return errors.New("can't change super admin")
 	}
