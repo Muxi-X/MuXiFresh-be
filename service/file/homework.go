@@ -8,11 +8,12 @@ import (
 )
 
 // HandInHomework ...提交作业
-func HandInHomework(title string, content string, homeworkID uint, url string, email string) error {
-	if err := File.Create(title, content, homeworkID, url, email); err != nil {
-		return errno.ServerErr(errno.ErrDatabase, err.Error())
+func HandInHomework(title string, content string, homeworkID uint, url string, email string) (*File.Homework, error) {
+	homework, err := File.Create(title, content, homeworkID, url, email)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
-	return nil
+	return homework, nil
 }
 
 // PublishHomework ...发布作业

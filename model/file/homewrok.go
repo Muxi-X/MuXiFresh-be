@@ -3,7 +3,7 @@ package file
 import "github.com/MuXiFresh-be/model"
 
 // Create ...提交作业
-func Create(title string, content string, homeworkID uint, url string, email string) error {
+func Create(title string, content string, homeworkID uint, url string, email string) (*Homework, error) {
 	var homework = Homework{
 		HomeworkID: homeworkID,
 		Title:      title,
@@ -20,22 +20,26 @@ func Create(title string, content string, homeworkID uint, url string, email str
 	}()
 	if err := tx.Error; err != nil {
 		tx.Rollback()
-		return err
+		return nil, err
 	}
 
 	var homeworkPublished HomeworkPublished
 	if err := tx.Model(HomeworkPublished{}).Where("id = ?", homeworkID).
 		First(&homeworkPublished).Error; err != nil {
-		return err
+		return nil, err
 	}
 	homework.GroupID = homeworkPublished.GroupID
 
 	if err := tx.Create(&homework).Error; err != nil {
 		tx.Rollback()
-		return err
+		return nil, err
 	}
 
-	return tx.Commit().Error
+	if err := tx.Commit().Error; err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	return &homework, nil
 }
 
 // Publish 发布作业
