@@ -111,8 +111,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		// 修改作业
 		homework.POST("/change/uploaded/:id", normalRequired, Homework.ModifyHomework)
 
-		//// 修改发布的作业
-		//homework.POST("/change/published/:id",adminRequired,Homework.ModifyPublished)
+		// 修改发布的作业
+		homework.POST("/change/published/:id", adminRequired, Homework.ModifyPublished)
 
 	}
 

@@ -145,3 +145,24 @@ func UpdateUploaded(id string, email string, title string, content string, fileU
 	}
 	return nil
 }
+
+// UpdatePublished ...	修改发布的作业
+func UpdatePublished(id, email, title, content, fileUrl string, groupID uint) error {
+	var published HomeworkPublished
+	if err := model.DB.Self.Model(HomeworkPublished{}).Where("id  = ?", id).Find(&published).Error; err != nil {
+		return err
+	}
+	if published.Publisher != email {
+		return errors.New("permission denied")
+	}
+
+	if err := model.DB.Self.Model(HomeworkPublished{}).Where("id = ?", id).Updates(HomeworkPublished{
+		GroupID: groupID,
+		Title:   title,
+		Content: content,
+		FileUrl: fileUrl,
+	}).Error; err != nil {
+		return err
+	}
+	return nil
+}

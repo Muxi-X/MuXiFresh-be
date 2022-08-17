@@ -96,3 +96,11 @@ func ModifyHW(id string, email string, title string, content string, fileUrl str
 	}
 	return nil
 }
+
+// ModifyPublished ...修改发布的作业
+func ModifyPublished(id string, email string, groupID uint, title string, content string, fileUrl string) error {
+	if err := File.UpdatePublished(id, email, title, content, fileUrl, groupID); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}

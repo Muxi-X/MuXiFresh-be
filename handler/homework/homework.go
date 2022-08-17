@@ -15,12 +15,12 @@ type HomeworkRequest struct {
 }
 
 type ModifyPublishedHomeworkRequest struct {
-	ID      uint   `json:"id"`
 	Title   string `json:"title" `
 	Content string `json:"content" `
 	GroupID uint   `json:"group_id"`
 	FileUrl string `json:"file_url" `
 }
+
 type ModifyHomeworkRequest struct {
 	Title   string ` json:"title" `
 	Content string `json:"content"`
