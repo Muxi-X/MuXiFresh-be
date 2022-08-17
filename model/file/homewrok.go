@@ -1,6 +1,9 @@
 package file
 
-import "github.com/MuXiFresh-be/model"
+import (
+	"errors"
+	"github.com/MuXiFresh-be/model"
+)
 
 // Create ...提交作业
 func Create(title string, content string, homeworkID uint, url string, email string) (*Homework, error) {
@@ -122,4 +125,23 @@ func ReviewHomework(id int) (*Homework, error) {
 		return nil, err
 	}
 	return &homework, nil
+}
+
+// UpdateUploaded ...修改上传的作业
+func UpdateUploaded(id string, email string, title string, content string, fileUrl string) error {
+	var hw Homework
+	if err := model.DB.Self.Model(Homework{}).Where("id = ?", id).Find(&hw).Error; err != nil {
+		return err
+	}
+	if hw.Email != email {
+		return errors.New("permission denied")
+	}
+	if err := model.DB.Self.Model(Homework{}).Where("id = ?", id).Updates(Homework{
+		Title:   title,
+		Content: content,
+		URL:     fileUrl,
+	}).Error; err != nil {
+		return err
+	}
+	return nil
 }

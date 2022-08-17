@@ -88,3 +88,11 @@ func GetHomeworkDetails(id int) (*File.HomeworkPublished, error) {
 	}
 	return homework, nil
 }
+
+// ModifyHW ...修改作业
+func ModifyHW(id string, email string, title string, content string, fileUrl string) error {
+	if err := File.UpdateUploaded(id, email, title, content, fileUrl); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}

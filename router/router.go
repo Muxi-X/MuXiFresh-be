@@ -108,6 +108,12 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		// 上传作业
 		homework.POST("", normalRequired, Homework.UploadHomework)
 
+		// 修改作业
+		homework.POST("/change/uploaded/:id", normalRequired, Homework.ModifyHomework)
+
+		//// 修改发布的作业
+		//homework.POST("/change/published/:id",adminRequired,Homework.ModifyPublished)
+
 	}
 
 	// form 模块
