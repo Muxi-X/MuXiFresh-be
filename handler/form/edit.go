@@ -1,9 +1,9 @@
-package schedule
+package form
 
 import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/pkg/errno"
-	"github.com/MuXiFresh-be/service/schedule"
+	"github.com/MuXiFresh-be/service/form"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +13,7 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param object body editRequest true "edit_request"
-// @Success 200 {object} editResponse
+// @Success 200 {object} form.FormModel
 // @Router /form [put]
 func Edit(c *gin.Context) {
 	var request editRequest
@@ -23,9 +23,14 @@ func Edit(c *gin.Context) {
 		return
 	}
 
-	if err := schedule.EditForm(email, request.Name, request.Major, request.Group); err != nil {
+	err := form.EditForm(email, request.Name, request.Avatar,
+		request.StudentId, request.College, request.Major,
+		request.Grade, request.Gender, request.ContactWay,
+		request.ContactNumber, request.Group, request.Reason,
+		request.Understand, request.SelfIntroduction, request.IfOtherOrganization)
+	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, "编辑报名表成功！")
+	SendResponse(c, nil, "Success")
 }

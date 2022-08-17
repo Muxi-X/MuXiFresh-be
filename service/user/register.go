@@ -41,8 +41,6 @@ func Create(email string, name string, StudentID string) error {
 		AdmissionStatus: 0,
 		Email:           email,
 		FormStatus:      0,
-		Name:            name,
-		StudentId:       StudentID,
 		WorkStatus:      0,
 	}
 

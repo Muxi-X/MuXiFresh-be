@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/MuXiFresh-be/model"
 	"github.com/MuXiFresh-be/model/file"
+	"github.com/MuXiFresh-be/model/form"
 	"github.com/MuXiFresh-be/model/user"
 	"github.com/jinzhu/gorm"
 )
@@ -19,6 +20,8 @@ type List struct {
 	Comment
 	Name   string
 	Avatar string
+	Grade  string
+	Group  string
 }
 
 func Create(email string, id uint, content string) error {
@@ -94,14 +97,23 @@ func GetCommentList(id string, offset int, limit int) ([]List, int, error) {
 		var u user.UserModel
 		err2 := model.DB.Self.Model(user.UserModel{}).
 			Where("email = ?", m.Publisher).
-			First(&u).Error
+			Find(&u).Error
 		if err2 != nil {
 			return nil, 0, err2
+		}
+		var f form.FormModel
+		err3 := model.DB.Self.Model(form.FormModel{}).
+			Where("email = ?", m.Publisher).
+			Find(&f).Error
+		if err3 != nil {
+			return nil, 0, err3
 		}
 		fmt.Println("u--------", u)
 		list[i].Comment = m
 		list[i].Name = u.Name
 		list[i].Avatar = u.Avatar
+		list[i].Grade = f.Grade
+		list[i].Group = f.Group
 		num = i + 1
 	}
 	return list, num, nil

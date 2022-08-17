@@ -5,11 +5,12 @@ import (
 	"github.com/MuXiFresh-be/handler/auth"
 	"github.com/MuXiFresh-be/handler/schedule"
 	"github.com/MuXiFresh-be/handler/sd"
+	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/pkg/constvar"
 	"github.com/MuXiFresh-be/pkg/errno"
 
+	Form "github.com/MuXiFresh-be/handler/form"
 	Homework "github.com/MuXiFresh-be/handler/homework"
-	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/router/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -69,9 +70,6 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// schedule 模块
 	scheduleRouter := g.Group("api/v1/schedule").Use(normalRequired) // 设置中间件，并确定用户等级
 	{
-		scheduleRouter.POST("/create", schedule.Create)
-
-		scheduleRouter.POST("/edit", schedule.Edit)
 
 		scheduleRouter.GET("", schedule.ViewOwnSchedule)
 
@@ -112,7 +110,16 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	}
 
-	// The health check handlers
+	// form 模块
+	formRouter := g.Group("api/v1/form").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal))
+	{
+		formRouter.POST("", Form.Create)
+		formRouter.PUT("", Form.Edit)
+		formRouter.GET("/view", Form.View)
+		formRouter.POST("/search", Form.Search)
+	}
+
+	// The health check Fandlers
 	svcd := g.Group("/sd")
 	{
 		svcd.GET("/health", sd.HealthCheck)

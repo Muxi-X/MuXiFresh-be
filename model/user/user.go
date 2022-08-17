@@ -4,18 +4,20 @@ import (
 	"errors"
 	"fmt"
 	"github.com/MuXiFresh-be/model"
+	"github.com/MuXiFresh-be/model/form"
 	"github.com/jinzhu/gorm"
 )
 
 type UserModel struct {
 	gorm.Model
-	Name         string `json:"name" gorm:"column:name;not null" binding:"required"`
-	Email        string `json:"email" gorm:"column:email;default:null;unique"`
-	Avatar       string `json:"avatar"gorm:"column:avatar"`
-	Role         uint32 `json:"role" gorm:"column:role;" binding:"required"`
-	Message      uint32 `json:"message" gorm:"column:message;" binding:"required"`
-	HashPassword string `json:"hash_password" gorm:"column:hash_password;" binding:"required"`
-	StudentId    string `json:"student_id" gorm:"column:student_id;unique™"`
+	Name           string `json:"name" gorm:"column:name;not null" binding:"required"`
+	Email          string `json:"email" gorm:"column:email;default:null;unique"`
+	Avatar         string `json:"avatar" gorm:"column:avatar"`
+	Role           uint32 `json:"role" gorm:"column:role;" binding:"required"`
+	Message        uint32 `json:"message" gorm:"column:message;" binding:"required"`
+	HashPassword   string `json:"hash_password" gorm:"column:hash_password;" binding:"required"`
+	StudentId      string `json:"student_id" gorm:"column:student_id;unique™"`
+	form.FormModel `gorm:"foreignKey:email;reference:email"`
 }
 
 func (u *UserModel) TableName() string {
