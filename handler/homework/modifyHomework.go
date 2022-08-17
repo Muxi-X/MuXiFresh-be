@@ -14,9 +14,9 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param Authorization header string true "token 用户令牌"
-// @Param object body ModifyHomeworkRequest  true
+// @Param object body homework.ModifyHomeworkRequest true "修改内容"
 // @Param id path integer true "上传的作业id"
-// @Success 200 {object}
+// @Success 200 {object} handler.Response
 // @Failure 400 {object} errno.Errno
 // @Failure 500 {object} errno.Errno
 // @Router /homework/change/uploaded/:id [post]

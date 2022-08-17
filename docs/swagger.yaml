@@ -15,6 +15,83 @@ definitions:
       message:
         type: string
     type: object
+  createRequest:
+    properties:
+      avatar:
+        type: string
+      college:
+        type: string
+      contact_number:
+        type: string
+      contact_way:
+        type: string
+      gender:
+        type: string
+      grade:
+        type: string
+      group:
+        type: string
+      if_other_organization:
+        type: string
+      major:
+        type: string
+      name:
+        type: string
+      reason:
+        type: string
+      self_introduction:
+        type: string
+      student_id:
+        type: string
+      understand:
+        type: string
+    required:
+    - avatar
+    - college
+    - contact_number
+    - contact_way
+    - gender
+    - grade
+    - group
+    - if_other_organization
+    - major
+    - name
+    - reason
+    - self_introduction
+    - student_id
+    - understand
+    type: object
+  editRequest:
+    properties:
+      avatar:
+        type: string
+      college:
+        type: string
+      contact_number:
+        type: string
+      contact_way:
+        type: string
+      gender:
+        type: string
+      grade:
+        type: string
+      group:
+        type: string
+      if_other_organization:
+        type: string
+      major:
+        type: string
+      name:
+        type: string
+      reason:
+        type: string
+      self_introduction:
+        type: string
+      student_id:
+        type: string
+      understand:
+        type: string
+    type: object
   errno.Errno:
     properties:
       code:
@@ -72,6 +149,52 @@ definitions:
       updatedAt:
         type: string
     type: object
+  form.FormModel:
+    properties:
+      avatar:
+        type: string
+      college:
+        type: string
+      contact_number:
+        type: string
+      contact_way:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      grade:
+        type: string
+      group:
+        type: string
+      id:
+        type: integer
+      if_other_organization:
+        type: string
+      major:
+        type: string
+      name:
+        type: string
+      reason:
+        type: string
+      self_introduction:
+        type: string
+      student_id:
+        type: string
+      understand:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  form.searchRequest:
+    properties:
+      group:
+        type: string
+    type: object
   homework.CommentRequest:
     properties:
       content:
@@ -96,6 +219,26 @@ definitions:
     - content
     - homework_id
     - title
+    type: object
+  homework.ModifyHomeworkRequest:
+    properties:
+      content:
+        type: string
+      file_url:
+        type: string
+      title:
+        type: string
+    type: object
+  homework.ModifyPublishedHomeworkRequest:
+    properties:
+      content:
+        type: string
+      file_url:
+        type: string
+      group_id:
+        type: integer
+      title:
+        type: string
     type: object
   listResponse:
     properties:
@@ -125,7 +268,9 @@ definitions:
     properties:
       admission_status:
         type: integer
-      collage:
+      createdAt:
+        type: string
+      deletedAt:
         type: string
       email:
         type: string
@@ -135,11 +280,7 @@ definitions:
         type: string
       id:
         type: integer
-      major:
-        type: string
-      name:
-        type: string
-      student_id:
+      updatedAt:
         type: string
       work_status:
         type: integer
@@ -313,6 +454,84 @@ paths:
       summary: Register
       tags:
       - auth
+  /form:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: create_request
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/createRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg":"创建报名表成功"}'
+          schema:
+            $ref: '#/definitions/form.FormModel'
+      summary: '"创建报名表"'
+      tags:
+      - form
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: edit_request
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/editRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/form.FormModel'
+      summary: '"编辑报名表"'
+      tags:
+      - form
+  /form/search:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 按组查询报名表
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/form.searchRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: '"查看报名表（分组）"'
+      tags:
+      - form
+  /form/view:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: '"查看报名表（个人）"'
+      tags:
+      - form
   /homework:
     post:
       consumes:
@@ -338,6 +557,86 @@ paths:
           schema:
             $ref: '#/definitions/Response'
       summary: Upload homework
+      tags:
+      - homework
+  /homework/change/published/:id:
+    post:
+      consumes:
+      - application/json
+      description: 修改已发布的作业
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 修改内容
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/homework.ModifyPublishedHomeworkRequest'
+      - description: 发布的的作业id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errno.Errno'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errno.Errno'
+      summary: Modify published homework
+      tags:
+      - homework
+  /homework/change/uploaded/:id:
+    post:
+      consumes:
+      - application/json
+      description: 修改已经上传的作业
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 修改内容
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/homework.ModifyHomeworkRequest'
+      - description: 上传的作业id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errno.Errno'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errno.Errno'
+      summary: Modify homework
       tags:
       - homework
   /homework/comment:
@@ -425,6 +724,11 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: 评论的id
+        in: path
+        name: comment_id
+        required: true
+        type: integer
       produces:
       - json/application
       responses:
@@ -477,11 +781,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"msg":"查看成功"}'
+          description: '{"homwork":"","num":"作业数量"}'
           schema:
-            items:
-              $ref: '#/definitions/file.Homework'
-            type: array
+            type: string
       summary: Get handed homework
       tags:
       - homework
@@ -505,9 +807,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"Code":"200","Message":"Success","Data":nil}'
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
@@ -805,7 +1107,7 @@ paths:
       summary: login api
       tags:
       - auth
-  /user/profile/:id:
+  /user/profile/:email:
     get:
       consumes:
       - application/json

@@ -160,6 +160,128 @@ var doc = `{
                 }
             }
         },
+        "/form": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"编辑报名表\"",
+                "parameters": [
+                    {
+                        "description": "edit_request",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/editRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/form.FormModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"创建报名表\"",
+                "parameters": [
+                    {
+                        "description": "create_request",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/createRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\":\"创建报名表成功\"}",
+                        "schema": {
+                            "$ref": "#/definitions/form.FormModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/form/search": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"查看报名表（分组）\"",
+                "parameters": [
+                    {
+                        "description": "按组查询报名表",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/form.searchRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/form/view": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"查看报名表（个人）\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/homework": {
             "post": {
                 "description": "上传完成的作业",
@@ -196,6 +318,126 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/homework/change/published/:id": {
+            "post": {
+                "description": "修改已发布的作业",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Modify published homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "修改内容",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/homework.ModifyPublishedHomeworkRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "发布的的作业id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
+                        }
+                    }
+                }
+            }
+        },
+        "/homework/change/uploaded/:id": {
+            "post": {
+                "description": "修改已经上传的作业",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Modify homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "修改内容",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/homework.ModifyHomeworkRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "上传的作业id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
                         }
                     }
                 }
@@ -331,6 +573,13 @@ var doc = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "评论的id",
+                        "name": "comment_id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -406,12 +655,9 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"msg\":\"查看成功\"}",
+                        "description": "{\"homwork\":\"\",\"num\":\"作业数量\"}",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/file.Homework"
-                            }
+                            "type": "string"
                         }
                     }
                 }
@@ -449,9 +695,9 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"Code\":\"200\",\"Message\":\"Success\",\"Data\":nil}",
+                        "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
@@ -898,7 +1144,7 @@ var doc = `{
                 }
             }
         },
-        "/user/profile/:id": {
+        "/user/profile/:email": {
             "get": {
                 "description": "通过 userId 获取完整 user 信息",
                 "consumes": [
@@ -1039,6 +1285,116 @@ var doc = `{
                 }
             }
         },
+        "createRequest": {
+            "type": "object",
+            "required": [
+                "avatar",
+                "college",
+                "contact_number",
+                "contact_way",
+                "gender",
+                "grade",
+                "group",
+                "if_other_organization",
+                "major",
+                "name",
+                "reason",
+                "self_introduction",
+                "student_id",
+                "understand"
+            ],
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "college": {
+                    "type": "string"
+                },
+                "contact_number": {
+                    "type": "string"
+                },
+                "contact_way": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "grade": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "if_other_organization": {
+                    "type": "string"
+                },
+                "major": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "self_introduction": {
+                    "type": "string"
+                },
+                "student_id": {
+                    "type": "string"
+                },
+                "understand": {
+                    "type": "string"
+                }
+            }
+        },
+        "editRequest": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "college": {
+                    "type": "string"
+                },
+                "contact_number": {
+                    "type": "string"
+                },
+                "contact_way": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "grade": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "if_other_organization": {
+                    "type": "string"
+                },
+                "major": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "self_introduction": {
+                    "type": "string"
+                },
+                "student_id": {
+                    "type": "string"
+                },
+                "understand": {
+                    "type": "string"
+                }
+            }
+        },
         "errno.Errno": {
             "type": "object",
             "properties": {
@@ -1126,6 +1482,76 @@ var doc = `{
                 }
             }
         },
+        "form.FormModel": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "college": {
+                    "type": "string"
+                },
+                "contact_number": {
+                    "type": "string"
+                },
+                "contact_way": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "grade": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "if_other_organization": {
+                    "type": "string"
+                },
+                "major": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "self_introduction": {
+                    "type": "string"
+                },
+                "student_id": {
+                    "type": "string"
+                },
+                "understand": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "form.searchRequest": {
+            "type": "object",
+            "properties": {
+                "group": {
+                    "type": "string"
+                }
+            }
+        },
         "homework.CommentRequest": {
             "type": "object",
             "required": [
@@ -1156,6 +1582,37 @@ var doc = `{
                     "type": "string"
                 },
                 "homework_id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "homework.ModifyHomeworkRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "file_url": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "homework.ModifyPublishedHomeworkRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "file_url": {
+                    "type": "string"
+                },
+                "group_id": {
                     "type": "integer"
                 },
                 "title": {
@@ -1206,7 +1663,10 @@ var doc = `{
                 "admission_status": {
                     "type": "integer"
                 },
-                "collage": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
                     "type": "string"
                 },
                 "email": {
@@ -1221,13 +1681,7 @@ var doc = `{
                 "id": {
                     "type": "integer"
                 },
-                "major": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "student_id": {
+                "updatedAt": {
                     "type": "string"
                 },
                 "work_status": {
