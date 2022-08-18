@@ -240,6 +240,19 @@ definitions:
       title:
         type: string
     type: object
+  homework.PerformanceResponse:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      status:
+        type: integer
+      title:
+        type: string
+      url:
+        type: string
+    type: object
   listResponse:
     properties:
       count:
@@ -787,6 +800,38 @@ paths:
       summary: Get handed homework
       tags:
       - homework
+  /homework/performance/:id:
+    get:
+      consumes:
+      - application/json
+      description: 查看用户所有作业的完成状况
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 对应组别的id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg":"查看成功"}'
+          schema:
+            items:
+              $ref: '#/definitions/homework.PerformanceResponse'
+            type: array
+        "500":
+          description: '{"msg":"Error occurred while getting url queries."}'
+          schema:
+            $ref: '#/definitions/errno.Errno'
+      summary: Get Performance
+      tags:
+      - homework
   /homework/publish:
     post:
       consumes:
@@ -861,6 +906,36 @@ paths:
           schema:
             $ref: '#/definitions/errno.Errno'
       summary: Get Published Homework
+      tags:
+      - homework
+  /homework/published/:id/mine:
+    get:
+      consumes:
+      - application/json
+      description: 查看我的作业
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: homework 的id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg":"查看成功"}'
+          schema:
+            $ref: '#/definitions/file.Homework'
+        "500":
+          description: '{"msg":"Error occurred while getting url queries."}'
+          schema:
+            $ref: '#/definitions/errno.Errno'
+      summary: Get My Homework
       tags:
       - homework
   /homework/published/details/:id:

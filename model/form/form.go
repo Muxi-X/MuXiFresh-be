@@ -72,6 +72,9 @@ func Create(email string, name string, avatar string, studentId string,
 		return nil, err
 	}
 
+	if err := tx.Commit().Error; err != nil {
+		return nil, err
+	}
 	return &form, nil
 }
 

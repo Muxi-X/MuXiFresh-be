@@ -90,6 +90,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		// 获取我写的作业
 		homework.GET("/published/:id/mine", Homework.GetMyHomework)
 
+		// 查看我所有作业的完成状况
+		homework.GET("/performance", Homework.GetMyPerformance)
+
 		// 获取已发布作业的详细内容
 		homework.GET("/published/details/:id", Homework.GetHomeworkDetails)
 

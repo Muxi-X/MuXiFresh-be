@@ -26,3 +26,11 @@ type ModifyHomeworkRequest struct {
 	Content string `json:"content"`
 	FileUrl string `json:"file_url" `
 }
+
+type PerformanceResponse struct {
+	ID      uint   `json:"id"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	URL     string `json:"url"`
+	Status  int    `json:"status"`
+}

@@ -663,6 +663,54 @@ var doc = `{
                 }
             }
         },
+        "/homework/performance/:id": {
+            "get": {
+                "description": "查看用户所有作业的完成状况",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Get Performance",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "对应组别的id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\":\"查看成功\"}",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/homework.PerformanceResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{\"msg\":\"Error occurred while getting url queries.\"}",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
+                        }
+                    }
+                }
+            }
+        },
         "/homework/publish": {
             "post": {
                 "consumes": [
@@ -766,6 +814,51 @@ var doc = `{
                             "items": {
                                 "$ref": "#/definitions/file.HomeworkPublished"
                             }
+                        }
+                    },
+                    "500": {
+                        "description": "{\"msg\":\"Error occurred while getting url queries.\"}",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
+                        }
+                    }
+                }
+            }
+        },
+        "/homework/published/:id/mine": {
+            "get": {
+                "description": "查看我的作业",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Get My Homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "homework 的id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\":\"查看成功\"}",
+                        "schema": {
+                            "$ref": "#/definitions/file.Homework"
                         }
                     },
                     "500": {
@@ -1616,6 +1709,26 @@ var doc = `{
                     "type": "integer"
                 },
                 "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "homework.PerformanceResponse": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "url": {
                     "type": "string"
                 }
             }

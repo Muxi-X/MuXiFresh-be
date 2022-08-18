@@ -1,6 +1,10 @@
 package homework
 
-import "github.com/gin-gonic/gin"
+import (
+	. "github.com/MuXiFresh-be/handler"
+	"github.com/MuXiFresh-be/service/file"
+	"github.com/gin-gonic/gin"
+)
 
 // @Summary Get My Homework
 // @Tags homework
@@ -8,12 +12,17 @@ import "github.com/gin-gonic/gin"
 // @Accept application/json
 // @Produce application/json
 // @Param Authorization header string true "token"
-// @Param group_id query integer true "group_id--小组id 1-设计组 2-产品组 3-安卓组 4-前端组 5-后端组"
-// @Success 200 {object} []file.HomeworkPublished {} "{"msg":"查看成功"}"
+// @Param id path integer true "homework 的id"
+// @Success 200 {object} file.Homework {} "{"msg":"查看成功"}"
 // @Failure 500 {object} errno.Errno "{"msg":"Error occurred while getting url queries."}"
 // @Router /homework/published/:id/mine [get]
 func GetMyHomework(c *gin.Context) {
 	email := c.MustGet("email").(string)
-	gropID := c.Param("group_id")
-	homework :=
+	id := c.Param("id")
+	homework, err := file.GetMine(email, id)
+	if err != nil {
+		SendError(c, err, nil, err.Error(), GetLine())
+		return
+	}
+	SendResponse(c, nil, homework)
 }

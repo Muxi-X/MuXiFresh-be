@@ -104,3 +104,30 @@ func ModifyPublished(id string, email string, groupID uint, title string, conten
 	}
 	return nil
 }
+
+// GetMine ...获取我对应的提交作业
+func GetMine(email string, id string) ([]File.Homework, error) {
+	homework, err := File.GetMine(email, id)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return homework, nil
+}
+
+// GetAllMyHomework ...获取做过的全部作业
+func GetAllMyHomework(email string) ([]File.Homework, error) {
+	homework, err := File.GetAll(email)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return homework, nil
+}
+
+// GetAllPublished ...获取所有发布的作业
+func GetAllPublished(email string) ([]File.HomeworkPublished, error) {
+	published, err := File.GetAllPublished(email)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return published, nil
+}
