@@ -14,10 +14,10 @@ log:
   log_rotate_size: 1
   log_backup_count: 7
 db:  # DB 配置 部署时环境变量覆盖
-  name: ...
+  name: MuxiFresh
   addr: localhost:3306
   username: root
-  password: 12345678
+  password: 123456
 redis:
   addr: 127.0.0.1:6379
   password: ""

@@ -6,6 +6,7 @@ import (
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/service/form"
 	"github.com/MuXiFresh-be/service/schedule"
+	U "github.com/MuXiFresh-be/service/user"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -40,12 +41,14 @@ func ViewOwnSchedule(c *gin.Context) {
 	// }
 	sche, err := schedule.ViewOwn(email)
 	Form, err := form.ViewForm(email)
+	User, err := U.GetInfo(email)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
 	SendResponse(c, nil, ScheduleResponse{
-		Name:            Form.Name,
+		//Name:            Form.Name,
+		Name:            User.Name,
 		Major:           Form.Major,
 		Group:           Form.Group,
 		FormStatus:      sche.FormStatus,

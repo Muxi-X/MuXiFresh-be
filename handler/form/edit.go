@@ -4,6 +4,7 @@ import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/service/form"
+	U "github.com/MuXiFresh-be/service/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,8 +24,7 @@ func Edit(c *gin.Context) {
 		return
 	}
 
-	err := form.EditForm(email, request.Name, request.Avatar,
-		request.StudentId, request.College, request.Major,
+	err := form.EditForm(email, request.College, request.Major,
 		request.Grade, request.Gender, request.ContactWay,
 		request.ContactNumber, request.Group, request.Reason,
 		request.Understand, request.SelfIntroduction, request.IfOtherOrganization)
@@ -32,5 +32,10 @@ func Edit(c *gin.Context) {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
+	if err := U.UpdateInfor(email, request.Avatar, request.Name,request.StudentId); err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
+
 	SendResponse(c, nil, "Success")
 }

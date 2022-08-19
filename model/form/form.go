@@ -8,10 +8,10 @@ import (
 
 type FormModel struct {
 	gorm.Model
-	Email               string `json:"email" gorm:"column:email;not null"`
-	Name                string `json:"name" gorm:"column:name;" `
-	Avatar              string `json:"avatar" gorm:"column:avatar;"`
-	StudentId           string `json:"student_id" gorm:"column:student_id;"`
+	Email string `json:"email" gorm:"column:email;not null"`
+	//Name                string `json:"name" gorm:"column:name;" `
+	//Avatar              string `json:"avatar" gorm:"column:avatar;"`
+	//StudentId           string `json:"student_id" gorm:"column:student_id;"`
 	College             string `json:"college" gorm:"column:college;"`
 	Major               string `json:"major" gorm:"column:major;"`
 	Grade               string `json:"grade" gorm:"column:grade;"`
@@ -39,16 +39,16 @@ func (f *FormModel) TableName() string {
 //return model.DB.Self.Save(f).Error
 //}
 
-func Create(email string, name string, avatar string, studentId string,
-	college string, major string, grade string,
-	gender string, contactway string, contactnumber string,
-	group string, reason string, understand string,
+func Create(email string, 
+	college string, major string, grade string, 
+	gender string, contactway string, contactnumber string, 
+	group string, reason string, understand string, 
 	selfintroduction string, ifotherorganization string) (*FormModel, error) {
 	var form = FormModel{
-		Email:               email,
-		Name:                name,
-		Avatar:              avatar,
-		StudentId:           studentId,
+		Email: email,
+		//Name:                name,
+		//Avatar:              avatar,
+		//StudentId:           studentId,
 		College:             college,
 		Major:               major,
 		Grade:               grade,
@@ -78,17 +78,17 @@ func Create(email string, name string, avatar string, studentId string,
 	return &form, nil
 }
 
-func Edit(email string, name string, avatar string, studentid string,
+func Edit(email string, 
 	college string, major string, grade string,
 	gender string, contactway string, contactnumber string,
 	group string, reason string, understand string,
 	selfintroduction string, ifotherorganization string) error {
 
 	if err := model.DB.Self.Model(FormModel{}).Where("email=?", email).Updates(FormModel{
-		Email:               email,
-		Name:                name,
-		Avatar:              avatar,
-		StudentId:           studentid,
+		Email: email,
+		//Name:                name,
+		//Avatar:              avatar,
+		//StudentId:           studentid,
 		College:             college,
 		Major:               major,
 		Grade:               grade,

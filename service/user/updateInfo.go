@@ -13,3 +13,11 @@ func UpdateInfo(email string, avatar string, name string) error {
 	}
 	return nil
 }
+
+// 头像，姓名，学号
+func UpdateInfor(email string, avatar string, name string,studentId string) error {
+	if err := U.UpdateInfor(email, avatar, name, studentId); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}

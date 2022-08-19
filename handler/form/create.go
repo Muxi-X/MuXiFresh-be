@@ -4,6 +4,7 @@ import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/pkg/errno"
 	Form "github.com/MuXiFresh-be/service/form"
+	U "github.com/MuXiFresh-be/service/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,14 +23,18 @@ func Create(c *gin.Context) {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-
-	userForm, err := Form.CreateForm(email, request.Name, request.Avatar, request.StudentId,
+	
+	userForm, err := Form.CreateForm(email,
 		request.College, request.Major, request.Grade,
 		request.Gender, request.ContactWay, request.ContactNumber,
 		request.Group, request.Reason, request.Understand,
 		request.SelfIntroduction, request.IfOtherOrganization)
 	if err != nil {
 		SendError(c, err, nil, err.Error(), GetLine())
+		return
+	}
+	if err := U.UpdateInfor(email, request.Avatar, request.Name, request.StudentId); err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
 	SendResponse(c, nil, userForm)
