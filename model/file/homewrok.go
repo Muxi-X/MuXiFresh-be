@@ -111,13 +111,19 @@ func GetHomeworkHanded(groupId int, offset int, limit int) ([]Homework, int, err
 }
 
 // GetPublishedDetails 查看发布作业的细节
-func GetPublishedDetails(id int) (*HomeworkPublished, error) {
+func GetPublishedDetails(id int, email string) (*HomeworkPublished, []Homework, error) {
 	var homework HomeworkPublished
 	if err := model.DB.Self.Model(HomeworkPublished{}).
 		Where("id  = ?", id).Find(&homework).Error; err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return &homework, nil
+
+	var finished []Homework
+	if err := model.DB.Self.Model(Homework{}).
+		Where("email = ?", email).Find(&finished).Error; err != nil {
+		return nil, nil, err
+	}
+	return &homework, finished, nil
 }
 
 // ReviewHomework ...查阅作业

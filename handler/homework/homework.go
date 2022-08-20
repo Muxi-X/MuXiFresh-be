@@ -6,6 +6,13 @@ type PublishHomeworkRequest struct {
 	GroupID uint   `json:"group_id" binding:"required"`
 	FileUrl string `json:"file_url" `
 }
+type PublishedResponse struct {
+	Title   string ` json:"title" bingding:"required"`
+	Content string `json:"content" binding:"required"`
+	GroupID uint   `json:"group_id" binding:"required"`
+	FileUrl string `json:"file_url" `
+	Status  int    `json:"status"`
+}
 
 type HomeworkRequest struct {
 	Title      string ` json:"title" binding:"required"`

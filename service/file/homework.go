@@ -81,12 +81,12 @@ func Review(id int) (*File.Homework, error) {
 }
 
 // GetHomeworkDetails ...获取作业的详细内容
-func GetHomeworkDetails(id int) (*File.HomeworkPublished, error) {
-	homework, err := File.GetPublishedDetails(id)
+func GetHomeworkDetails(id int, email string) (*File.HomeworkPublished, []File.Homework, error) {
+	homeworkpublished, homework, err := File.GetPublishedDetails(id, email)
 	if err != nil {
-		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+		return nil, nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
-	return homework, nil
+	return homeworkpublished, homework, nil
 }
 
 // ModifyHW ...修改作业
