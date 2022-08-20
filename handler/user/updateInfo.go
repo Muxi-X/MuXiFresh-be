@@ -40,3 +40,4 @@ func UpdateInfo(c *gin.Context) {
 	}
 	SendResponse(c, nil, "Success")
 }
+

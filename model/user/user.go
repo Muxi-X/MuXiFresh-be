@@ -120,6 +120,26 @@ func UpdateInfo(email string, avatar string, name string) error {
 	return tx.Commit().Error
 }
 
+func UpdateInfor(email string, avatar string, name string,studentId string) error {
+	var user = UserModel{
+		Email:  email,
+		Avatar: avatar,
+		Name:   name,
+		StudentId: studentId,
+	}
+	tx := model.DB.Self.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if err := tx.Model(user).Where("email = ?", user.Email).Update(user).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
+}
 // Authorize ...授权
 func Authorize(email string, role int) error {
 	Role := uint32(role)
