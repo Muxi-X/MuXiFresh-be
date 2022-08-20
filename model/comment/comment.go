@@ -112,7 +112,7 @@ func GetCommentList(id string, offset int, limit int) ([]List, int, error) {
 		list[i].Comment = m
 		list[i].Name = u.Name
 		list[i].Avatar = u.Avatar
-		list[i].Grade = f.Grade
+		list[i].Grade = u.Grade
 		list[i].Group = f.Group
 		num = i + 1
 	}

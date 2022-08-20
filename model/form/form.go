@@ -12,12 +12,12 @@ type FormModel struct {
 	//Name                string `json:"name" gorm:"column:name;" `
 	//Avatar              string `json:"avatar" gorm:"column:avatar;"`
 	//StudentId           string `json:"student_id" gorm:"column:student_id;"`
-	College             string `json:"college" gorm:"column:college;"`
-	Major               string `json:"major" gorm:"column:major;"`
-	Grade               string `json:"grade" gorm:"column:grade;"`
-	Gender              string `json:"gender" gorm:"column:gender;"`
-	ContactWay          string `json:"contact_way" gorm:"column:contact_way;"`
-	ContactNumber       string `json:"contact_number" gorm:"column:contact_number;"`
+	//College             string `json:"college" gorm:"column:college;"`
+	//Major               string `json:"major" gorm:"column:major;"`
+	//Grade               string `json:"grade" gorm:"column:grade;"`
+	//Gender              string `json:"gender" gorm:"column:gender;"`
+	//ContactWay          string `json:"contact_way" gorm:"column:contact_way;"`
+	//ContactNumber       string `json:"contact_number" gorm:"column:contact_number;"`
 	Group               string `json:"group" gorm:"column:group;"`
 	Reason              string `json:"reason" gorm:"column:reason;"`
 	Understand          string `json:"understand" gorm:"column:understand;"`
@@ -39,9 +39,7 @@ func (f *FormModel) TableName() string {
 //return model.DB.Self.Save(f).Error
 //}
 
-func Create(email string, 
-	college string, major string, grade string, 
-	gender string, contactway string, contactnumber string, 
+func Create(email string,  
 	group string, reason string, understand string, 
 	selfintroduction string, ifotherorganization string) (*FormModel, error) {
 	var form = FormModel{
@@ -49,12 +47,12 @@ func Create(email string,
 		//Name:                name,
 		//Avatar:              avatar,
 		//StudentId:           studentId,
-		College:             college,
-		Major:               major,
-		Grade:               grade,
-		Gender:              gender,
-		ContactWay:          contactway,
-		ContactNumber:       contactnumber,
+		//College:             college,
+		//Major:               major,
+		//Grade:               grade,
+		//Gender:              gender,
+		//ContactWay:          contactway,
+		//ContactNumber:       contactnumber,
 		Group:               group,
 		Reason:              reason,
 		Understand:          understand,
@@ -79,8 +77,6 @@ func Create(email string,
 }
 
 func Edit(email string, 
-	college string, major string, grade string,
-	gender string, contactway string, contactnumber string,
 	group string, reason string, understand string,
 	selfintroduction string, ifotherorganization string) error {
 
@@ -89,12 +85,12 @@ func Edit(email string,
 		//Name:                name,
 		//Avatar:              avatar,
 		//StudentId:           studentid,
-		College:             college,
-		Major:               major,
-		Grade:               grade,
-		Gender:              gender,
-		ContactWay:          contactway,
-		ContactNumber:       contactnumber,
+		//College:             college,
+		//Major:               major,
+		//Grade:               grade,
+		//Gender:              gender,
+		//ContactWay:          contactway,
+		//ContactNumber:       contactnumber,
 		Group:               group,
 		Reason:              reason,
 		Understand:          understand,

@@ -15,8 +15,8 @@ func UpdateInfo(email string, avatar string, name string) error {
 }
 
 // 头像，姓名，学号
-func UpdateInfor(email string, avatar string, name string,studentId string) error {
-	if err := U.UpdateInfor(email, avatar, name, studentId); err != nil {
+func UpdateInfor(email string, avatar string, name string, studentId string, college string, major string, grade string, gender string, contact_way string, contact_number string) error {
+	if err := U.UpdateInfor(email, avatar, name, studentId, college, major, grade, gender, contact_way, contact_number); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return nil

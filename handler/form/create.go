@@ -25,15 +25,13 @@ func Create(c *gin.Context) {
 	}
 	
 	userForm, err := Form.CreateForm(email,
-		request.College, request.Major, request.Grade,
-		request.Gender, request.ContactWay, request.ContactNumber,
 		request.Group, request.Reason, request.Understand,
 		request.SelfIntroduction, request.IfOtherOrganization)
 	if err != nil {
 		SendError(c, err, nil, err.Error(), GetLine())
 		return
 	}
-	if err := U.UpdateInfor(email, request.Avatar, request.Name, request.StudentId); err != nil {
+	if err := U.UpdateInfor(email, request.Avatar, request.Name, request.StudentId,request.College,request.Major,request.Grade,request.Gender,request.ContactWay,request.ContactNumber); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

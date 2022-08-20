@@ -49,7 +49,7 @@ func ViewOwnSchedule(c *gin.Context) {
 	SendResponse(c, nil, ScheduleResponse{
 		//Name:            Form.Name,
 		Name:            User.Name,
-		Major:           Form.Major,
+		Major:           User.Major,
 		Group:           Form.Group,
 		FormStatus:      sche.FormStatus,
 		WorkStatus:      sche.WorkStatus,
