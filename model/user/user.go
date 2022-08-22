@@ -16,6 +16,12 @@ type UserModel struct {
 	Message      uint32 `json:"message" gorm:"column:message;" binding:"required"`
 	HashPassword string `json:"hash_password" gorm:"column:hash_password;" binding:"required"`
 	StudentId    string `json:"student_id" gorm:"column:student_id;unique™"`
+	College       string `json:"college" gorm:"column:college;"`
+	Major         string `json:"major" gorm:"column:major;"`
+	Grade         string `json:"grade" gorm:"column:grade;"`
+	Gender        string `json:"gender" gorm:"column:gender;"`
+	ContactWay    string `json:"contact_way" gorm:"column:contact_way;"`
+	ContactNumber string `json:"contact_number" gorm:"column:contact_number;"`
 }
 
 func (u *UserModel) TableName() string {
@@ -120,12 +126,17 @@ func UpdateInfo(email string, avatar string, name string) error {
 	return tx.Commit().Error
 }
 
-func UpdateInfor(email string, avatar string, name string,studentId string) error {
+func UpdateInfor(email string, avatar string, name string, studentId string,college string,major string,grade string,gender string,contact_way string,contact_number string) error {
 	var user = UserModel{
-		Email:  email,
-		Avatar: avatar,
-		Name:   name,
+		Email:     email,
+		Avatar:    avatar,
+		Name:      name,
 		StudentId: studentId,
+		Major: major,
+		Grade: grade,
+		Gender: gender,
+		ContactWay: contact_way,
+		ContactNumber: contact_number,
 	}
 	tx := model.DB.Self.Begin()
 	defer func() {
