@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/pkg/auth"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -24,8 +23,6 @@ func AuthMiddleware(limit uint32) gin.HandlerFunc {
 		// Parse the json web token.
 		ctx, err := auth.ParseRequest(c)
 
-		fmt.Println("ctx.Role", ctx.Role)
-		fmt.Println("limit", limit)
 		if err != nil {
 			handler.SendResponse(c, errno.ErrAuthToken, err.Error())
 			c.Abort()

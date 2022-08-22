@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/MuXiFresh-be/model/form"
 	"github.com/MuXiFresh-be/model/schedule"
 
 	"github.com/MuXiFresh-be/model"
@@ -50,7 +51,7 @@ func main() {
 	model.DB.Init()
 	defer model.DB.Close()
 
-	if err := model.DB.Self.AutoMigrate(&user.UserModel{}, &comment.Comment{}, &file.Homework{}, &file.HomeworkPublished{}, &schedule.ScheduleModel{}).Error; err != nil {
+	if err := model.DB.Self.AutoMigrate(&user.UserModel{}, &comment.Comment{}, &file.Homework{}, &file.HomeworkPublished{}, &schedule.ScheduleModel{}, &form.FormModel{}).Error; err != nil {
 		fmt.Println("error", err)
 	}
 
@@ -73,13 +74,11 @@ func main() {
 	// Ping the server to make sure the router is working.
 	go func() {
 		if err := pingServer(); err != nil {
-			log.Fatal("The router has no response, or it might took too long to start up.",
-				zap.String("reason", err.Error()))
+			log.Fatal("The router has no response, or it might took too long to start up.", zap.String("reason", err.Error()))
 		}
-		log.Info("The router has been deployed successfully.")
+		log.Info(fmt.Sprintf("The router has been deployed on %s successfully.", viper.GetString("addr")))
 	}()
 
-	log.Info(fmt.Sprintf("Start to listening the incoming requests on http address: %s", viper.GetString("addr")))
 	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
 }
 

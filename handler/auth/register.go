@@ -25,7 +25,7 @@ func Register(c *gin.Context) {
 	var req user.RegisterRequest
 
 	if err := c.ShouldBind(&req); err != nil {
-		handler.SendBadRequest(c, errno.ErrBind, nil, err.Error(), handler.GetLine()) //, errno.ErrBind)
+		handler.SendBadRequest(c, errno.ErrBind, nil, err.Error(), handler.GetLine()) // , errno.ErrBind)
 		fmt.Println(req)
 		return
 	}
@@ -37,8 +37,8 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	//注册成功自动生成进度表
-	if err := service.Create(req.Email, req.Name, req.StudentId); err != nil {
+	// 注册成功自动生成进度表
+	if err := service.Create(req.Email); err != nil {
 		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
 		return
 	}

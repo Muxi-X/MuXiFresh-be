@@ -88,6 +88,7 @@ func GetComments(c *gin.Context) {
 // @Accept  json/application
 // @Produce  json/application
 // @Param Authorization header string true  "获取email"
+// @Param comment_id path integer true "评论的id"
 // @Success 200 {string}  json "{"code":0,"message":"OK","data":{}}"
 // @Failure 400 {object} errno.Errno
 // @Failure 404 {object} errno.Errno

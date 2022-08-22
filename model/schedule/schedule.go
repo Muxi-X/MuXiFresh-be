@@ -7,11 +7,7 @@ import (
 
 type ScheduleModel struct {
 	gorm.Model
-	Name            string `gorm:"column:name;type:varchar(20);NOT NULL" json:"name"`
 	Email           string `gorm:"column:email;type:varchar(35);NOT NULL" json:"email"`
-	StudentId       string `gorm:"column:student_id;type:char(10)" json:"student_id"`
-	Collage         string `gorm:"column:collage;type:varchar(20)" json:"collage"`
-	Major           string `gorm:"column:major;type:varchar(20)" json:"major"`
 	Group           string `gorm:"column:group;type:varchar(20)" json:"group"`
 	FormStatus      int    `gorm:"column:form_status;type:int(3);comment:'报名表状态 0-未提交 1-已提交';NOT NULL" json:"form_status"`
 	WorkStatus      int    `gorm:"column:work_status;type:int(3);comment:'作业提交状态 0-未提交 1-已提交';NOT NULL" json:"work_status"`
@@ -30,4 +26,11 @@ func (s *ScheduleModel) Create() error {
 // Save ... save schedule.
 func (s *ScheduleModel) Save() error {
 	return model.DB.Self.Save(s).Error
+}
+
+func Edit(email string, name string, group string, major string) error {
+	if err := model.DB.Self.Table("forms").Where("email=?", email).Updates(map[string]interface{}{"name": name, "major": major, "group": group}).Error; err != nil {
+		return err
+	}
+	return nil
 }

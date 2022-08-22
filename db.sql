@@ -1,3 +1,4 @@
+CREATE DATABASE `MuxiFresh`;
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
@@ -24,10 +25,10 @@ DROP TABLE IF EXISTS `forms`;
 CREATE TABLE `forms`
 (
     `id`              int(11)     NOT NULL AUTO_INCREMENT,
-    `name`            varchar(20) NOT NULL,
+    -- `name`            varchar(20) NOT NULL,
     `email`           varchar(35) NOT NULL,
-    `avatar`          varchar(100) DEFAULT NULL,
-    `student_id`      char(10)     DEFAULT NULL,
+    -- `avatar`          varchar(100) DEFAULT NULL,
+    -- `student_id`      char(10)     DEFAULT NULL,
     `college`         varchar(20)  DEFAULT NULL,
     `major`           varchar(20)  DEFAULT NULL,
     `grade`           varchar(20)  DEFAULT NULL,

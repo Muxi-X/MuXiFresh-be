@@ -81,10 +81,53 @@ func Review(id int) (*File.Homework, error) {
 }
 
 // GetHomeworkDetails ...获取作业的详细内容
-func GetHomeworkDetails(id int) (*File.HomeworkPublished, error) {
-	homework, err := File.GetPublishedDetails(id)
+func GetHomeworkDetails(id int, email string) (*File.HomeworkPublished, []File.Homework, error) {
+	homeworkpublished, homework, err := File.GetPublishedDetails(id, email)
+	if err != nil {
+		return nil, nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return homeworkpublished, homework, nil
+}
+
+// ModifyHW ...修改作业
+func ModifyHW(id string, email string, title string, content string, fileUrl string) error {
+	if err := File.UpdateUploaded(id, email, title, content, fileUrl); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}
+
+// ModifyPublished ...修改发布的作业
+func ModifyPublished(id string, email string, groupID uint, title string, content string, fileUrl string) error {
+	if err := File.UpdatePublished(id, email, title, content, fileUrl, groupID); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}
+
+// GetMine ...获取我对应的提交作业
+func GetMine(email string, id string) ([]File.Homework, error) {
+	homework, err := File.GetMine(email, id)
 	if err != nil {
 		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return homework, nil
+}
+
+// GetAllMyHomework ...获取做过的全部作业
+func GetAllMyHomework(email string) ([]File.Homework, error) {
+	homework, err := File.GetAll(email)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return homework, nil
+}
+
+// GetAllPublished ...获取所有发布的作业
+func GetAllPublished(email string) ([]File.HomeworkPublished, error) {
+	published, err := File.GetAllPublished(email)
+	if err != nil {
+		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return published, nil
 }

@@ -1,6 +1,11 @@
 package file
 
-import "github.com/MuXiFresh-be/model"
+import (
+	"errors"
+	"fmt"
+	"github.com/MuXiFresh-be/model"
+	form2 "github.com/MuXiFresh-be/model/form"
+)
 
 // Create ...提交作业
 func Create(title string, content string, homeworkID uint, url string, email string) (*Homework, error) {
@@ -106,13 +111,19 @@ func GetHomeworkHanded(groupId int, offset int, limit int) ([]Homework, int, err
 }
 
 // GetPublishedDetails 查看发布作业的细节
-func GetPublishedDetails(id int) (*HomeworkPublished, error) {
+func GetPublishedDetails(id int, email string) (*HomeworkPublished, []Homework, error) {
 	var homework HomeworkPublished
 	if err := model.DB.Self.Model(HomeworkPublished{}).
 		Where("id  = ?", id).Find(&homework).Error; err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return &homework, nil
+
+	var finished []Homework
+	if err := model.DB.Self.Model(Homework{}).
+		Where("email = ?", email).Find(&finished).Error; err != nil {
+		return nil, nil, err
+	}
+	return &homework, finished, nil
 }
 
 // ReviewHomework ...查阅作业
@@ -122,4 +133,99 @@ func ReviewHomework(id int) (*Homework, error) {
 		return nil, err
 	}
 	return &homework, nil
+}
+
+// UpdateUploaded ...修改上传的作业
+func UpdateUploaded(id string, email string, title string, content string, fileUrl string) error {
+	var hw Homework
+	if err := model.DB.Self.Model(Homework{}).Where("id = ?", id).Find(&hw).Error; err != nil {
+		return err
+	}
+	if hw.Email != email {
+		return errors.New("permission denied")
+	}
+	if err := model.DB.Self.Model(Homework{}).Where("id = ?", id).Updates(Homework{
+		Title:   title,
+		Content: content,
+		URL:     fileUrl,
+	}).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpdatePublished ...	修改发布的作业
+func UpdatePublished(id, email, title, content, fileUrl string, groupID uint) error {
+	var published HomeworkPublished
+	if err := model.DB.Self.Model(HomeworkPublished{}).Where("id  = ?", id).Find(&published).Error; err != nil {
+		return err
+	}
+	if published.Publisher != email {
+		return errors.New("permission denied")
+	}
+
+	if err := model.DB.Self.Model(HomeworkPublished{}).Where("id = ?", id).Updates(HomeworkPublished{
+		GroupID: groupID,
+		Title:   title,
+		Content: content,
+		FileUrl: fileUrl,
+	}).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// GetMine 查看某作业我的上传内容
+func GetMine(email string, id string) ([]Homework, error) {
+	var homework []Homework
+	if err := model.DB.Self.Model(Homework{}).
+		Where("email = ? AND homework_id = ?", email, id).
+		Find(&homework).Error; err != nil {
+		return nil, err
+	}
+	return homework, nil
+}
+
+// GetALl 查询我所有的作业
+func GetAll(email string) ([]Homework, error) {
+	var homework []Homework
+	if err := model.DB.Self.Model(Homework{}).
+		Where("email = ?", email).
+		Find(&homework).Error; err != nil {
+		return nil, err
+	}
+	return homework, nil
+}
+
+// GetAllPublished
+func GetAllPublished(email string) ([]HomeworkPublished, error) {
+	var form form2.FormModel
+	if err := model.DB.Self.Model(form2.FormModel{}).
+		Where("email = ?", email).
+		Find(&form).Error; err != nil {
+		return nil, err
+	}
+	var id uint
+	switch form.Group {
+	case "设计组":
+		id = 1
+	case "产品组":
+		id = 2
+	case "安卓组":
+		id = 3
+	case "前端组":
+		id = 4
+	case "后端组":
+		id = 5
+
+	}
+
+	fmt.Println("id.....", id)
+	var published []HomeworkPublished
+	if err := model.DB.Self.Model(HomeworkPublished{}).
+		Where("group_id = ?", id).
+		Find(&published).Error; err != nil {
+		return nil, err
+	}
+	return published, nil
 }

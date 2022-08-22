@@ -5,11 +5,12 @@ import (
 	"github.com/MuXiFresh-be/handler/auth"
 	"github.com/MuXiFresh-be/handler/schedule"
 	"github.com/MuXiFresh-be/handler/sd"
+	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/pkg/constvar"
 	"github.com/MuXiFresh-be/pkg/errno"
 
+	Form "github.com/MuXiFresh-be/handler/form"
 	Homework "github.com/MuXiFresh-be/handler/homework"
-	"github.com/MuXiFresh-be/handler/user"
 	"github.com/MuXiFresh-be/router/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -58,7 +59,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		userRouter.GET("/profile/:email", user.GetProfile)
 
-		//userRouter.GET("/list", user.List)
+		// userRouter.GET("/list", user.List)
 
 		userRouter.GET("/qiniu_token", user.GetQiniuToken)
 
@@ -66,9 +67,10 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 	}
 
-	//schedule 模块
-	scheduleRouter := g.Group("api/v1/schedule").Use(normalRequired) //设置中间件，并确定用户等级
+	// schedule 模块
+	scheduleRouter := g.Group("api/v1/schedule").Use(normalRequired) // 设置中间件，并确定用户等级
 	{
+
 		scheduleRouter.GET("", schedule.ViewOwnSchedule)
 
 		scheduleRouter.PUT("/admit/:name", adminRequired, schedule.Admit)
@@ -83,7 +85,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		homework.POST("/publish", adminRequired, Homework.PublishHomework)
 
 		// 获取已经发布的作业
-		homework.GET("/published", Homework.GetHomeworkPublished)
+		//homework.GET("/published", Homework.GetHomeworkPublished)
+
+		// 获取我写的作业
+		homework.GET("/published/:id/mine", Homework.GetMyHomework)
+
+		// 查看我所有作业的完成状况
+		homework.GET("/performance", Homework.GetMyPerformance)
 
 		// 获取已发布作业的详细内容
 		homework.GET("/published/details/:id", Homework.GetHomeworkDetails)
@@ -106,9 +114,24 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		// 上传作业
 		homework.POST("", normalRequired, Homework.UploadHomework)
 
+		// 修改作业
+		homework.POST("/change/uploaded/:id", normalRequired, Homework.ModifyHomework)
+
+		// 修改发布的作业
+		homework.POST("/change/published/:id", adminRequired, Homework.ModifyPublished)
+
 	}
 
-	// The health check handlers
+	// form 模块
+	formRouter := g.Group("api/v1/form").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal))
+	{
+		formRouter.POST("", Form.Create)
+		formRouter.PUT("", Form.Edit)
+		formRouter.GET("/view", Form.View)
+		formRouter.POST("/search", Form.Search)
+	}
+
+	// The health check Fandlers
 	svcd := g.Group("/sd")
 	{
 		svcd.GET("/health", sd.HealthCheck)
