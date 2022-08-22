@@ -8,7 +8,7 @@ import (
 
 type FormModel struct {
 	gorm.Model
-	Email string `json:"email" gorm:"column:email;not null"`
+	Email 			   string `json:"email" gorm:"column:email;default:null;unique"`
 	//Name                string `json:"name" gorm:"column:name;" `
 	//Avatar              string `json:"avatar" gorm:"column:avatar;"`
 	//StudentId           string `json:"student_id" gorm:"column:student_id;"`
@@ -39,8 +39,8 @@ func (f *FormModel) TableName() string {
 //return model.DB.Self.Save(f).Error
 //}
 
-func Create(email string,  
-	group string, reason string, understand string, 
+func Create(email string,
+	group string, reason string, understand string,
 	selfintroduction string, ifotherorganization string) (*FormModel, error) {
 	var form = FormModel{
 		Email: email,
@@ -76,7 +76,7 @@ func Create(email string,
 	return &form, nil
 }
 
-func Edit(email string, 
+func Edit(email string,
 	group string, reason string, understand string,
 	selfintroduction string, ifotherorganization string) error {
 
