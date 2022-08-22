@@ -105,9 +105,7 @@ func GetCommentList(id string, offset int, limit int) ([]List, int, error) {
 		err3 := model.DB.Self.Model(form.FormModel{}).
 			Where("email = ?", m.Publisher).
 			Find(&f).Error
-		if err3 != nil {
-			return nil, 0, err3
-		}
+
 		fmt.Println("u--------", u)
 		list[i].Comment = m
 		list[i].Name = u.Name
@@ -115,6 +113,9 @@ func GetCommentList(id string, offset int, limit int) ([]List, int, error) {
 		list[i].Grade = f.Grade
 		list[i].Group = f.Group
 		num = i + 1
+		if err3 != nil {
+			continue
+		}
 	}
 	return list, num, nil
 }
