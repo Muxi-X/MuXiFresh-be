@@ -35,5 +35,9 @@ func Create(c *gin.Context) {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
+	if err := Form.UpdateSchedule(email,request.Group);err!=nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
 	SendResponse(c, nil, userForm)
 }

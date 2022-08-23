@@ -17,7 +17,7 @@ db:  # DB 配置 部署时环境变量覆盖
   name: MuxiFresh
   addr: localhost:3306
   username: root
-  password: root&1234
+  password: 123456
 redis:
   addr: 127.0.0.1:6379
   password: ""

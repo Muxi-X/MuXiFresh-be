@@ -35,5 +35,9 @@ func Edit(c *gin.Context) {
 		return
 	}
 
+	if err := form.UpdateSchedule(email,request.Group);err!=nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
 	SendResponse(c, nil, "Success")
 }

@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// @Summary "查看报名表（分组）"
-// @Description
+// @Summary "分组查看报名者信息"
+// @Description "输入两位数字符如‘11’ -前一位表示（1-产品，2-安卓，3-设计，4-前端，5-后端）-后一位表示（1-已报名，2-初试过，3-面试过）"
 // @Tags form
 // @Accept application/json
 // @Produce application/json
@@ -25,11 +25,26 @@ func Search(c *gin.Context) {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-
-	Form, err := form.SearchForm(group.Group)
+	/* Form, err := form.SearchForm(group.Group)
+	if err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	} */
+	//SendResponse(c, nil, Form)
+	Userinfo,err :=form.SearchByGroupForUser(group.Group)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	SendResponse(c, nil, Form)
+	
+	len :=len(Userinfo)
+	responseinfo := make([]searchResponse,len)
+	for i := 0; i < len; i++ {
+		responseinfo[i].Name = Userinfo[i].Name
+		responseinfo[i].Email = Userinfo[i].Email
+		responseinfo[i].Avatar = Userinfo[i].Avatar
+		responseinfo[i].College = Userinfo[i].College
+		responseinfo[i].Grade = Userinfo[i].Grade
+	}
+	SendResponse(c,nil,responseinfo)
 }

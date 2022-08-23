@@ -129,6 +129,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		formRouter.PUT("", Form.Edit)
 		formRouter.GET("/view", Form.View)
 		formRouter.POST("/search", Form.Search)
+		formRouter.POST("/view",Form.ViewOthers)
 	}
 
 	// The health check Fandlers
