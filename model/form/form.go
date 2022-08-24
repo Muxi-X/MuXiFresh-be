@@ -2,19 +2,15 @@ package form
 
 import (
 	"github.com/MuXiFresh-be/model"
-	"github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/model/schedule"
+	"github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/jinzhu/gorm"
 )
 
 type FormModel struct {
 	gorm.Model
-<<<<<<< HEAD
 	Email string `json:"email" gorm:"column:email;not null;unique"`
-=======
-	Email 			   string `json:"email" gorm:"column:email;default:null;unique"`
->>>>>>> origin
 	//Name                string `json:"name" gorm:"column:name;" `
 	//Avatar              string `json:"avatar" gorm:"column:avatar;"`
 	//StudentId           string `json:"student_id" gorm:"column:student_id;"`
@@ -117,71 +113,71 @@ func Search(group string) ([]FormModel, error) {
 }
 
 func GetUserInfoByGroup(status string) ([]user.UserModel, error) {
-	
+
 	var group string
 	var formstatus int
-	group = ""  
+	group = ""
 	formstatus = 0 //formstatus默认为0-未提交，其他分别为1-已报名，2-初试过，3-面试过
-	if status =="11"{
+	if status == "11" {
 		group = "产品组"
 		formstatus = 1
-	} 
-	if status =="12"{
+	}
+	if status == "12" {
 		group = "产品组"
 		formstatus = 2
-	} 
-	if status =="13"{
+	}
+	if status == "13" {
 		group = "产品组"
 		formstatus = 3
-	} 	
-	if status =="21"{
+	}
+	if status == "21" {
 		group = "安卓组"
 		formstatus = 1
-	} 
-	if status =="22"{
+	}
+	if status == "22" {
 		group = "安卓组"
 		formstatus = 2
-	} 
-	if status =="23"{
+	}
+	if status == "23" {
 		group = "安卓组"
 		formstatus = 3
-	} 
-	if status =="31"{
+	}
+	if status == "31" {
 		group = "设计组"
 		formstatus = 1
-	} 
-	if status =="32"{
+	}
+	if status == "32" {
 		group = "设计组"
 		formstatus = 2
-	} 
-	if status =="33"{
+	}
+	if status == "33" {
 		group = "设计组"
 		formstatus = 3
-	} 
-	if status =="41"{
+	}
+	if status == "41" {
 		group = "前端组"
 		formstatus = 1
-	} 
-	if status =="42"{
+	}
+	if status == "42" {
 		group = "前端组"
 		formstatus = 2
-	} 
-	if status =="43"{
+	}
+	if status == "43" {
 		group = "前端组"
 		formstatus = 3
-	} 
-	if status =="51"{
+	}
+	if status == "51" {
 		group = "后端组"
 		formstatus = 1
-	} 
-	if status =="52"{
+	}
+	if status == "52" {
 		group = "后端组"
 		formstatus = 2
-	} 
-	if status =="53"{
+	}
+	if status == "53" {
 		group = "后端组"
 		formstatus = 3
-	} 
+	}
 
 	//userinfo := make([]user.UserModel,100)
 	//forminfo := make([]FormModel,100)
@@ -205,15 +201,15 @@ func GetUserInfoByGroup(status string) ([]user.UserModel, error) {
 	if err := model.DB.Self.Table("schedules").Where("`group`=? and form_status= ?", group, formstatus).Find(&scheduleinfo).Error; err != nil {
 		return []user.UserModel{}, err
 	}
-	len :=len(scheduleinfo)
-	userinfo := make([]user.UserModel,len)
+	len := len(scheduleinfo)
+	userinfo := make([]user.UserModel, len)
 
 	for i := 0; i < len; i++ {
 		if err := model.DB.Self.Table("users").Where("`email`=?", scheduleinfo[i].Email).Find(&userinfo[i]).Error; err != nil {
 			return userinfo, err
 		}
 	}
-	return userinfo, nil 
+	return userinfo, nil
 }
 
 func View(email string) (*FormModel, error) {
