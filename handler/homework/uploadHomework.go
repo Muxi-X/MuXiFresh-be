@@ -2,9 +2,11 @@ package homework
 
 import (
 	. "github.com/MuXiFresh-be/handler"
+
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/service/file"
+	"github.com/MuXiFresh-be/service/schedule"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -50,9 +52,12 @@ func UploadHomework(c *gin.Context) {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-
 	hw, err := file.HandInHomework(homework.Title, homework.Content, homework.HomeworkID, homework.FileUrl, email)
 	if err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
+	if err := schedule.UpdateSchedule(email); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
