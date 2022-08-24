@@ -35,8 +35,15 @@ func Edit(email string, name string, group string, major string) error {
 	return nil
 }
 
-func Update(email string,group string) error {
-	if err := model.DB.Self.Table("schedules").Where("email=?", email).Updates(map[string]interface{}{"group": group, "form_status":1}).Error; err != nil {
+func Update(email string, group string) error {
+	if err := model.DB.Self.Table("schedules").Where("email=?", email).Updates(map[string]interface{}{"group": group, "form_status": 1}).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func Update2(email string) error {
+	if err := model.DB.Self.Table("schedules").Where("email=?", email).Updates(map[string]interface{}{"work_status": 1}).Error; err != nil {
 		return err
 	}
 	return nil
