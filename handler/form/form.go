@@ -59,3 +59,21 @@ type searchResponse struct {
 	//ContactWay    string `json:"contact_way" gorm:"column:contact_way;"`
 	//ContactNumber string `json:"contact_number" gorm:"column:contact_number;"`
 }
+
+type viewResponse struct {
+	Email  				string `json:"email"`
+	Name                string `json:"name" binding:"required"`
+	Avatar              string `json:"avatar" binding:"required"`
+	StudentId           string `json:"student_id" binding:"required"`
+	College             string `json:"college" binding:"required"`
+	Major               string `json:"major" binding:"required"`
+	Grade               string `json:"grade" binding:"required"`
+	Gender              string `json:"gender" binding:"required"`
+	ContactWay          string `json:"contact_way" binding:"required"`
+	ContactNumber       string `json:"contact_number" binding:"required"`
+	Group               string `json:"group" binding:"required"`
+	Reason              string `json:"reason" binding:"required"`
+	Understand          string `json:"understand" binding:"required"`
+	SelfIntroduction    string `json:"self_introduction" binding:"required"`
+	IfOtherOrganization string `json:"if_other_organization" binding:"required"`
+}

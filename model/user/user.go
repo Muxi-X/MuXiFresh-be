@@ -133,6 +133,7 @@ func UpdateInfor(email string, avatar string, name string, studentId string, col
 		Avatar:        avatar,
 		Name:          name,
 		StudentId:     studentId,
+		College:       college,
 		Major:         major,
 		Grade:         grade,
 		Gender:        gender,
