@@ -226,6 +226,7 @@ var doc = `{
         },
         "/form/search": {
             "post": {
+                "description": "\"输入两位数字符如‘11’ -前一位表示（1-产品，2-安卓，3-设计，4-前端，5-后端）-后一位表示（1-已报名，2-初试过，3-面试过）\"",
                 "consumes": [
                     "application/json"
                 ],
@@ -235,7 +236,7 @@ var doc = `{
                 "tags": [
                     "form"
                 ],
-                "summary": "\"查看报名表（分组）\"",
+                "summary": "\"分组查看报名者信息\"",
                 "parameters": [
                     {
                         "description": "按组查询报名表",
@@ -273,6 +274,42 @@ var doc = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "description": "通过email查看成员报名表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"查看报名表（其他成员）\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "查看他人报名表",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/form.viewothersRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -663,7 +700,7 @@ var doc = `{
                 }
             }
         },
-        "/homework/performance/:id": {
+        "/homework/performance": {
             "get": {
                 "description": "查看用户所有作业的完成状况",
                 "consumes": [
@@ -682,13 +719,6 @@ var doc = `{
                         "description": "token",
                         "name": "Authorization",
                         "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "对应组别的id",
-                        "name": "id",
-                        "in": "path",
                         "required": true
                     }
                 ],
@@ -1578,18 +1608,6 @@ var doc = `{
         "form.FormModel": {
             "type": "object",
             "properties": {
-                "avatar": {
-                    "type": "string"
-                },
-                "college": {
-                    "type": "string"
-                },
-                "contact_number": {
-                    "type": "string"
-                },
-                "contact_way": {
-                    "type": "string"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -1599,13 +1617,8 @@ var doc = `{
                 "email": {
                     "type": "string"
                 },
-                "gender": {
-                    "type": "string"
-                },
-                "grade": {
-                    "type": "string"
-                },
                 "group": {
+                    "description": "Name                string ` + "`" + `json:\"name\" gorm:\"column:name;\" ` + "`" + `\nAvatar              string ` + "`" + `json:\"avatar\" gorm:\"column:avatar;\"` + "`" + `\nStudentId           string ` + "`" + `json:\"student_id\" gorm:\"column:student_id;\"` + "`" + `\nCollege             string ` + "`" + `json:\"college\" gorm:\"column:college;\"` + "`" + `\nMajor               string ` + "`" + `json:\"major\" gorm:\"column:major;\"` + "`" + `\nGrade               string ` + "`" + `json:\"grade\" gorm:\"column:grade;\"` + "`" + `\nGender              string ` + "`" + `json:\"gender\" gorm:\"column:gender;\"` + "`" + `\nContactWay          string ` + "`" + `json:\"contact_way\" gorm:\"column:contact_way;\"` + "`" + `\nContactNumber       string ` + "`" + `json:\"contact_number\" gorm:\"column:contact_number;\"` + "`" + `",
                     "type": "string"
                 },
                 "id": {
@@ -1614,19 +1627,10 @@ var doc = `{
                 "if_other_organization": {
                     "type": "string"
                 },
-                "major": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
                 "reason": {
                     "type": "string"
                 },
                 "self_introduction": {
-                    "type": "string"
-                },
-                "student_id": {
                     "type": "string"
                 },
                 "understand": {
@@ -1641,6 +1645,14 @@ var doc = `{
             "type": "object",
             "properties": {
                 "group": {
+                    "type": "string"
+                }
+            }
+        },
+        "form.viewothersRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
                     "type": "string"
                 }
             }

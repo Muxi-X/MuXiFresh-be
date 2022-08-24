@@ -10,7 +10,11 @@ import (
 
 type FormModel struct {
 	gorm.Model
+<<<<<<< HEAD
 	Email string `json:"email" gorm:"column:email;not null;unique"`
+=======
+	Email 			   string `json:"email" gorm:"column:email;default:null;unique"`
+>>>>>>> origin
 	//Name                string `json:"name" gorm:"column:name;" `
 	//Avatar              string `json:"avatar" gorm:"column:avatar;"`
 	//StudentId           string `json:"student_id" gorm:"column:student_id;"`
