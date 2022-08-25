@@ -1180,3 +1180,16 @@
 {"level":"info","time":"2022-08-25T14:38:29.436+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"Idea getIdeaList function called.","X-Request-Id":"1ff7450e-6084-4716-81cd-9c75445edddd"}
 {"level":"info","time":"2022-08-25T14:38:29.446+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"1ff7450e-6084-4716-81cd-9c75445edddd"}
 {"level":"info","time":"2022-08-25T14:38:29.446+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"11.2935ms     | 127.0.0.1    | POST /api/v1/homework/publish | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T18:18:17.061+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"The router has been deployed on :2022 successfully."}
+{"level":"info","time":"2022-08-25T18:20:04.691+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"488c4ca5-0cc6-4dc2-bc6c-b859ab162977"}
+{"level":"info","time":"2022-08-25T18:20:04.692+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"30.33ms       | 127.0.0.1    | POST /api/v1/auth/register | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T18:20:21.653+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"student login function called.","X-Request-Id":"8dc04740-fa9a-4e7e-960e-7bb6937112c8"}
+{"level":"info","time":"2022-08-25T18:20:21.658+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"8dc04740-fa9a-4e7e-960e-7bb6937112c8"}
+{"level":"info","time":"2022-08-25T18:20:21.658+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"5.257ms       | 127.0.0.1    | POST /api/v1/user/login | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T18:23:08.090+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"80095e30-d5f2-4052-a2e6-7ac3b1091d49"}
+{"level":"info","time":"2022-08-25T18:23:08.091+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"14.389ms      | 127.0.0.1    | POST /api/v1/form | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T18:23:26.159+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"7b52fb0f-430c-4ad7-ba4d-bd9f3828ba0e"}
+{"level":"info","time":"2022-08-25T18:23:26.161+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"9.522ms       | 127.0.0.1    | GET /api/v1/homework/performance | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T18:25:07.463+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"The router has been deployed on :2022 successfully."}
+{"level":"info","time":"2022-08-25T18:25:10.741+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"a9a098e1-49f0-4d72-91f6-78611ce48223"}
+{"level":"info","time":"2022-08-25T18:25:10.742+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"7.038ms       | 127.0.0.1    | GET /api/v1/homework/performance | {code: 0, message: OK}"}
