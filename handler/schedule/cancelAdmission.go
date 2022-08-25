@@ -15,7 +15,7 @@ import (
 // @Tags schedule
 // @Accept json
 // @Produce json
-// @Param id path int true "name"
+// @Param name path string true "name"
 // @param Authorization header string true "token 用户令牌"
 // @success 200 {object} handler.Response
 // @Router /schedule/cancel_admission/:name [put]

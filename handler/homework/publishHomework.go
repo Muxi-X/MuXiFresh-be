@@ -5,6 +5,7 @@ import (
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
 	Service "github.com/MuXiFresh-be/service/file"
+	"github.com/MuXiFresh-be/service/schedule"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -36,6 +37,10 @@ func PublishHomework(c *gin.Context) {
 
 	homework, err := Service.PublishHomework(email, req.GroupID, req.Title, req.Content, req.FileUrl)
 	if err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
+	if err := schedule.UpdateSchedule4(req.GroupID); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

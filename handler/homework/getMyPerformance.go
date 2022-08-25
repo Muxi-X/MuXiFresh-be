@@ -1,6 +1,8 @@
 package homework
 
 import (
+	"fmt"
+
 	. "github.com/MuXiFresh-be/handler"
 	File "github.com/MuXiFresh-be/service/file"
 	"github.com/gin-gonic/gin"
@@ -44,6 +46,8 @@ func GetMyPerformance(c *gin.Context) {
 			}
 		}
 	}
-
+	for i := 0; i < length; i++ {
+		fmt.Println(resp[i].Status)
+	}
 	SendResponse(c, nil, resp)
 }
