@@ -61,6 +61,11 @@ definitions:
     - student_id
     - understand
     type: object
+  deleteRequest:
+    properties:
+      email:
+        type: string
+    type: object
   editRequest:
     properties:
       avatar:
@@ -149,49 +154,6 @@ definitions:
       updatedAt:
         type: string
     type: object
-  form.FormModel:
-    properties:
-      createdAt:
-        type: string
-      deletedAt:
-        type: string
-      email:
-        type: string
-      group:
-        description: |-
-          Name                string `json:"name" gorm:"column:name;" `
-          Avatar              string `json:"avatar" gorm:"column:avatar;"`
-          StudentId           string `json:"student_id" gorm:"column:student_id;"`
-          College             string `json:"college" gorm:"column:college;"`
-          Major               string `json:"major" gorm:"column:major;"`
-          Grade               string `json:"grade" gorm:"column:grade;"`
-          Gender              string `json:"gender" gorm:"column:gender;"`
-          ContactWay          string `json:"contact_way" gorm:"column:contact_way;"`
-          ContactNumber       string `json:"contact_number" gorm:"column:contact_number;"`
-        type: string
-      id:
-        type: integer
-      if_other_organization:
-        type: string
-      reason:
-        type: string
-      self_introduction:
-        type: string
-      understand:
-        type: string
-      updatedAt:
-        type: string
-    type: object
-  form.searchRequest:
-    properties:
-      group:
-        type: string
-    type: object
-  form.viewothersRequest:
-    properties:
-      email:
-        type: string
-    type: object
   homework.CommentRequest:
     properties:
       content:
@@ -274,6 +236,13 @@ definitions:
       token:
         type: string
     type: object
+  moveRequest:
+    properties:
+      email:
+        type: string
+      group:
+        type: string
+    type: object
   schedule.ScheduleModel:
     properties:
       admission_status:
@@ -294,6 +263,11 @@ definitions:
         type: string
       work_status:
         type: integer
+    type: object
+  searchRequest:
+    properties:
+      group:
+        type: string
     type: object
   updateInfoRequest:
     properties:
@@ -375,6 +349,11 @@ definitions:
         type: string
       role:
         type: integer
+    type: object
+  viewothersRequest:
+    properties:
+      email:
+        type: string
     type: object
 host: work.test.muxi-tech.xyz
 info:
@@ -481,6 +460,11 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: create_request
         in: body
         name: object
@@ -491,9 +475,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"msg":"创建报名表成功"}'
-          schema:
-            $ref: '#/definitions/form.FormModel'
+          description: ""
       summary: '"创建报名表"'
       tags:
       - form
@@ -501,6 +483,11 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: edit_request
         in: body
         name: object
@@ -511,10 +498,32 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/form.FormModel'
+          description: ""
       summary: '"编辑报名表"'
+      tags:
+      - form
+  /form/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: delete_request
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/deleteRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: '"删除报名表、进度等信息"'
       tags:
       - form
   /form/search:
@@ -523,12 +532,17 @@ paths:
       - application/json
       description: '"输入两位数字符如‘11’ -前一位表示（1-产品，2-安卓，3-设计，4-前端，5-后端）-后一位表示（1-已报名，2-初试过，3-面试过）"'
       parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: 按组查询报名表
         in: body
         name: object
         required: true
         schema:
-          $ref: '#/definitions/form.searchRequest'
+          $ref: '#/definitions/searchRequest'
       produces:
       - application/json
       responses:
@@ -542,7 +556,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: token
+      - description: token 用户令牌
         in: header
         name: Authorization
         required: true
@@ -570,7 +584,7 @@ paths:
         name: object
         required: true
         schema:
-          $ref: '#/definitions/form.viewothersRequest'
+          $ref: '#/definitions/viewothersRequest'
       produces:
       - application/json
       responses:
@@ -1019,6 +1033,31 @@ paths:
       summary: Review homework
       tags:
       - homework
+  /movegroup:
+    post:
+      consumes:
+      - application/json
+      description: 将email对应的成语移动到指定分组
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: move_request
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/moveRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: '"移动分组"'
+      tags:
+      - form
   /schedule:
     get:
       consumes:
@@ -1048,9 +1087,9 @@ paths:
       parameters:
       - description: name
         in: path
-        name: id
+        name: name
         required: true
-        type: integer
+        type: string
       - description: token 用户令牌
         in: header
         name: Authorization
@@ -1074,9 +1113,9 @@ paths:
       parameters:
       - description: name
         in: path
-        name: id
+        name: name
         required: true
-        type: integer
+        type: string
       - description: token 用户令牌
         in: header
         name: Authorization

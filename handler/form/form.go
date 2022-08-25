@@ -45,23 +45,23 @@ type viewothersRequest struct {
 } // @name viewothersRequest
 
 type searchResponse struct {
-	Name          string `json:"name" gorm:"column:name;not null" binding:"required"`
-	Email         string `json:"email" gorm:"column:email;default:null;unique"`
-	Avatar        string `json:"avatar" gorm:"column:avatar"`
+	Name   string `json:"name" gorm:"column:name;not null" binding:"required"`
+	Email  string `json:"email" gorm:"column:email;default:null;unique"`
+	Avatar string `json:"avatar" gorm:"column:avatar"`
 	//Role          uint32 `json:"role" gorm:"column:role;" binding:"required"`
 	//Message       uint32 `json:"message" gorm:"column:message;" binding:"required"`
 	//HashPassword  string `json:"hash_password" gorm:"column:hash_password;" binding:"required"`
 	//StudentId     string `json:"student_id" gorm:"column:student_id;unique™"`
-	College       string `json:"college" gorm:"column:college;"`
+	College string `json:"college" gorm:"column:college;"`
 	//Major         string `json:"major" gorm:"column:major;"`
-	Grade         string `json:"grade" gorm:"column:grade;"`
+	Grade string `json:"grade" gorm:"column:grade;"`
 	//Gender        string `json:"gender" gorm:"column:gender;"`
 	//ContactWay    string `json:"contact_way" gorm:"column:contact_way;"`
 	//ContactNumber string `json:"contact_number" gorm:"column:contact_number;"`
 }
 
 type viewResponse struct {
-	Email  				string `json:"email"`
+	Email               string `json:"email"`
 	Name                string `json:"name" binding:"required"`
 	Avatar              string `json:"avatar" binding:"required"`
 	StudentId           string `json:"student_id" binding:"required"`
@@ -79,10 +79,10 @@ type viewResponse struct {
 }
 
 type deleteRequest struct {
-	Email  		string `json:"email"`
+	Email string `json:"email"`
 } // @name deleteRequest
 
-type moveRequset struct {
-	Email  		string `json:"email"`
-	Group		string `json:"group"`
-} // @name moveRequset
+type moveRequest struct {
+	Email string `json:"email"`
+	Group string `json:"group"`
+} // @name moveRequest

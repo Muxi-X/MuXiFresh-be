@@ -13,7 +13,7 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param Authorization header string true "token 用户令牌"
-// @Param object body moveRequest true "move_request"
+// @Param req body moveRequest true  "move_request"
 // @Success 200
 // @Router /movegroup [post]
 func MoveGroup(c *gin.Context) {
@@ -22,7 +22,7 @@ func MoveGroup(c *gin.Context) {
 		return
 	}
 
-	var request moveRequset
+	var request moveRequest
 	if err := c.BindJSON(&request); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return

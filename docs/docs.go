@@ -174,6 +174,13 @@ var doc = `{
                 "summary": "\"编辑报名表\"",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "edit_request",
                         "name": "object",
                         "in": "body",
@@ -185,10 +192,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/form.FormModel"
-                        }
+                        "description": ""
                     }
                 }
             },
@@ -205,6 +209,13 @@ var doc = `{
                 "summary": "\"创建报名表\"",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "create_request",
                         "name": "object",
                         "in": "body",
@@ -216,10 +227,44 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"msg\":\"创建报名表成功\"}",
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/form/delete": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"删除报名表、进度等信息\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "delete_request",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/form.FormModel"
+                            "$ref": "#/definitions/deleteRequest"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
                     }
                 }
             }
@@ -239,12 +284,19 @@ var doc = `{
                 "summary": "\"分组查看报名者信息\"",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "按组查询报名表",
                         "name": "object",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/form.searchRequest"
+                            "$ref": "#/definitions/searchRequest"
                         }
                     }
                 ],
@@ -270,7 +322,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "token",
+                        "description": "token 用户令牌",
                         "name": "Authorization",
                         "in": "header",
                         "required": true
@@ -308,7 +360,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/form.viewothersRequest"
+                            "$ref": "#/definitions/viewothersRequest"
                         }
                     }
                 ],
@@ -978,6 +1030,44 @@ var doc = `{
                 }
             }
         },
+        "/movegroup": {
+            "post": {
+                "description": "将email对应的成语移动到指定分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"移动分组\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "move_request",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/moveRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/schedule": {
             "get": {
                 "description": "\"进度查询板块呈现的表格\"",
@@ -1025,9 +1115,9 @@ var doc = `{
                 "summary": "\"录取\"",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "name",
-                        "name": "id",
+                        "name": "name",
                         "in": "path",
                         "required": true
                     },
@@ -1064,9 +1154,9 @@ var doc = `{
                 "summary": "\"取消录取\"",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "name",
-                        "name": "id",
+                        "name": "name",
                         "in": "path",
                         "required": true
                     },
@@ -1471,6 +1561,14 @@ var doc = `{
                 }
             }
         },
+        "deleteRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
         "editRequest": {
             "type": "object",
             "properties": {
@@ -1605,58 +1703,6 @@ var doc = `{
                 }
             }
         },
-        "form.FormModel": {
-            "type": "object",
-            "properties": {
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "group": {
-                    "description": "Name                string ` + "`" + `json:\"name\" gorm:\"column:name;\" ` + "`" + `\nAvatar              string ` + "`" + `json:\"avatar\" gorm:\"column:avatar;\"` + "`" + `\nStudentId           string ` + "`" + `json:\"student_id\" gorm:\"column:student_id;\"` + "`" + `\nCollege             string ` + "`" + `json:\"college\" gorm:\"column:college;\"` + "`" + `\nMajor               string ` + "`" + `json:\"major\" gorm:\"column:major;\"` + "`" + `\nGrade               string ` + "`" + `json:\"grade\" gorm:\"column:grade;\"` + "`" + `\nGender              string ` + "`" + `json:\"gender\" gorm:\"column:gender;\"` + "`" + `\nContactWay          string ` + "`" + `json:\"contact_way\" gorm:\"column:contact_way;\"` + "`" + `\nContactNumber       string ` + "`" + `json:\"contact_number\" gorm:\"column:contact_number;\"` + "`" + `",
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "if_other_organization": {
-                    "type": "string"
-                },
-                "reason": {
-                    "type": "string"
-                },
-                "self_introduction": {
-                    "type": "string"
-                },
-                "understand": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                }
-            }
-        },
-        "form.searchRequest": {
-            "type": "object",
-            "properties": {
-                "group": {
-                    "type": "string"
-                }
-            }
-        },
-        "form.viewothersRequest": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string"
-                }
-            }
-        },
         "homework.CommentRequest": {
             "type": "object",
             "required": [
@@ -1782,6 +1828,17 @@ var doc = `{
                 }
             }
         },
+        "moveRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                }
+            }
+        },
         "schedule.ScheduleModel": {
             "type": "object",
             "properties": {
@@ -1811,6 +1868,14 @@ var doc = `{
                 },
                 "work_status": {
                     "type": "integer"
+                }
+            }
+        },
+        "searchRequest": {
+            "type": "object",
+            "properties": {
+                "group": {
+                    "type": "string"
                 }
             }
         },
@@ -1933,6 +1998,14 @@ var doc = `{
                 },
                 "role": {
                     "type": "integer"
+                }
+            }
+        },
+        "viewothersRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
                 }
             }
         }
