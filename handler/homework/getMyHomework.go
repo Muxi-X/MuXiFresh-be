@@ -13,7 +13,7 @@ import (
 // @Produce application/json
 // @Param Authorization header string true "token"
 // @Param id path integer true "homework 的id"
-// @Success 200 {object} file.Homework {} "{"msg":"查看成功"}"
+// @Success 200 {object} []file.Homework {} "{"msg":"查看成功"}"
 // @Failure 500 {object} errno.Errno "{"msg":"Error occurred while getting url queries."}"
 // @Router /homework/published/:id/mine [get]
 func GetMyHomework(c *gin.Context) {

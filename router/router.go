@@ -99,6 +99,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		// 获取作业详细
 		homework.GET("/review", adminRequired, Homework.ReviewHomework)
 
+		// 获取某人的全部作业
+		homework.GET("/:email", adminRequired, Homework.GetOtherHomework)
+
 		// 按小组，获取已经提交的作业
 		homework.GET("/handed", adminRequired, Homework.GetHandedHomework)
 
@@ -138,7 +141,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		// 删除报名表和进度信息
 		formRouter.POST("/delete", Form.Delete)
 		// 移动分组
-		formRouter.POST("/movegroup",Form.MoveGroup)
+		formRouter.POST("/movegroup", Form.MoveGroup)
 	}
 
 	// The health check Fandlers
