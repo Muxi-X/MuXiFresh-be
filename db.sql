@@ -58,7 +58,7 @@ CREATE TABLE `schedules`
     `student_id`        char(10)     DEFAULT NULL,
     `college`           varchar(20)  DEFAULT NULL,    
     `major`             varchar(20)  DEFAULT NULL,
-    `group_name`        varchar(20)  DEFAULT NULL,      
+    `group`        varchar(20)  DEFAULT NULL,      
     `form_status`       int(3) NOT NULL COMMENT '报名表状态 0-未提交 1-已提交',
     `work_status`       int(3) NOT NULL COMMENT '作业提交状态 0-未提交 1-已提交',
     `admission_status`  int(3) NOT NULL COMMENT '录取状态 0-未录取 1-已录取',
