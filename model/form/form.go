@@ -119,39 +119,39 @@ func GetUserInfoByGroup(status string) ([]user.UserModel, error) {
 	group = ""
 	formstatus = 0 //formstatus默认为0-未提交，其他分别为1-已报名，2-初试过，3-面试过
 	if status == "11" {
-		group = "产品组"
+		group = "设计组"
 		formstatus = 1
 	}
 	if status == "12" {
-		group = "产品组"
+		group = "设计组"
 		formstatus = 2
 	}
 	if status == "13" {
-		group = "产品组"
+		group = "设计组"
 		formstatus = 3
 	}
 	if status == "21" {
-		group = "安卓组"
+		group = "产品组"
 		formstatus = 1
 	}
 	if status == "22" {
-		group = "安卓组"
+		group = "产品组"
 		formstatus = 2
 	}
 	if status == "23" {
-		group = "安卓组"
+		group = "产品组"
 		formstatus = 3
 	}
 	if status == "31" {
-		group = "设计组"
+		group = "安卓组"
 		formstatus = 1
 	}
 	if status == "32" {
-		group = "设计组"
+		group = "安卓组"
 		formstatus = 2
 	}
 	if status == "33" {
-		group = "设计组"
+		group = "安卓组"
 		formstatus = 3
 	}
 	if status == "41" {
