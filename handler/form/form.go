@@ -38,11 +38,11 @@ type editRequest struct {
 
 type searchRequest struct {
 	Group string `json:"group"`
-}
+} // @name searchRequest
 
 type viewothersRequest struct {
 	Email string `json:"email"`
-}
+} // @name viewothersRequest
 
 type searchResponse struct {
 	Name          string `json:"name" gorm:"column:name;not null" binding:"required"`
@@ -77,3 +77,12 @@ type viewResponse struct {
 	SelfIntroduction    string `json:"self_introduction" binding:"required"`
 	IfOtherOrganization string `json:"if_other_organization" binding:"required"`
 }
+
+type deleteRequest struct {
+	Email  		string `json:"email"`
+} // @name deleteRequest
+
+type moveRequset struct {
+	Email  		string `json:"email"`
+	Group		string `json:"group"`
+} // @name moveRequset

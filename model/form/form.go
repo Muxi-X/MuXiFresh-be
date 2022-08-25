@@ -219,3 +219,22 @@ func View(email string) (*FormModel, error) {
 	}
 	return &form, nil
 }
+
+func Delete(email string) error {
+	var form = FormModel{
+		Email: email,
+	}
+	if err := model.DB.Self.Table("forms").Where("email=?", email).Delete(&form).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func EditGroup(email string, group string) error {
+	if err := model.DB.Self.Model(FormModel{}).Where("email=?", email).Updates(FormModel{
+		Group: group,
+	}).Error; err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}

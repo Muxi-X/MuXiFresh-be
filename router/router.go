@@ -125,11 +125,20 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// form 模块
 	formRouter := g.Group("api/v1/form").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal))
 	{
+		// 创建报名表
 		formRouter.POST("", Form.Create)
+		// 修改报名表
 		formRouter.PUT("", Form.Edit)
+		// 查看报名表（个人）
 		formRouter.GET("/view", Form.View)
+		// 分组查询成员信息
 		formRouter.POST("/search", Form.Search)
-		formRouter.POST("/view",Form.ViewOthers)
+		// 查看报名表（他人）
+		formRouter.POST("/view", Form.ViewOthers)
+		// 删除报名表和进度信息
+		formRouter.POST("/delete", Form.Delete)
+		// 移动分组
+		formRouter.POST("/movegroup",Form.MoveGroup)
 	}
 
 	// The health check Fandlers

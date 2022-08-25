@@ -14,3 +14,10 @@ func EditForm(email string, group string, reason string,
 	}
 	return nil
 }
+
+func MoveGroup(email string,group string) error {
+	if err := form.EditGroup(email,group); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}

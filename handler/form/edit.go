@@ -14,7 +14,7 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param object body editRequest true "edit_request"
-// @Success 200 {object} form.FormModel
+// @Success 200 
 // @Router /form [put]
 func Edit(c *gin.Context) {
 	var request editRequest

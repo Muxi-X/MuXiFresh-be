@@ -3,7 +3,7 @@ package form
 import (
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/pkg/errno"
-	Form "github.com/MuXiFresh-be/service/form"
+	F "github.com/MuXiFresh-be/service/form"
 	U "github.com/MuXiFresh-be/service/user"
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +14,7 @@ import (
 // @Accept application/json
 // @Produce application/json
 // @Param object body createRequest true "create_request"
-// @Success 200 {object} form.FormModel "{"msg":"创建报名表成功"}"
+// @Success 200 {object} 
 // @Router /form [post]
 func Create(c *gin.Context) {
 	var request createRequest
@@ -24,7 +24,7 @@ func Create(c *gin.Context) {
 		return
 	}
 	
-	userForm, err := Form.CreateForm(email,
+	userForm, err := F.CreateForm(email,
 		request.Group, request.Reason, request.Understand,
 		request.SelfIntroduction, request.IfOtherOrganization)
 	if err != nil {
@@ -35,7 +35,7 @@ func Create(c *gin.Context) {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	if err := Form.UpdateSchedule(email,request.Group);err!=nil {
+	if err := F.UpdateSchedule(email,request.Group);err!=nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

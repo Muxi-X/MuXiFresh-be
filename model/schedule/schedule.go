@@ -64,3 +64,14 @@ func Update4(group string) error {
 }
 
 //UPDATE `schedules` SET `work_status` = 1  WHERE (email='12345678')
+
+func Delete(email string) error {
+	var schedule = ScheduleModel{
+		Email: email,
+	}	
+
+	if err := model.DB.Self.Table("schedules").Where("email=?", email).Delete(&schedule).Error; err != nil {
+		return err
+	}
+	return nil
+}
