@@ -2,6 +2,7 @@ package form
 
 import (
 	"github.com/MuXiFresh-be/model/form"
+	"github.com/MuXiFresh-be/model/schedule"
 	"github.com/MuXiFresh-be/pkg/errno"
 )
 
@@ -17,6 +18,13 @@ func EditForm(email string, group string, reason string,
 
 func MoveGroup(email string,group string) error {
 	if err := form.EditGroup(email,group); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return nil
+}
+
+func MoveScheduleGroup(email string,group string) error {
+	if err := schedule.EditGroup(email,group); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return nil

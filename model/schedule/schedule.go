@@ -75,3 +75,12 @@ func Delete(email string) error {
 	}
 	return nil
 }
+
+func EditGroup(email string, group string) error {
+	if err := model.DB.Self.Model(ScheduleModel{}).Where("email=?", email).Updates(ScheduleModel{
+		Group: group,
+	}).Error; err != nil {
+		return err
+	}
+	return nil
+}

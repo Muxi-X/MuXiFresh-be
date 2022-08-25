@@ -15,7 +15,7 @@ import (
 // @Param Authorization header string true "token 用户令牌"
 // @Param req body moveRequest true  "move_request"
 // @Success 200
-// @Router /movegroup [post]
+// @Router /form/movegroup [post]
 func MoveGroup(c *gin.Context) {
 	email := c.MustGet("email").(string)
 	if email == "" {
@@ -33,5 +33,9 @@ func MoveGroup(c *gin.Context) {
 		return
 	}
 
+	if err := F.MoveScheduleGroup(request.Email, request.Group); err != nil {
+		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
+		return
+	}
 	SendResponse(c, nil, "Move group success")
 }

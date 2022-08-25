@@ -1200,3 +1200,13 @@
 {"level":"info","time":"2022-08-25T22:37:13.951+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"Idea getIdeaList function called.","X-Request-Id":"0a999362-8f66-4315-afcd-4fdae14750f0"}
 {"level":"info","time":"2022-08-25T22:37:13.958+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"0a999362-8f66-4315-afcd-4fdae14750f0"}
 {"level":"info","time":"2022-08-25T22:37:13.958+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"7.287ms       | 127.0.0.1    | GET /api/v1/homework/1903180340@qq.com | {code: 0, message: OK}"}
+{"level":"error","time":"2022-08-25T22:59:33.626+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:86","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
+{"level":"info","time":"2022-08-25T23:00:15.207+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"The router has been deployed on :2022 successfully."}
+{"level":"info","time":"2022-08-25T23:00:18.383+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"238012c8-a448-4015-a4ba-4518228b7e92"}
+{"level":"info","time":"2022-08-25T23:00:18.384+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"14.6811ms     | 127.0.0.1    | POST /api/v1/form/movegroup | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T23:00:34.117+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"6cbcfc63-193a-4002-8ed7-8bd9536f6e28"}
+{"level":"info","time":"2022-08-25T23:00:34.117+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"10.1401ms     | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T23:00:42.754+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"11a360e3-de94-4976-8027-336d9f1c7b85"}
+{"level":"info","time":"2022-08-25T23:00:42.755+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"15.8195ms     | 127.0.0.1    | POST /api/v1/form/movegroup | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-25T23:00:47.860+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"d9b93bb3-56ef-4e1e-ac81-93f6ef93fb75"}
+{"level":"info","time":"2022-08-25T23:00:47.861+0800","caller":"C:/Users/千人/Desktop/MuXiFresh-be/log/log.go:71","msg":"8.9885ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
