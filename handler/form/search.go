@@ -12,6 +12,7 @@ import (
 // @Tags form
 // @Accept application/json
 // @Produce application/json
+// @Param Authorization header string true "token 用户令牌"
 // @Param object body searchRequest true "按组查询报名表"
 // @Success 200
 // @Router /form/search [post]
@@ -31,14 +32,14 @@ func Search(c *gin.Context) {
 		return
 	} */
 	//SendResponse(c, nil, Form)
-	Userinfo,err :=form.SearchByGroupForUser(group.Group)
+	Userinfo, err := form.SearchByGroupForUser(group.Group)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	
-	len :=len(Userinfo)
-	responseinfo := make([]searchResponse,len)
+
+	len := len(Userinfo)
+	responseinfo := make([]searchResponse, len)
 	for i := 0; i < len; i++ {
 		responseinfo[i].Name = Userinfo[i].Name
 		responseinfo[i].Email = Userinfo[i].Email
@@ -46,5 +47,5 @@ func Search(c *gin.Context) {
 		responseinfo[i].College = Userinfo[i].College
 		responseinfo[i].Grade = Userinfo[i].Grade
 	}
-	SendResponse(c,nil,responseinfo)
+	SendResponse(c, nil, responseinfo)
 }

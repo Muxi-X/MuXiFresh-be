@@ -13,8 +13,9 @@ import (
 // @Tags form
 // @Accept application/json
 // @Produce application/json
+// @Param Authorization header string true "token 用户令牌"
 // @Param object body editRequest true "edit_request"
-// @Success 200 
+// @Success 200
 // @Router /form [put]
 func Edit(c *gin.Context) {
 	var request editRequest
@@ -30,12 +31,12 @@ func Edit(c *gin.Context) {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	if err := U.UpdateInfor(email, request.Avatar, request.Name,request.StudentId,request.College,request.Major,request.Grade,request.Gender,request.ContactWay,request.ContactNumber); err != nil {
+	if err := U.UpdateInfor(email, request.Avatar, request.Name, request.StudentId, request.College, request.Major, request.Grade, request.Gender, request.ContactWay, request.ContactNumber); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
 
-	if err := form.UpdateSchedule(email,request.Group);err!=nil {
+	if err := form.UpdateSchedule(email, request.Group); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

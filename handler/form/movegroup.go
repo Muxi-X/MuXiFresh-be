@@ -12,8 +12,9 @@ import (
 // @Tags form
 // @Accept application/json
 // @Produce application/json
+// @Param Authorization header string true "token 用户令牌"
 // @Param object body moveRequest true "move_request"
-// @Success 200 
+// @Success 200
 // @Router /movegroup [post]
 func MoveGroup(c *gin.Context) {
 	email := c.MustGet("email").(string)
@@ -27,7 +28,7 @@ func MoveGroup(c *gin.Context) {
 		return
 	}
 
-	if err := F.MoveGroup(request.Email,request.Group);err!=nil{
+	if err := F.MoveGroup(request.Email, request.Group); err != nil {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}

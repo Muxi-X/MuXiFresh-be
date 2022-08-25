@@ -1834,11 +1834,29 @@ var doc = `{
                 "avatar": {
                     "type": "string"
                 },
+                "college": {
+                    "type": "string"
+                },
+                "contact_number": {
+                    "type": "string"
+                },
+                "contact_way": {
+                    "type": "string"
+                },
                 "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "grade": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
+                },
+                "major": {
+                    "type": "string"
                 },
                 "name": {
                     "type": "string"

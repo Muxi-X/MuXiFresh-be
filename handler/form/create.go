@@ -13,8 +13,9 @@ import (
 // @Tags form
 // @Accept application/json
 // @Produce application/json
+// @Param Authorization header string true "token 用户令牌"
 // @Param object body createRequest true "create_request"
-// @Success 200 {object} 
+// @Success 200
 // @Router /form [post]
 func Create(c *gin.Context) {
 	var request createRequest
@@ -23,7 +24,7 @@ func Create(c *gin.Context) {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-	
+
 	userForm, err := F.CreateForm(email,
 		request.Group, request.Reason, request.Understand,
 		request.SelfIntroduction, request.IfOtherOrganization)
@@ -31,11 +32,11 @@ func Create(c *gin.Context) {
 		SendError(c, err, nil, err.Error(), GetLine())
 		return
 	}
-	if err := U.UpdateInfor(email, request.Avatar, request.Name, request.StudentId,request.College,request.Major,request.Grade,request.Gender,request.ContactWay,request.ContactNumber); err != nil {
+	if err := U.UpdateInfor(email, request.Avatar, request.Name, request.StudentId, request.College, request.Major, request.Grade, request.Gender, request.ContactWay, request.ContactNumber); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}
-	if err := F.UpdateSchedule(email,request.Group);err!=nil {
+	if err := F.UpdateSchedule(email, request.Group); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

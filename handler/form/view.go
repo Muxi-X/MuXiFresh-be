@@ -13,6 +13,7 @@ import (
 // @Tags form
 // @Accept application/json
 // @Produce application/json
+// @Param Authorization header string true "token 用户令牌"
 // @Param Authorization header string true "token"
 // @Success 200
 // @Router /form/view [get]
@@ -48,5 +49,5 @@ func View(c *gin.Context) {
 	}
 
 	//SendResponse(c, nil, Form)
-	SendResponse(c, nil,response)
+	SendResponse(c, nil, response)
 }
