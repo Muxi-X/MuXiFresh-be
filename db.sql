@@ -52,7 +52,8 @@ CREATE TABLE `schedules`
 (
     `created_at`          varchar(255) DEFAULT NULL,
     `updated_at`          varchar(255)  DEFAULT NULL,
-    `deleted_at`          varchar(255)  DEFAULT NULL,
+    `deleted_at`          varchar(255)  ,
+    `name`               varchar(255)  DEFAULT NULL, 
     `id`                int(11)     NOT NULL AUTO_INCREMENT,
     `email`             varchar(35) NOT NULL,  
     `student_id`        char(10)     DEFAULT NULL,

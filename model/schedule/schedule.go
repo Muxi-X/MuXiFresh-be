@@ -12,6 +12,7 @@ type ScheduleModel struct {
 	FormStatus      int    `gorm:"column:form_status;type:int(5);comment:'报名表状态 0-未提交 1-已报名 2-初试过 3-面试过';NOT NULL" json:"form_status"`
 	WorkStatus      int    `gorm:"column:work_status;type:int(4);comment:'作业提交状态 0-未提交 1-已提交/未批阅 2-已批阅';NOT NULL" json:"work_status"`
 	AdmissionStatus int    `gorm:"column:admission_status;type:int(3);comment:'录取状态 0-未录取 1-已录取';NOT NULL" json:"admission_status"`
+	Name            string `gorm:"column:name;type:varchar(35);NOT NULL" json:"name"`
 }
 
 func (s *ScheduleModel) TableName() string {

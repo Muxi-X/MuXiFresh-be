@@ -38,7 +38,7 @@ func Register(c *gin.Context) {
 	}
 
 	// 注册成功自动生成进度表
-	if err := service.Create(req.Email); err != nil {
+	if err := service.Create(req.Email, req.Name); err != nil {
 		handler.SendBadRequest(c, errno.ErrDatabase, nil, err.Error(), handler.GetLine())
 		return
 	}
