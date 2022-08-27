@@ -196,11 +196,20 @@ func GetUserInfoByGroup(status string) ([]user.UserModel, error) {
 		}
 	}
 	return userinfo, nil */
-
 	var scheduleinfo []schedule.ScheduleModel
-	if err := model.DB.Self.Table("schedules").Where("`group`=? and admission_status= ?", group, formstatus).Find(&scheduleinfo).Error; err != nil {
-		return []user.UserModel{}, err
+	if formstatus == 1 {
+		if err := model.DB.Self.Table("schedules").Where("`group`=? and admission_status= ? ", group, 0).Find(&scheduleinfo).Error; err != nil {
+			return []user.UserModel{}, err
+		}
+	} else if formstatus != 1 {
+		if err := model.DB.Self.Table("schedules").Where("`group`=? and admission_status= ?", group, formstatus-1).Find(&scheduleinfo).Error; err != nil {
+			return []user.UserModel{}, err
+		}
 	}
+
+	// if err := model.DB.Self.Table("schedules").Where("`group`=? and admission_status= ?", group, formstatus).Find(&scheduleinfo).Error; err != nil {
+	// 	return []user.UserModel{}, err
+	// }
 	len := len(scheduleinfo)
 	userinfo := make([]user.UserModel, len)
 

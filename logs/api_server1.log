@@ -1377,3 +1377,36 @@
 {"level":"info","time":"2022-08-27T22:20:01.848+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"The router has been deployed on :8080 successfully."}
 {"level":"info","time":"2022-08-27T22:20:06.727+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"29185023-9591-4355-9217-6e993dc2431e"}
 {"level":"info","time":"2022-08-27T22:20:06.727+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"9.0664ms      | 127.0.0.1    | PUT /api/v1/schedule/admit | {code: 0, message: OK}"}
+{"level":"error","time":"2022-08-27T23:17:16.264+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:86","msg":"Open database failed","reason":"Error 1045: Access denied for user ''@'localhost' (using password: NO)","detail":"Database connection failed. Database name: "}
+{"level":"info","time":"2022-08-27T23:17:35.143+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"The router has been deployed on :8080 successfully."}
+{"level":"info","time":"2022-08-27T23:17:56.881+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"Cancel one student admission function called.","X-Request-Id":"4acbac8c-59f1-4e62-b543-45a26fca5d6e"}
+{"level":"info","time":"2022-08-27T23:17:56.896+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"4acbac8c-59f1-4e62-b543-45a26fca5d6e"}
+{"level":"info","time":"2022-08-27T23:17:56.896+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"16.1103ms     | 127.0.0.1    | PUT /api/v1/schedule/cancel_admission/hjj11 | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:17:58.081+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"Cancel one student admission function called.","X-Request-Id":"63061142-2b8f-4c82-a695-a9051756e50a"}
+{"level":"info","time":"2022-08-27T23:17:58.097+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"63061142-2b8f-4c82-a695-a9051756e50a"}
+{"level":"info","time":"2022-08-27T23:17:58.097+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"15.4774ms     | 127.0.0.1    | PUT /api/v1/schedule/cancel_admission/hjj11 | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:17:58.968+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"Cancel one student admission function called.","X-Request-Id":"3789cfb1-9fc8-476b-9d4e-90a33820df30"}
+{"level":"info","time":"2022-08-27T23:17:58.976+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"3789cfb1-9fc8-476b-9d4e-90a33820df30"}
+{"level":"info","time":"2022-08-27T23:17:58.976+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"8.3382ms      | 127.0.0.1    | PUT /api/v1/schedule/cancel_admission/hjj11 | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:18:09.686+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"76adf0d3-45df-4dc3-b965-a489b1006d68"}
+{"level":"info","time":"2022-08-27T23:18:09.686+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"5.8242ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:18:15.765+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"8ae4512f-f677-4307-ae2c-278a1aed55d3"}
+{"level":"info","time":"2022-08-27T23:18:15.765+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"4.8527ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:18:24.475+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"62d7df69-25a2-4ee0-88fa-88e20e5b0424"}
+{"level":"info","time":"2022-08-27T23:18:24.475+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"16.4715ms     | 127.0.0.1    | PUT /api/v1/schedule/admit | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:18:30.831+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"40e31328-0f5a-49a2-8ba3-0ac065cbb445"}
+{"level":"info","time":"2022-08-27T23:18:30.832+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"5.6272ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:18:34.269+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"93439ede-7ee7-4fa9-bc0e-04364fc078e7"}
+{"level":"info","time":"2022-08-27T23:18:34.270+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"3.7316ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:18:37.442+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"188ce56b-080e-4e80-9f7e-8853bf8f89f1"}
+{"level":"info","time":"2022-08-27T23:18:37.442+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"4.1668ms      | 127.0.0.1    | PUT /api/v1/schedule/admit | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:18:46.433+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"3e9340f4-538e-4836-9b51-1448f8b8ec8a"}
+{"level":"info","time":"2022-08-27T23:18:46.433+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"5.9088ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:19:14.753+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"81144243-7da7-44e4-9dd2-d0b9394eeb92"}
+{"level":"info","time":"2022-08-27T23:19:14.753+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"6.9436ms      | 127.0.0.1    | PUT /api/v1/schedule/admit | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:19:23.972+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"17521b64-365b-4616-a085-ca3a62ca0ab2"}
+{"level":"info","time":"2022-08-27T23:19:23.972+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"2.9729ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:20:13.714+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"1bf3c22d-8bb5-48e7-b970-4c4c401c2c1c"}
+{"level":"info","time":"2022-08-27T23:20:13.714+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"4.588ms       | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
+{"level":"info","time":"2022-08-27T23:20:19.868+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"OK","X-Request-Id":"b3ee3a8e-ce41-46bb-aa8e-f349d7c102f1"}
+{"level":"info","time":"2022-08-27T23:20:19.869+0800","caller":"C:/Users/郝锦杰/MuXiFresh-be/log/log.go:71","msg":"6.3673ms      | 127.0.0.1    | POST /api/v1/form/search | {code: 0, message: OK}"}
