@@ -15,6 +15,10 @@ type ScheduleModel struct {
 	Name            string `gorm:"column:name;type:varchar(35);NOT NULL" json:"name"`
 }
 
+type Admission_status struct {
+	AdmissionStatus int `gorm:"column:admission_status;type:int(3);comment:'录取状态 0-未录取 1-已录取';NOT NULL" json:"admission_status"`
+}
+
 func (s *ScheduleModel) TableName() string {
 	return "schedules"
 }

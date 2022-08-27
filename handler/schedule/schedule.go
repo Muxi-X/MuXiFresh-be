@@ -37,3 +37,9 @@ type editRequest struct {
 	Major string `json:"major"`
 	Group string `json:"group" `
 } // @name editRequest
+
+// admitRequest admit请求
+type admitRequest struct {
+	Name            string `json:"name"`
+	AdmissionStatus string `json:"admission_status"`
+} // @name admitRequest

@@ -73,7 +73,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		scheduleRouter.GET("", schedule.ViewOwnSchedule)
 
-		scheduleRouter.PUT("/admit/:name", adminRequired, schedule.Admit)
+		scheduleRouter.PUT("/admit", adminRequired, schedule.Admit)
 
 		scheduleRouter.PUT("/cancel_admission/:name", adminRequired, schedule.CancelAdmission)
 	}

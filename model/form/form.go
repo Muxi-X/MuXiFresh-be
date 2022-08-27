@@ -198,7 +198,7 @@ func GetUserInfoByGroup(status string) ([]user.UserModel, error) {
 	return userinfo, nil */
 
 	var scheduleinfo []schedule.ScheduleModel
-	if err := model.DB.Self.Table("schedules").Where("`group`=? and form_status= ?", group, formstatus).Find(&scheduleinfo).Error; err != nil {
+	if err := model.DB.Self.Table("schedules").Where("`group`=? and admission_status= ?", group, formstatus).Find(&scheduleinfo).Error; err != nil {
 		return []user.UserModel{}, err
 	}
 	len := len(scheduleinfo)
