@@ -229,6 +229,14 @@ func View(email string) (*FormModel, error) {
 	return &form, nil
 }
 
+func View1(email string) (FormModel, error) {
+	var form FormModel
+	if err := model.DB.Self.Table("forms").Where("email=?", email).Find(&form).Error; err != nil {
+		return FormModel{}, err
+	}
+	return form, nil
+}
+
 func Delete(email string) error {
 	var form = FormModel{
 		Email: email,
