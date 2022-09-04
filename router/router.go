@@ -109,7 +109,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		homework.POST("/comment", adminRequired, Homework.Comment)
 
 		// 获取某个作业的全部评论
-		homework.GET("/comment", adminRequired, Homework.GetComments)
+		homework.GET("/comment", Homework.GetComments)
 
 		// 删除评论
 		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
