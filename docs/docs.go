@@ -269,6 +269,44 @@ var doc = `{
                 }
             }
         },
+        "/form/movegroup": {
+            "post": {
+                "description": "将email对应的成语移动到指定分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"移动分组\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "move_request",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/moveRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/form/search": {
             "post": {
                 "description": "\"输入两位数字符如‘11’ -前一位表示（1-产品，2-安卓，3-设计，4-前端，5-后端）-后一位表示（1-已报名，2-初试过，3-面试过）\"",
@@ -407,6 +445,54 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/homework/:email": {
+            "get": {
+                "description": "查看某人的作业",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Get Others' Homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户的email",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\":\"查看成功\"}",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/file.Homework"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{\"msg\":\"Error occurred while getting url queries.\"}",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
                         }
                     }
                 }
@@ -940,7 +1026,10 @@ var doc = `{
                     "200": {
                         "description": "{\"msg\":\"查看成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/file.Homework"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/file.Homework"
+                            }
                         }
                     },
                     "500": {
@@ -1030,44 +1119,6 @@ var doc = `{
                 }
             }
         },
-        "/movegroup": {
-            "post": {
-                "description": "将email对应的成语移动到指定分组",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "form"
-                ],
-                "summary": "\"移动分组\"",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token 用户令牌",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "move_request",
-                        "name": "req",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/moveRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/schedule": {
             "get": {
                 "description": "\"进度查询板块呈现的表格\"",
@@ -1100,9 +1151,9 @@ var doc = `{
                 }
             }
         },
-        "/schedule/admit/:name": {
+        "/schedule/admit": {
             "put": {
-                "description": "\"审阅板块录取某位学生\"",
+                "description": "\"输入姓名和第几次录取的-（1-已报名，2-初试过，3-面试过）\"",
                 "consumes": [
                     "application/json"
                 ],
@@ -1116,13 +1167,6 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "name",
-                        "name": "name",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
                         "description": "token 用户令牌",
                         "name": "Authorization",
                         "in": "header",
@@ -1131,10 +1175,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Response"
-                        }
+                        "description": ""
                     }
                 }
             }
@@ -1352,6 +1393,56 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/loginResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/password": {
+            "put": {
+                "description": "修改用户密码",
+                "consumes": [
+                    "json/application"
+                ],
+                "produces": [
+                    "json/application"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "修改密码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "用户的修改的密码",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.updatePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "{\"Code\":400, \"Message\":\"Error occurred while binding the request body to the struct\",\"Data\":nil}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"Code\":500,\"Message\":\"Database error\",\"Data\":nil}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -1845,12 +1936,6 @@ var doc = `{
                 "admission_status": {
                     "type": "integer"
                 },
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "type": "string"
-                },
                 "email": {
                     "type": "string"
                 },
@@ -1860,10 +1945,7 @@ var doc = `{
                 "group": {
                     "type": "string"
                 },
-                "id": {
-                    "type": "integer"
-                },
-                "updatedAt": {
+                "name": {
                     "type": "string"
                 },
                 "work_status": {
@@ -1977,6 +2059,17 @@ var doc = `{
                     "type": "string"
                 },
                 "student_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.updatePassword": {
+            "type": "object",
+            "properties": {
+                "new_password": {
+                    "type": "string"
+                },
+                "original_password": {
                     "type": "string"
                 }
             }

@@ -53,6 +53,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		userRouter.POST("/login", user.Login)
 
+		userRouter.PUT("/password", normalRequired, user.ChangePassword)
+
 		userRouter.PUT("", normalRequired, user.UpdateInfo)
 
 		userRouter.GET("/info", normalRequired, user.GetInfo)

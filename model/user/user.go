@@ -1,9 +1,10 @@
 package user
 
 import (
+	Md5 "crypto/md5"
+	"encoding/hex"
 	"errors"
 	"fmt"
-
 	"github.com/MuXiFresh-be/model"
 	"github.com/jinzhu/gorm"
 )
@@ -152,6 +153,27 @@ func UpdateInfor(email string, avatar string, name string, studentId string, col
 	}
 
 	return tx.Commit().Error
+}
+
+func UpdatePassword(email string, original string, new string) error {
+	md5 := Md5.New()
+	md5.Write([]byte(original))
+	hashPwd := hex.EncodeToString(md5.Sum(nil))
+
+	var user UserModel
+	if err := model.DB.Self.Model(UserModel{}).Where("email = ?", email).Find(&user).Error; err != nil {
+		return err
+	}
+	if hashPwd != user.HashPassword {
+		return errors.New("original password error")
+	}
+	newmd5 := Md5.New()
+	newmd5.Write([]byte(new))
+	newhashPwd := hex.EncodeToString(md5.Sum(nil))
+	if err := model.DB.Self.Model(UserModel{}).Where("email = ?", email).Update(UserModel{HashPassword: newhashPwd}).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 // Authorize ...授权

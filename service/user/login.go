@@ -37,6 +37,8 @@ func Login(email string, pwd string) (string, error) {
 	md5.Write([]byte(pwd))
 	hashPwd := hex.EncodeToString(md5.Sum(nil))
 
+	fmt.Println("userInfo.HashPassword", userInfo.HashPassword)
+	fmt.Println("hashPwd", hashPwd)
 	if userInfo.HashPassword != hashPwd {
 		return "", errno.ErrPasswordIncorrect
 	}

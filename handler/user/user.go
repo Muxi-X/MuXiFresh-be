@@ -107,3 +107,9 @@ type ModifyRoleRequest struct {
 	Email string `json:"email"`
 	Role  uint32 `json:"role"`
 } // @name ModifyRoleRequest
+
+// updatePassword 修改密码
+type updatePassword struct {
+	OriginalPassword string `json:"original_password"`
+	NewPassword      string `json:"new_password"`
+}
