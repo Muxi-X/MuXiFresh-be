@@ -1,6 +1,8 @@
 package form
 
 import (
+	"fmt"
+
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/service/form"
@@ -32,6 +34,7 @@ func Search(c *gin.Context) {
 		return
 	} */
 	//SendResponse(c, nil, Form)
+	fmt.Println("123", group.Group)
 	Userinfo, err := form.SearchByGroupForUser(group.Group)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())

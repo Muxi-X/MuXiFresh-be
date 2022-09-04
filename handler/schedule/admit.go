@@ -28,7 +28,7 @@ func Admit(c *gin.Context) {
 		return
 	}
 	fmt.Println(group.AdmissionStatus)
-	err := service.Admit(group.Name, group.AdmissionStatus)
+	err := service.Admit(group.Email, group.AdmissionStatus)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
