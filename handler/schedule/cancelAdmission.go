@@ -15,20 +15,20 @@ import (
 // @Tags schedule
 // @Accept json
 // @Produce json
-// @Param name path string true "name"
+// @Param email path string true "email"
 // @param Authorization header string true "token 用户令牌"
 // @success 200 {object} handler.Response
-// @Router /schedule/cancel_admission/:name [put]
+// @Router /schedule/cancel_admission/:email [put]
 func CancelAdmission(c *gin.Context) {
 	log.Info("Cancel one student admission function called.", zap.String("X-Request-Id", util.GetReqID(c)))
 
-	name := c.Param("name")
+	email := c.Param("email")
 
-	// if err := model.DB.Self.Table("schedules").Where("name = ? ", name).Updates(map[string]interface{}{"admission_status": 0}).Error; err != nil {
+	// if err := model.DB.Self.Table("schedules").Where("email = ? ", email).Updates(map[string]interface{}{"admission_status": 0}).Error; err != nil {
 	// 	SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 	// 	return
 	// }
-	err := service.CancelAdmit(name)
+	err := service.CancelAdmit(email)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return

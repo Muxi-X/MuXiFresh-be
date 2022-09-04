@@ -75,7 +75,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		scheduleRouter.PUT("/admit", adminRequired, schedule.Admit)
 
-		scheduleRouter.PUT("/cancel_admission/:name", adminRequired, schedule.CancelAdmission)
+		scheduleRouter.PUT("/cancel_admission/:email", adminRequired, schedule.CancelAdmission)
 	}
 
 	// homework 模块

@@ -40,6 +40,6 @@ type editRequest struct {
 
 // admitRequest admit请求
 type admitRequest struct {
-	Name            string `json:"name"`
+	Email           string `json:"email"`
 	AdmissionStatus string `json:"admission_status"`
 } // @name admitRequest
