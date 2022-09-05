@@ -1,6 +1,8 @@
 package schedule
 
 import (
+	"fmt"
+
 	. "github.com/MuXiFresh-be/handler"
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -40,7 +42,8 @@ func ViewOwnSchedule(c *gin.Context) {
 	// 	return
 	// }
 	sche, err := schedule.ViewOwn(email)
-	Form, err := form.ViewForm(email)
+	Form, err := form.ViewForm1(email)
+	fmt.Println("123", Form.Group)
 	User, err := U.GetInfo(email)
 	if err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())

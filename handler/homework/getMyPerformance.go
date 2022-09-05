@@ -1,6 +1,8 @@
 package homework
 
 import (
+	"fmt"
+
 	. "github.com/MuXiFresh-be/handler"
 	File "github.com/MuXiFresh-be/service/file"
 	"github.com/gin-gonic/gin"
@@ -22,6 +24,7 @@ func GetMyPerformance(c *gin.Context) {
 		SendError(c, err, nil, err.Error(), GetLine())
 		return
 	}
+
 	published, err := File.GetAllPublished(email)
 	if err != nil {
 		SendError(c, err, nil, err.Error(), GetLine())
@@ -35,15 +38,17 @@ func GetMyPerformance(c *gin.Context) {
 			if m.ID == n.HomeworkID {
 				status = 1
 			}
-			resp[i] = PerformanceResponse{
-				ID:      m.ID,
-				Title:   m.Title,
-				Content: m.Content,
-				URL:     m.FileUrl,
-				Status:  status,
-			}
+		}
+		resp[i] = PerformanceResponse{
+			ID:      m.ID,
+			Title:   m.Title,
+			Content: m.Content,
+			URL:     m.FileUrl,
+			Status:  status,
 		}
 	}
-
+	for i := 0; i < length; i++ {
+		fmt.Println(resp[i].Status)
+	}
 	SendResponse(c, nil, resp)
 }

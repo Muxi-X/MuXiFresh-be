@@ -2,9 +2,12 @@ package homework
 
 import (
 	. "github.com/MuXiFresh-be/handler"
+
 	"github.com/MuXiFresh-be/log"
 	"github.com/MuXiFresh-be/pkg/errno"
 	"github.com/MuXiFresh-be/service/file"
+	File "github.com/MuXiFresh-be/service/file"
+	"github.com/MuXiFresh-be/service/schedule"
 	"github.com/MuXiFresh-be/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -50,9 +53,56 @@ func UploadHomework(c *gin.Context) {
 		SendBadRequest(c, errno.ErrBind, nil, err.Error(), GetLine())
 		return
 	}
-
 	hw, err := file.HandInHomework(homework.Title, homework.Content, homework.HomeworkID, homework.FileUrl, email)
 	if err != nil {
+		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+		return
+	}
+
+	//作业是否全部完成
+	homeworkAll, err := File.GetAllMyHomework(email)
+	if err != nil {
+		SendError(c, err, nil, err.Error(), GetLine())
+		return
+	}
+	published, err := File.GetAllPublished(email)
+	if err != nil {
+		SendError(c, err, nil, err.Error(), GetLine())
+		return
+	}
+	length := len(published)
+	resp := make([]PerformanceResponse, length)
+	for i, m := range published {
+		status := 0
+		for _, n := range homeworkAll {
+			if m.ID == n.HomeworkID {
+				status = 1
+			}
+			resp[i] = PerformanceResponse{
+				ID:      m.ID,
+				Title:   m.Title,
+				Content: m.Content,
+				URL:     m.FileUrl,
+				Status:  status,
+			}
+		}
+	}
+	// fmt.Println(length)
+	// for i := 0; i < length; i++ {
+	// 	fmt.Println(resp[i].Status)
+	// }
+	for i := 0; i < length; i++ {
+		if resp[i].Status == 0 {
+			if err := schedule.UpdateSchedule3(email); err != nil {
+				SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
+				return
+			}
+			SendResponse(c, nil, hw)
+			return
+		}
+	}
+	// fmt.Println(2333)
+	if err := schedule.UpdateSchedule2(email); err != nil {
 		SendError(c, errno.ErrDatabase, nil, err.Error(), GetLine())
 		return
 	}

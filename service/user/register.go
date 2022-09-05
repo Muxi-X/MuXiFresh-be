@@ -3,6 +3,7 @@ package service
 import (
 	MD5 "crypto/md5"
 	"encoding/hex"
+
 	Schedule "github.com/MuXiFresh-be/model/schedule"
 	User "github.com/MuXiFresh-be/model/user"
 	"github.com/MuXiFresh-be/pkg/errno"
@@ -35,13 +36,14 @@ func Register(StudentId string, email string, name string, password string) erro
 	return nil
 }
 
-func Create(email string) error {
+func Create(email string, name string) error {
 	var schedule = Schedule.ScheduleModel{
 		AdmissionStatus: 0,
 		Email:           email,
 		FormStatus:      0,
 		WorkStatus:      0,
 		Group:           "",
+		Name:            name,
 	}
 
 	if err := schedule.Create(); err != nil {

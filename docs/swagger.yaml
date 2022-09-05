@@ -61,6 +61,11 @@ definitions:
     - student_id
     - understand
     type: object
+  deleteRequest:
+    properties:
+      email:
+        type: string
+    type: object
   editRequest:
     properties:
       avatar:
@@ -149,52 +154,6 @@ definitions:
       updatedAt:
         type: string
     type: object
-  form.FormModel:
-    properties:
-      avatar:
-        type: string
-      college:
-        type: string
-      contact_number:
-        type: string
-      contact_way:
-        type: string
-      createdAt:
-        type: string
-      deletedAt:
-        type: string
-      email:
-        type: string
-      gender:
-        type: string
-      grade:
-        type: string
-      group:
-        type: string
-      id:
-        type: integer
-      if_other_organization:
-        type: string
-      major:
-        type: string
-      name:
-        type: string
-      reason:
-        type: string
-      self_introduction:
-        type: string
-      student_id:
-        type: string
-      understand:
-        type: string
-      updatedAt:
-        type: string
-    type: object
-  form.searchRequest:
-    properties:
-      group:
-        type: string
-    type: object
   homework.CommentRequest:
     properties:
       content:
@@ -277,26 +236,32 @@ definitions:
       token:
         type: string
     type: object
+  moveRequest:
+    properties:
+      email:
+        type: string
+      group:
+        type: string
+    type: object
   schedule.ScheduleModel:
     properties:
       admission_status:
         type: integer
-      createdAt:
-        type: string
-      deletedAt:
-        type: string
       email:
         type: string
       form_status:
         type: integer
       group:
         type: string
-      id:
-        type: integer
-      updatedAt:
+      name:
         type: string
       work_status:
         type: integer
+    type: object
+  searchRequest:
+    properties:
+      group:
+        type: string
     type: object
   updateInfoRequest:
     properties:
@@ -311,10 +276,22 @@ definitions:
     properties:
       avatar:
         type: string
+      college:
+        type: string
+      contact_number:
+        type: string
+      contact_way:
+        type: string
       email:
+        type: string
+      gender:
+        type: string
+      grade:
         type: string
       id:
         type: integer
+      major:
+        type: string
       name:
         type: string
       role:
@@ -354,6 +331,13 @@ definitions:
     - password
     - student_id
     type: object
+  user.updatePassword:
+    properties:
+      new_password:
+        type: string
+      original_password:
+        type: string
+    type: object
   userProfile:
     properties:
       avatar:
@@ -366,6 +350,11 @@ definitions:
         type: string
       role:
         type: integer
+    type: object
+  viewothersRequest:
+    properties:
+      email:
+        type: string
     type: object
 host: work.test.muxi-tech.xyz
 info:
@@ -472,6 +461,11 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: create_request
         in: body
         name: object
@@ -482,9 +476,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"msg":"创建报名表成功"}'
-          schema:
-            $ref: '#/definitions/form.FormModel'
+          description: ""
       summary: '"创建报名表"'
       tags:
       - form
@@ -492,6 +484,11 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: edit_request
         in: body
         name: object
@@ -502,29 +499,82 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/form.FormModel'
+          description: ""
       summary: '"编辑报名表"'
+      tags:
+      - form
+  /form/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: delete_request
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/deleteRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: '"删除报名表、进度等信息"'
+      tags:
+      - form
+  /form/movegroup:
+    post:
+      consumes:
+      - application/json
+      description: 将email对应的成语移动到指定分组
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: move_request
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/moveRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: '"移动分组"'
       tags:
       - form
   /form/search:
     post:
       consumes:
       - application/json
+      description: '"输入两位数字符如‘11’ -前一位表示（1-产品，2-安卓，3-设计，4-前端，5-后端）-后一位表示（1-已报名，2-初试过，3-面试过）"'
       parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: 按组查询报名表
         in: body
         name: object
         required: true
         schema:
-          $ref: '#/definitions/form.searchRequest'
+          $ref: '#/definitions/searchRequest'
       produces:
       - application/json
       responses:
         "200":
           description: ""
-      summary: '"查看报名表（分组）"'
+      summary: '"分组查看报名者信息"'
       tags:
       - form
   /form/view:
@@ -532,7 +582,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: token
+      - description: token 用户令牌
         in: header
         name: Authorization
         required: true
@@ -543,6 +593,30 @@ paths:
         "200":
           description: ""
       summary: '"查看报名表（个人）"'
+      tags:
+      - form
+    post:
+      consumes:
+      - application/json
+      description: 通过email查看成员报名表
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 查看他人报名表
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/viewothersRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: '"查看报名表（其他成员）"'
       tags:
       - form
   /homework:
@@ -570,6 +644,38 @@ paths:
           schema:
             $ref: '#/definitions/Response'
       summary: Upload homework
+      tags:
+      - homework
+  /homework/:email:
+    get:
+      consumes:
+      - application/json
+      description: 查看某人的作业
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户的email
+        in: path
+        name: email
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg":"查看成功"}'
+          schema:
+            items:
+              $ref: '#/definitions/file.Homework'
+            type: array
+        "500":
+          description: '{"msg":"Error occurred while getting url queries."}'
+          schema:
+            $ref: '#/definitions/errno.Errno'
+      summary: Get Others' Homework
       tags:
       - homework
   /homework/change/published/:id:
@@ -800,7 +906,7 @@ paths:
       summary: Get handed homework
       tags:
       - homework
-  /homework/performance/:id:
+  /homework/performance:
     get:
       consumes:
       - application/json
@@ -811,11 +917,6 @@ paths:
         name: Authorization
         required: true
         type: string
-      - description: 对应组别的id
-        in: path
-        name: id
-        required: true
-        type: integer
       produces:
       - application/json
       responses:
@@ -930,7 +1031,9 @@ paths:
         "200":
           description: '{"msg":"查看成功"}'
           schema:
-            $ref: '#/definitions/file.Homework'
+            items:
+              $ref: '#/definitions/file.Homework'
+            type: array
         "500":
           description: '{"msg":"Error occurred while getting url queries."}'
           schema:
@@ -1011,17 +1114,12 @@ paths:
       summary: '"查看进度"'
       tags:
       - schedule
-  /schedule/admit/:name:
+  /schedule/admit:
     put:
       consumes:
       - application/json
-      description: '"审阅板块录取某位学生"'
+      description: '"输入姓名和第几次录取的-（1-已报名，2-初试过，3-面试过）"'
       parameters:
-      - description: name
-        in: path
-        name: id
-        required: true
-        type: integer
       - description: token 用户令牌
         in: header
         name: Authorization
@@ -1031,9 +1129,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/Response'
+          description: ""
       summary: '"录取"'
       tags:
       - schedule
@@ -1045,9 +1141,9 @@ paths:
       parameters:
       - description: name
         in: path
-        name: id
+        name: name
         required: true
-        type: integer
+        type: string
       - description: token 用户令牌
         in: header
         name: Authorization
@@ -1182,6 +1278,40 @@ paths:
       summary: login api
       tags:
       - auth
+  /user/password:
+    put:
+      consumes:
+      - json/application
+      description: 修改用户密码
+      parameters:
+      - description: token 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户的修改的密码
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/user.updatePassword'
+      produces:
+      - json/application
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: '{"Code":400, "Message":"Error occurred while binding the request
+            body to the struct","Data":nil}'
+          schema:
+            type: string
+        "500":
+          description: '{"Code":500,"Message":"Database error","Data":nil}'
+          schema:
+            type: string
+      summary: 修改密码
+      tags:
+      - user
   /user/profile/:email:
     get:
       consumes:

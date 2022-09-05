@@ -12,3 +12,10 @@ func ViewForm(email string) (*form.FormModel, error) {
 	}
 	return myform, nil
 }
+func ViewForm1(email string) (form.FormModel, error) {
+	myform, err := form.View1(email)
+	if err != nil {
+		return form.FormModel{}, errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	return myform, nil
+}

@@ -174,6 +174,13 @@ var doc = `{
                 "summary": "\"编辑报名表\"",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "edit_request",
                         "name": "object",
                         "in": "body",
@@ -185,10 +192,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/form.FormModel"
-                        }
+                        "description": ""
                     }
                 }
             },
@@ -205,6 +209,13 @@ var doc = `{
                 "summary": "\"创建报名表\"",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
                         "description": "create_request",
                         "name": "object",
                         "in": "body",
@@ -216,15 +227,12 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"msg\":\"创建报名表成功\"}",
-                        "schema": {
-                            "$ref": "#/definitions/form.FormModel"
-                        }
+                        "description": ""
                     }
                 }
             }
         },
-        "/form/search": {
+        "/form/delete": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -235,15 +243,98 @@ var doc = `{
                 "tags": [
                     "form"
                 ],
-                "summary": "\"查看报名表（分组）\"",
+                "summary": "\"删除报名表、进度等信息\"",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "delete_request",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/deleteRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/form/movegroup": {
+            "post": {
+                "description": "将email对应的成语移动到指定分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"移动分组\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "move_request",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/moveRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/form/search": {
+            "post": {
+                "description": "\"输入两位数字符如‘11’ -前一位表示（1-产品，2-安卓，3-设计，4-前端，5-后端）-后一位表示（1-已报名，2-初试过，3-面试过）\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"分组查看报名者信息\"",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "按组查询报名表",
                         "name": "object",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/form.searchRequest"
+                            "$ref": "#/definitions/searchRequest"
                         }
                     }
                 ],
@@ -269,10 +360,46 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "description": "通过email查看成员报名表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "\"查看报名表（其他成员）\"",
+                "parameters": [
+                    {
+                        "type": "string",
                         "description": "token",
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "description": "查看他人报名表",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/viewothersRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -318,6 +445,54 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/homework/:email": {
+            "get": {
+                "description": "查看某人的作业",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "homework"
+                ],
+                "summary": "Get Others' Homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户的email",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\":\"查看成功\"}",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/file.Homework"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{\"msg\":\"Error occurred while getting url queries.\"}",
+                        "schema": {
+                            "$ref": "#/definitions/errno.Errno"
                         }
                     }
                 }
@@ -663,7 +838,7 @@ var doc = `{
                 }
             }
         },
-        "/homework/performance/:id": {
+        "/homework/performance": {
             "get": {
                 "description": "查看用户所有作业的完成状况",
                 "consumes": [
@@ -682,13 +857,6 @@ var doc = `{
                         "description": "token",
                         "name": "Authorization",
                         "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "对应组别的id",
-                        "name": "id",
-                        "in": "path",
                         "required": true
                     }
                 ],
@@ -858,7 +1026,10 @@ var doc = `{
                     "200": {
                         "description": "{\"msg\":\"查看成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/file.Homework"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/file.Homework"
+                            }
                         }
                     },
                     "500": {
@@ -980,9 +1151,9 @@ var doc = `{
                 }
             }
         },
-        "/schedule/admit/:name": {
+        "/schedule/admit": {
             "put": {
-                "description": "\"审阅板块录取某位学生\"",
+                "description": "\"输入姓名和第几次录取的-（1-已报名，2-初试过，3-面试过）\"",
                 "consumes": [
                     "application/json"
                 ],
@@ -995,13 +1166,6 @@ var doc = `{
                 "summary": "\"录取\"",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "name",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
                         "type": "string",
                         "description": "token 用户令牌",
                         "name": "Authorization",
@@ -1011,10 +1175,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Response"
-                        }
+                        "description": ""
                     }
                 }
             }
@@ -1034,9 +1195,9 @@ var doc = `{
                 "summary": "\"取消录取\"",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "name",
-                        "name": "id",
+                        "name": "name",
                         "in": "path",
                         "required": true
                     },
@@ -1232,6 +1393,56 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/loginResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/password": {
+            "put": {
+                "description": "修改用户密码",
+                "consumes": [
+                    "json/application"
+                ],
+                "produces": [
+                    "json/application"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "修改密码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "用户的修改的密码",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.updatePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "{\"Code\":400, \"Message\":\"Error occurred while binding the request body to the struct\",\"Data\":nil}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"Code\":500,\"Message\":\"Database error\",\"Data\":nil}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -1441,6 +1652,14 @@ var doc = `{
                 }
             }
         },
+        "deleteRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
         "editRequest": {
             "type": "object",
             "properties": {
@@ -1575,76 +1794,6 @@ var doc = `{
                 }
             }
         },
-        "form.FormModel": {
-            "type": "object",
-            "properties": {
-                "avatar": {
-                    "type": "string"
-                },
-                "college": {
-                    "type": "string"
-                },
-                "contact_number": {
-                    "type": "string"
-                },
-                "contact_way": {
-                    "type": "string"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "grade": {
-                    "type": "string"
-                },
-                "group": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "if_other_organization": {
-                    "type": "string"
-                },
-                "major": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "reason": {
-                    "type": "string"
-                },
-                "self_introduction": {
-                    "type": "string"
-                },
-                "student_id": {
-                    "type": "string"
-                },
-                "understand": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                }
-            }
-        },
-        "form.searchRequest": {
-            "type": "object",
-            "properties": {
-                "group": {
-                    "type": "string"
-                }
-            }
-        },
         "homework.CommentRequest": {
             "type": "object",
             "required": [
@@ -1770,17 +1919,22 @@ var doc = `{
                 }
             }
         },
+        "moveRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                }
+            }
+        },
         "schedule.ScheduleModel": {
             "type": "object",
             "properties": {
                 "admission_status": {
                     "type": "integer"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "type": "string"
                 },
                 "email": {
                     "type": "string"
@@ -1791,14 +1945,19 @@ var doc = `{
                 "group": {
                     "type": "string"
                 },
-                "id": {
-                    "type": "integer"
-                },
-                "updatedAt": {
+                "name": {
                     "type": "string"
                 },
                 "work_status": {
                     "type": "integer"
+                }
+            }
+        },
+        "searchRequest": {
+            "type": "object",
+            "properties": {
+                "group": {
+                    "type": "string"
                 }
             }
         },
@@ -1822,11 +1981,29 @@ var doc = `{
                 "avatar": {
                     "type": "string"
                 },
+                "college": {
+                    "type": "string"
+                },
+                "contact_number": {
+                    "type": "string"
+                },
+                "contact_way": {
+                    "type": "string"
+                },
                 "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "grade": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
+                },
+                "major": {
+                    "type": "string"
                 },
                 "name": {
                     "type": "string"
@@ -1886,6 +2063,17 @@ var doc = `{
                 }
             }
         },
+        "user.updatePassword": {
+            "type": "object",
+            "properties": {
+                "new_password": {
+                    "type": "string"
+                },
+                "original_password": {
+                    "type": "string"
+                }
+            }
+        },
         "userProfile": {
             "type": "object",
             "properties": {
@@ -1903,6 +2091,14 @@ var doc = `{
                 },
                 "role": {
                     "type": "integer"
+                }
+            }
+        },
+        "viewothersRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
                 }
             }
         }

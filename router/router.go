@@ -53,6 +53,8 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		userRouter.POST("/login", user.Login)
 
+		userRouter.PUT("/password", normalRequired, user.ChangePassword)
+
 		userRouter.PUT("", normalRequired, user.UpdateInfo)
 
 		userRouter.GET("/info", normalRequired, user.GetInfo)
@@ -73,9 +75,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 
 		scheduleRouter.GET("", schedule.ViewOwnSchedule)
 
-		scheduleRouter.PUT("/admit/:name", adminRequired, schedule.Admit)
+		scheduleRouter.PUT("/admit", adminRequired, schedule.Admit)
 
-		scheduleRouter.PUT("/cancel_admission/:name", adminRequired, schedule.CancelAdmission)
+		scheduleRouter.PUT("/cancel_admission/:email", adminRequired, schedule.CancelAdmission)
 	}
 
 	// homework 模块
@@ -85,7 +87,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		homework.POST("/publish", adminRequired, Homework.PublishHomework)
 
 		// 获取已经发布的作业
-		//homework.GET("/published", Homework.GetHomeworkPublished)
+		homework.GET("/published", Homework.GetHomeworkPublished)
 
 		// 获取我写的作业
 		homework.GET("/published/:id/mine", Homework.GetMyHomework)
@@ -99,6 +101,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		// 获取作业详细
 		homework.GET("/review", adminRequired, Homework.ReviewHomework)
 
+		// 获取某人的全部作业
+		homework.GET("/:email", adminRequired, Homework.GetOtherHomework)
+
 		// 按小组，获取已经提交的作业
 		homework.GET("/handed", adminRequired, Homework.GetHandedHomework)
 
@@ -106,7 +111,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		homework.POST("/comment", adminRequired, Homework.Comment)
 
 		// 获取某个作业的全部评论
-		homework.GET("/comment", adminRequired, Homework.GetComments)
+		homework.GET("/comment", Homework.GetComments)
 
 		// 删除评论
 		homework.DELETE("/comment/:comment_id", adminRequired, Homework.DeleteComment)
@@ -125,10 +130,20 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// form 模块
 	formRouter := g.Group("api/v1/form").Use(middleware.AuthMiddleware(constvar.AuthLevelNormal))
 	{
+		// 创建报名表
 		formRouter.POST("", Form.Create)
+		// 修改报名表
 		formRouter.PUT("", Form.Edit)
+		// 查看报名表（个人）
 		formRouter.GET("/view", Form.View)
+		// 分组查询成员信息
 		formRouter.POST("/search", Form.Search)
+		// 查看报名表（他人）
+		formRouter.POST("/view", Form.ViewOthers)
+		// 删除报名表和进度信息
+		formRouter.POST("/delete", Form.Delete)
+		// 移动分组
+		formRouter.POST("/movegroup", Form.MoveGroup)
 	}
 
 	// The health check Fandlers

@@ -58,12 +58,18 @@ type listRequest struct {
 } // @name listRequest
 
 type User struct {
-	Id        uint   `json:"id"`
-	StudentID string `json:"student_id"`
-	Name      string `json:"name"`
-	Email     string `json:"email"`
-	Avatar    string `json:"avatar"`
-	Role      uint32 `json:"role"`
+	Id            uint   `json:"id"`
+	StudentID     string `json:"student_id"`
+	Name          string `json:"name"`
+	Email         string `json:"email"`
+	Avatar        string `json:"avatar"`
+	Role          uint32 `json:"role"`
+	College       string `json:"college" `
+	Major         string `json:"major" `
+	Grade         string `json:"grade"`
+	Gender        string `json:"gender" `
+	ContactWay    string `json:"contact_way" `
+	ContactNumber string `json:"contact_number"`
 } // @name user
 
 // listResponse 获取 userList 响应
@@ -101,3 +107,9 @@ type ModifyRoleRequest struct {
 	Email string `json:"email"`
 	Role  uint32 `json:"role"`
 } // @name ModifyRoleRequest
+
+// updatePassword 修改密码
+type updatePassword struct {
+	OriginalPassword string `json:"original_password"`
+	NewPassword      string `json:"new_password"`
+}
