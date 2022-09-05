@@ -1,0 +1,2 @@
+{"level":"error","time":"2022-09-05T20:11:21.700+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:86","msg":"Open database failed","reason":"Error 1045: Access denied for user 'root'@'218.199.207.4' (using password: YES)","detail":"Database connection failed. Database name: fresh"}
+{"level":"info","time":"2022-09-05T20:11:56.701+0800","caller":"/Users/wuyuxian/MuXiFresh-be/log/log.go:71","msg":"The router has been deployed on :2022 successfully."}
