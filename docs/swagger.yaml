@@ -21,21 +21,24 @@ definitions:
         type: string
       college:
         type: string
-      contact_number:
-        type: string
-      contact_way:
-        type: string
       gender:
         type: string
       grade:
         type: string
       group:
+        description: |-
+          ContactWay          string `json:"contact_way" binding:"required"`
+          ContactNumber       string `json:"contact_number" binding:"required"`
         type: string
       if_other_organization:
         type: string
       major:
         type: string
       name:
+        type: string
+      phone_number:
+        type: string
+      qq_number:
         type: string
       reason:
         type: string
@@ -45,11 +48,11 @@ definitions:
         type: string
       understand:
         type: string
+      work:
+        type: string
     required:
     - avatar
     - college
-    - contact_number
-    - contact_way
     - gender
     - grade
     - group
@@ -72,21 +75,24 @@ definitions:
         type: string
       college:
         type: string
-      contact_number:
-        type: string
-      contact_way:
-        type: string
       gender:
         type: string
       grade:
         type: string
       group:
+        description: |-
+          ContactWay          string `json:"contact_way"`
+          ContactNumber       string `json:"contact_number"`
         type: string
       if_other_organization:
         type: string
       major:
         type: string
       name:
+        type: string
+      phone_number:
+        type: string
+      qq_number:
         type: string
       reason:
         type: string
@@ -95,6 +101,8 @@ definitions:
       student_id:
         type: string
       understand:
+        type: string
+      work:
         type: string
     type: object
   errno.Errno:
@@ -278,10 +286,6 @@ definitions:
         type: string
       college:
         type: string
-      contact_number:
-        type: string
-      contact_way:
-        type: string
       email:
         type: string
       gender:
@@ -293,6 +297,10 @@ definitions:
       major:
         type: string
       name:
+        type: string
+      phone_number:
+        type: string
+      qq_number:
         type: string
       role:
         type: integer
@@ -1133,15 +1141,15 @@ paths:
       summary: '"录取"'
       tags:
       - schedule
-  /schedule/cancel_admission/:name:
+  /schedule/cancel_admission/:email:
     put:
       consumes:
       - application/json
       description: '"审阅板块取消录取某位学生"'
       parameters:
-      - description: name
+      - description: email
         in: path
-        name: name
+        name: email
         required: true
         type: string
       - description: token 用户令牌
