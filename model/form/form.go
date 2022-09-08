@@ -25,6 +25,7 @@ type FormModel struct {
 	Understand          string `json:"understand" gorm:"column:understand;"`
 	SelfIntroduction    string `json:"self_introduction" gorm:"column:self_introduction;"`
 	IfOtherOrganization string `json:"if_other_organization" gorm:"column:if_other_organization;"`
+	Work                string `json:"work" gorm:"column:work;"`
 }
 
 func (f *FormModel) TableName() string {
@@ -43,7 +44,7 @@ func (f *FormModel) TableName() string {
 
 func Create(email string,
 	group string, reason string, understand string,
-	selfintroduction string, ifotherorganization string) (*FormModel, error) {
+	selfintroduction string, ifotherorganization string, work string) (*FormModel, error) {
 	var form = FormModel{
 		Email: email,
 		//Name:                name,
@@ -60,6 +61,7 @@ func Create(email string,
 		Understand:          understand,
 		SelfIntroduction:    selfintroduction,
 		IfOtherOrganization: ifotherorganization,
+		Work:                work,
 	}
 	tx := model.DB.Self.Begin()
 	defer func() {
@@ -80,7 +82,7 @@ func Create(email string,
 
 func Edit(email string,
 	group string, reason string, understand string,
-	selfintroduction string, ifotherorganization string) error {
+	selfintroduction string, ifotherorganization string,work string) error {
 
 	if err := model.DB.Self.Model(FormModel{}).Where("email=?", email).Updates(FormModel{
 		Email: email,
@@ -98,6 +100,7 @@ func Edit(email string,
 		Understand:          understand,
 		SelfIntroduction:    selfintroduction,
 		IfOtherOrganization: ifotherorganization,
+		Work:                work,
 	}).Error; err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}

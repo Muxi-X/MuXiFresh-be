@@ -1180,7 +1180,7 @@ var doc = `{
                 }
             }
         },
-        "/schedule/cancel_admission/:name": {
+        "/schedule/cancel_admission/:email": {
             "put": {
                 "description": "\"审阅板块取消录取某位学生\"",
                 "consumes": [
@@ -1196,8 +1196,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "name",
-                        "name": "name",
+                        "description": "email",
+                        "name": "email",
                         "in": "path",
                         "required": true
                     },
@@ -1594,8 +1594,6 @@ var doc = `{
             "required": [
                 "avatar",
                 "college",
-                "contact_number",
-                "contact_way",
                 "gender",
                 "grade",
                 "group",
@@ -1614,12 +1612,6 @@ var doc = `{
                 "college": {
                     "type": "string"
                 },
-                "contact_number": {
-                    "type": "string"
-                },
-                "contact_way": {
-                    "type": "string"
-                },
                 "gender": {
                     "type": "string"
                 },
@@ -1627,6 +1619,7 @@ var doc = `{
                     "type": "string"
                 },
                 "group": {
+                    "description": "ContactWay          string ` + "`" + `json:\"contact_way\" binding:\"required\"` + "`" + `\nContactNumber       string ` + "`" + `json:\"contact_number\" binding:\"required\"` + "`" + `",
                     "type": "string"
                 },
                 "if_other_organization": {
@@ -1636,6 +1629,12 @@ var doc = `{
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "qq_number": {
                     "type": "string"
                 },
                 "reason": {
@@ -1648,6 +1647,9 @@ var doc = `{
                     "type": "string"
                 },
                 "understand": {
+                    "type": "string"
+                },
+                "work": {
                     "type": "string"
                 }
             }
@@ -1669,12 +1671,6 @@ var doc = `{
                 "college": {
                     "type": "string"
                 },
-                "contact_number": {
-                    "type": "string"
-                },
-                "contact_way": {
-                    "type": "string"
-                },
                 "gender": {
                     "type": "string"
                 },
@@ -1682,6 +1678,7 @@ var doc = `{
                     "type": "string"
                 },
                 "group": {
+                    "description": "ContactWay          string ` + "`" + `json:\"contact_way\"` + "`" + `\nContactNumber       string ` + "`" + `json:\"contact_number\"` + "`" + `",
                     "type": "string"
                 },
                 "if_other_organization": {
@@ -1691,6 +1688,12 @@ var doc = `{
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "qq_number": {
                     "type": "string"
                 },
                 "reason": {
@@ -1703,6 +1706,9 @@ var doc = `{
                     "type": "string"
                 },
                 "understand": {
+                    "type": "string"
+                },
+                "work": {
                     "type": "string"
                 }
             }
@@ -1984,12 +1990,6 @@ var doc = `{
                 "college": {
                     "type": "string"
                 },
-                "contact_number": {
-                    "type": "string"
-                },
-                "contact_way": {
-                    "type": "string"
-                },
                 "email": {
                     "type": "string"
                 },
@@ -2006,6 +2006,12 @@ var doc = `{
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "qq_number": {
                     "type": "string"
                 },
                 "role": {

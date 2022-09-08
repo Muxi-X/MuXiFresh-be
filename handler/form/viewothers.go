@@ -41,21 +41,24 @@ func ViewOthers(c *gin.Context) {
 		return
 	}
 	var response = viewResponse{
-		StudentId:           User.StudentId,
-		Email:               User.Email,
-		Name:                User.Name,
-		Avatar:              User.Avatar,
-		College:             User.College,
-		Major:               User.Major,
-		Grade:               User.Grade,
-		Gender:              User.Gender,
-		ContactWay:          User.ContactWay,
-		ContactNumber:       User.ContactNumber,
+		StudentId:   User.StudentId,
+		Email:       User.Email,
+		Name:        User.Name,
+		Avatar:      User.Avatar,
+		College:     User.College,
+		Major:       User.Major,
+		Grade:       User.Grade,
+		Gender:      User.Gender,
+		PhoneNumber: User.PhoneNumber,
+		QqNumber:    User.QqNumber,
+		//ContactWay:          User.ContactWay,
+		//ContactNumber:       User.ContactNumber,
 		Group:               Form.Group,
 		Reason:              Form.Reason,
 		Understand:          Form.Understand,
 		SelfIntroduction:    Form.SelfIntroduction,
 		IfOtherOrganization: Form.IfOtherOrganization,
+		Work:                Form.Work,
 	}
 	//SendResponse(c, nil, Form)
 	SendResponse(c, nil,response)

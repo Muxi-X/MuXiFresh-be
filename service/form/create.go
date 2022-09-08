@@ -7,9 +7,9 @@ import (
 )
 
 func CreateForm(email string,
-	group string, reason string, understand string, selfintroduction string, ifotherorganization string) (*form.FormModel, error) {
+	group string, reason string, understand string, selfintroduction string, ifotherorganization string, work string) (*form.FormModel, error) {
 	Form, err := form.Create(email, group, reason,
-		understand, selfintroduction, ifotherorganization)
+		understand, selfintroduction, ifotherorganization, work)
 	if err != nil {
 		return nil, errno.ServerErr(errno.ErrDatabase, err.Error())
 	}

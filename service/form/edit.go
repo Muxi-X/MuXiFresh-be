@@ -7,24 +7,24 @@ import (
 )
 
 func EditForm(email string, group string, reason string,
-	understand string, selfintroduction string, ifotherorganization string) error {
+	understand string, selfintroduction string, ifotherorganization string, work string) error {
 	if err := form.Edit(email,
 		group, reason, understand,
-		selfintroduction, ifotherorganization); err != nil {
+		selfintroduction, ifotherorganization, work); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return nil
 }
 
-func MoveGroup(email string,group string) error {
-	if err := form.EditGroup(email,group); err != nil {
+func MoveGroup(email string, group string) error {
+	if err := form.EditGroup(email, group); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return nil
 }
 
-func MoveScheduleGroup(email string,group string) error {
-	if err := schedule.EditGroup(email,group); err != nil {
+func MoveScheduleGroup(email string, group string) error {
+	if err := schedule.EditGroup(email, group); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
 	return nil
