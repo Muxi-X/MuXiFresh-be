@@ -68,8 +68,10 @@ type User struct {
 	Major         string `json:"major" `
 	Grade         string `json:"grade"`
 	Gender        string `json:"gender" `
-	ContactWay    string `json:"contact_way" `
-	ContactNumber string `json:"contact_number"`
+	PhoneNumber   string `json:"phone_number"`
+	QqNumber      string `json:"qq_number"`
+	//ContactWay    string `json:"contact_way" `
+	//ContactNumber string `json:"contact_number"`
 } // @name user
 
 // listResponse 获取 userList 响应
