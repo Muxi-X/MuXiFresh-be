@@ -2,10 +2,12 @@ package schedule
 
 import (
 	"github.com/MuXiFresh-be/model"
+	"github.com/jinzhu/gorm"
 )
 
 type ScheduleModel struct {
-	Email           string `gorm:"column:email;type:varchar(35);NOT NULL" json:"email"`
+	gorm.Model
+	Email           string `gorm:"column:email;type:varchar(35);NOT NULL;unique" json:"email"`
 	Group           string `gorm:"column:group;type:varchar(20)" json:"group"`
 	FormStatus      int    `gorm:"column:form_status;type:int(5);comment:'报名表状态 0-未提交 1-已报名 2-初试过 3-面试过';NOT NULL" json:"form_status"`
 	WorkStatus      int    `gorm:"column:work_status;type:int(4);comment:'作业提交状态 0-未提交 1-已提交/未批阅 2-已批阅';NOT NULL" json:"work_status"`

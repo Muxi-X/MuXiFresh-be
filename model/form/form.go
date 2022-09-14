@@ -82,7 +82,7 @@ func Create(email string,
 
 func Edit(email string,
 	group string, reason string, understand string,
-	selfintroduction string, ifotherorganization string,work string) error {
+	selfintroduction string, ifotherorganization string, work string) error {
 
 	if err := model.DB.Self.Model(FormModel{}).Where("email=?", email).Updates(FormModel{
 		Email: email,
